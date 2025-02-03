@@ -50,3 +50,20 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+# python
+jarvis_venv/
+.pytest_cache/
+.python-version
+
+# vscode
+.vscode/
+
+# hardware sim
+sim_build/
+
+# vivado output
+*.log
+*.checkpoint
+*.jou
+.Xil/
