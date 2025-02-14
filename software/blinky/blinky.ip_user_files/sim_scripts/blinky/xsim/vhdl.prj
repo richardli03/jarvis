@@ -1,0 +1,7 @@
+vhdl xil_defaultlib  \
+"../../../../blinky.gen/sources_1/bd/blinky/ip/blinky_axi_gpio_0_0/sim/blinky_axi_gpio_0_0.vhd" \
+"../../../../blinky.gen/sources_1/bd/blinky/ip/blinky_axi_smc_0/bd_0/ip/ip_1/sim/bd_706f_psr_aclk_0.vhd" \
+"../../../../blinky.gen/sources_1/bd/blinky/ip/blinky_rst_ps7_0_50M_0/sim/blinky_rst_ps7_0_50M_0.vhd" \
+
+# Do not sort compile order
+nosort

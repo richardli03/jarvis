@@ -1,3 +1,0 @@
-/home/richard/code/jarvis/software/jarvis-software/platform/zynq_fsbl/build/CMakeFiles/fsbl.elf.dir
-/home/richard/code/jarvis/software/jarvis-software/platform/zynq_fsbl/build/CMakeFiles/edit_cache.dir
-/home/richard/code/jarvis/software/jarvis-software/platform/zynq_fsbl/build/CMakeFiles/rebuild_cache.dir
