@@ -4,7 +4,7 @@
 
 set TIME_start [clock seconds] 
 namespace eval ::optrace {
-  variable script "/home/richard/code/jarvis/software/blinky/blinky.runs/synth_1/blinky_wrapper.tcl"
+  variable script "/home/drew/Documents/github/jarvis/software/blinky/blinky.runs/synth_1/blinky_wrapper.tcl"
   variable category "vivado_synth"
 }
 
@@ -56,6 +56,8 @@ if {$::dispatch::connected} {
 }
 
 OPTRACE "synth_1" START { ROLLUP_AUTO }
+set_param bd.open.in_stealth_mode 1
+set_param chipscope.maxJobs 2
 OPTRACE "Creating in-memory project" START { }
 create_project -in_memory -part xc7z010clg400-1
 
@@ -63,37 +65,36 @@ set_param project.singleFileAddWarning.threshold 0
 set_param project.compositeFile.enableAutoGeneration 0
 set_param synth.vivado.isSynthRun true
 set_msg_config -source 4 -id {IP_Flow 19-2162} -severity warning -new_severity info
-set_property webtalk.parent_dir /home/richard/code/jarvis/software/blinky/blinky.cache/wt [current_project]
-set_property parent.project_path /home/richard/code/jarvis/software/blinky/blinky.xpr [current_project]
+set_property webtalk.parent_dir /home/drew/Documents/github/jarvis/software/blinky/blinky.cache/wt [current_project]
+set_property parent.project_path /home/drew/Documents/github/jarvis/software/blinky/blinky.xpr [current_project]
 set_property XPM_LIBRARIES {XPM_FIFO XPM_MEMORY} [current_project]
 set_property default_lib xil_defaultlib [current_project]
 set_property target_language Verilog [current_project]
-set_property board_part digilentinc.com:zybo-z7-10:part0:1.2 [current_project]
-set_property ip_output_repo /home/richard/code/jarvis/software/blinky/blinky.cache/ip [current_project]
+set_property ip_output_repo /home/drew/Documents/github/jarvis/software/blinky/blinky.cache/ip [current_project]
 set_property ip_cache_permissions {read write} [current_project]
 OPTRACE "Creating in-memory project" END { }
 OPTRACE "Adding files" START { }
-read_verilog -library xil_defaultlib /home/richard/code/jarvis/software/blinky/blinky.gen/sources_1/bd/blinky/hdl/blinky_wrapper.v
-add_files /home/richard/code/jarvis/software/blinky/blinky.srcs/sources_1/bd/blinky/blinky.bd
-set_property used_in_implementation false [get_files -all /home/richard/code/jarvis/software/blinky/blinky.gen/sources_1/bd/blinky/ip/blinky_processing_system7_0_0/blinky_processing_system7_0_0.xdc]
-set_property used_in_implementation false [get_files -all /home/richard/code/jarvis/software/blinky/blinky.gen/sources_1/bd/blinky/ip/blinky_axi_gpio_0_0/blinky_axi_gpio_0_0_board.xdc]
-set_property used_in_implementation false [get_files -all /home/richard/code/jarvis/software/blinky/blinky.gen/sources_1/bd/blinky/ip/blinky_axi_gpio_0_0/blinky_axi_gpio_0_0_ooc.xdc]
-set_property used_in_implementation false [get_files -all /home/richard/code/jarvis/software/blinky/blinky.gen/sources_1/bd/blinky/ip/blinky_axi_gpio_0_0/blinky_axi_gpio_0_0.xdc]
-set_property used_in_implementation false [get_files -all /home/richard/code/jarvis/software/blinky/blinky.gen/sources_1/bd/blinky/ip/blinky_axi_smc_0/bd_0/ip/ip_1/bd_706f_psr_aclk_0_board.xdc]
-set_property used_in_implementation false [get_files -all /home/richard/code/jarvis/software/blinky/blinky.gen/sources_1/bd/blinky/ip/blinky_axi_smc_0/bd_0/ip/ip_1/bd_706f_psr_aclk_0.xdc]
-set_property used_in_implementation false [get_files -all /home/richard/code/jarvis/software/blinky/blinky.gen/sources_1/bd/blinky/ip/blinky_axi_smc_0/bd_0/ip/ip_5/bd_706f_s00a2s_0_ooc.xdc]
-set_property used_in_implementation false [get_files -all /home/richard/code/jarvis/software/blinky/blinky.gen/sources_1/bd/blinky/ip/blinky_axi_smc_0/bd_0/ip/ip_6/bd_706f_sarn_0_ooc.xdc]
-set_property used_in_implementation false [get_files -all /home/richard/code/jarvis/software/blinky/blinky.gen/sources_1/bd/blinky/ip/blinky_axi_smc_0/bd_0/ip/ip_7/bd_706f_srn_0_ooc.xdc]
-set_property used_in_implementation false [get_files -all /home/richard/code/jarvis/software/blinky/blinky.gen/sources_1/bd/blinky/ip/blinky_axi_smc_0/bd_0/ip/ip_8/bd_706f_sawn_0_ooc.xdc]
-set_property used_in_implementation false [get_files -all /home/richard/code/jarvis/software/blinky/blinky.gen/sources_1/bd/blinky/ip/blinky_axi_smc_0/bd_0/ip/ip_9/bd_706f_swn_0_ooc.xdc]
-set_property used_in_implementation false [get_files -all /home/richard/code/jarvis/software/blinky/blinky.gen/sources_1/bd/blinky/ip/blinky_axi_smc_0/bd_0/ip/ip_10/bd_706f_sbn_0_ooc.xdc]
-set_property used_in_implementation false [get_files -all /home/richard/code/jarvis/software/blinky/blinky.gen/sources_1/bd/blinky/ip/blinky_axi_smc_0/bd_0/ip/ip_11/bd_706f_m00s2a_0_ooc.xdc]
-set_property used_in_implementation false [get_files -all /home/richard/code/jarvis/software/blinky/blinky.gen/sources_1/bd/blinky/ip/blinky_axi_smc_0/ooc.xdc]
-set_property used_in_implementation false [get_files -all /home/richard/code/jarvis/software/blinky/blinky.gen/sources_1/bd/blinky/ip/blinky_axi_smc_0/smartconnect.xdc]
-set_property used_in_implementation false [get_files -all /home/richard/code/jarvis/software/blinky/blinky.gen/sources_1/bd/blinky/ip/blinky_rst_ps7_0_50M_0/blinky_rst_ps7_0_50M_0_board.xdc]
-set_property used_in_implementation false [get_files -all /home/richard/code/jarvis/software/blinky/blinky.gen/sources_1/bd/blinky/ip/blinky_rst_ps7_0_50M_0/blinky_rst_ps7_0_50M_0.xdc]
-set_property used_in_implementation false [get_files -all /home/richard/code/jarvis/software/blinky/blinky.gen/sources_1/bd/blinky/ip/blinky_rst_ps7_0_50M_0/blinky_rst_ps7_0_50M_0_ooc.xdc]
-set_property used_in_implementation false [get_files -all /home/richard/code/jarvis/software/blinky/blinky.gen/sources_1/bd/blinky/blinky_ooc.xdc]
+read_verilog -library xil_defaultlib /home/drew/Documents/github/jarvis/software/blinky/blinky.gen/sources_1/bd/blinky/hdl/blinky_wrapper.v
+add_files /home/drew/Documents/github/jarvis/software/blinky/blinky.srcs/sources_1/bd/blinky/blinky.bd
+set_property used_in_implementation false [get_files -all /home/drew/Documents/github/jarvis/software/blinky/blinky.gen/sources_1/bd/blinky/ip/blinky_processing_system7_0_0/blinky_processing_system7_0_0.xdc]
+set_property used_in_implementation false [get_files -all /home/drew/Documents/github/jarvis/software/blinky/blinky.gen/sources_1/bd/blinky/ip/blinky_axi_gpio_0_0/blinky_axi_gpio_0_0_board.xdc]
+set_property used_in_implementation false [get_files -all /home/drew/Documents/github/jarvis/software/blinky/blinky.gen/sources_1/bd/blinky/ip/blinky_axi_gpio_0_0/blinky_axi_gpio_0_0_ooc.xdc]
+set_property used_in_implementation false [get_files -all /home/drew/Documents/github/jarvis/software/blinky/blinky.gen/sources_1/bd/blinky/ip/blinky_axi_gpio_0_0/blinky_axi_gpio_0_0.xdc]
+set_property used_in_implementation false [get_files -all /home/drew/Documents/github/jarvis/software/blinky/blinky.gen/sources_1/bd/blinky/ip/blinky_axi_smc_0/bd_0/ip/ip_1/bd_706f_psr_aclk_0_board.xdc]
+set_property used_in_implementation false [get_files -all /home/drew/Documents/github/jarvis/software/blinky/blinky.gen/sources_1/bd/blinky/ip/blinky_axi_smc_0/bd_0/ip/ip_1/bd_706f_psr_aclk_0.xdc]
+set_property used_in_implementation false [get_files -all /home/drew/Documents/github/jarvis/software/blinky/blinky.gen/sources_1/bd/blinky/ip/blinky_axi_smc_0/bd_0/ip/ip_5/bd_706f_s00a2s_0_ooc.xdc]
+set_property used_in_implementation false [get_files -all /home/drew/Documents/github/jarvis/software/blinky/blinky.gen/sources_1/bd/blinky/ip/blinky_axi_smc_0/bd_0/ip/ip_6/bd_706f_sarn_0_ooc.xdc]
+set_property used_in_implementation false [get_files -all /home/drew/Documents/github/jarvis/software/blinky/blinky.gen/sources_1/bd/blinky/ip/blinky_axi_smc_0/bd_0/ip/ip_7/bd_706f_srn_0_ooc.xdc]
+set_property used_in_implementation false [get_files -all /home/drew/Documents/github/jarvis/software/blinky/blinky.gen/sources_1/bd/blinky/ip/blinky_axi_smc_0/bd_0/ip/ip_8/bd_706f_sawn_0_ooc.xdc]
+set_property used_in_implementation false [get_files -all /home/drew/Documents/github/jarvis/software/blinky/blinky.gen/sources_1/bd/blinky/ip/blinky_axi_smc_0/bd_0/ip/ip_9/bd_706f_swn_0_ooc.xdc]
+set_property used_in_implementation false [get_files -all /home/drew/Documents/github/jarvis/software/blinky/blinky.gen/sources_1/bd/blinky/ip/blinky_axi_smc_0/bd_0/ip/ip_10/bd_706f_sbn_0_ooc.xdc]
+set_property used_in_implementation false [get_files -all /home/drew/Documents/github/jarvis/software/blinky/blinky.gen/sources_1/bd/blinky/ip/blinky_axi_smc_0/bd_0/ip/ip_11/bd_706f_m00s2a_0_ooc.xdc]
+set_property used_in_implementation false [get_files -all /home/drew/Documents/github/jarvis/software/blinky/blinky.gen/sources_1/bd/blinky/ip/blinky_axi_smc_0/ooc.xdc]
+set_property used_in_implementation false [get_files -all /home/drew/Documents/github/jarvis/software/blinky/blinky.gen/sources_1/bd/blinky/ip/blinky_axi_smc_0/smartconnect.xdc]
+set_property used_in_implementation false [get_files -all /home/drew/Documents/github/jarvis/software/blinky/blinky.gen/sources_1/bd/blinky/ip/blinky_rst_ps7_0_50M_0/blinky_rst_ps7_0_50M_0_board.xdc]
+set_property used_in_implementation false [get_files -all /home/drew/Documents/github/jarvis/software/blinky/blinky.gen/sources_1/bd/blinky/ip/blinky_rst_ps7_0_50M_0/blinky_rst_ps7_0_50M_0.xdc]
+set_property used_in_implementation false [get_files -all /home/drew/Documents/github/jarvis/software/blinky/blinky.gen/sources_1/bd/blinky/ip/blinky_rst_ps7_0_50M_0/blinky_rst_ps7_0_50M_0_ooc.xdc]
+set_property used_in_implementation false [get_files -all /home/drew/Documents/github/jarvis/software/blinky/blinky.gen/sources_1/bd/blinky/blinky_ooc.xdc]
 
 OPTRACE "Adding files" END { }
 # Mark all dcp files as not used in implementation to prevent them from being
@@ -104,14 +105,14 @@ OPTRACE "Adding files" END { }
 foreach dcp [get_files -quiet -all -filter file_type=="Design\ Checkpoint"] {
   set_property used_in_implementation false $dcp
 }
-read_xdc /home/richard/code/jarvis/software/blinky/blinky.srcs/constrs_1/imports/digilent-xdc-master/Zybo-Master.xdc
-set_property used_in_implementation false [get_files /home/richard/code/jarvis/software/blinky/blinky.srcs/constrs_1/imports/digilent-xdc-master/Zybo-Master.xdc]
+read_xdc /home/drew/Documents/github/jarvis/software/blinky/blinky.srcs/constrs_1/imports/digilent-xdc-master/Zybo-Master.xdc
+set_property used_in_implementation false [get_files /home/drew/Documents/github/jarvis/software/blinky/blinky.srcs/constrs_1/imports/digilent-xdc-master/Zybo-Master.xdc]
 
 read_xdc dont_touch.xdc
 set_property used_in_implementation false [get_files dont_touch.xdc]
 set_param ips.enableIPCacheLiteLoad 1
 
-read_checkpoint -auto_incremental -incremental /home/richard/code/jarvis/software/blinky/blinky.srcs/utils_1/imports/synth_1/blinky_wrapper.dcp
+read_checkpoint -auto_incremental -incremental /home/drew/Documents/github/jarvis/software/blinky/blinky.srcs/utils_1/imports/synth_1/blinky_wrapper.dcp
 close [open __synthesis_is_running__ w]
 
 OPTRACE "synth_design" START { }

@@ -18,4 +18,4 @@ set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==blinky_axi_
 # IP: bd/blinky/ip/blinky_rst_ps7_0_50M_0/blinky_rst_ps7_0_50M_0.xci
 set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==blinky_rst_ps7_0_50M_0 || ORIG_REF_NAME==blinky_rst_ps7_0_50M_0} -quiet] -quiet
 
-# XDC: /home/richard/code/jarvis/software/blinky/blinky.gen/sources_1/bd/blinky/blinky_ooc.xdc
+# XDC: /home/drew/Documents/github/jarvis/software/blinky/blinky.gen/sources_1/bd/blinky/blinky_ooc.xdc

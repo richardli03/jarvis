@@ -1,0 +1,438 @@
+/*
+
+AMD Vivado v2024.2 (64-bit) [Major: 2024, Minor: 2]
+SW Build: 5239630 on Fri Nov 08 22:34:34 MST 2024
+IP Build: 5239520 on Sun Nov 10 16:12:51 MST 2024
+IP Build: 5239520 on Sun Nov 10 16:12:51 MST 2024
+
+Process ID (PID): 834480
+License: Customer
+Mode: GUI Mode
+
+Current time: 	Wed Feb 19 23:29:54 EST 2025
+Time zone: 	Eastern Standard Time (America/New_York)
+
+OS: Ubuntu
+OS Version: 6.8.0-52-generic
+OS Architecture: amd64
+Available processors (cores): 8
+LSB Release Description: Ubuntu 22.04.4 LTS
+
+Display: 1
+Screen size: 1920x1080
+Local screen bounds: x = 1920, y = 0, width = 1920, height = 1080
+Screen resolution (DPI): 100
+Available screens: 2
+Default font: family=Dialog,name=Dialog,style=plain,size=12
+Scale size: 12
+OS font scaling: 100%
+Anti-Alias Enabled: false
+
+Java version: 	21.0.1 64-bit
+
+Java home: 	/home/drew/embedded/xilinx/Vivado/2024.2/tps/lnx64/jre21.0.1_12
+Java executable: 	/home/drew/embedded/xilinx/Vivado/2024.2/tps/lnx64/jre21.0.1_12/bin/java
+Java arguments: 	[-Dsun.java2d.pmoffscreen=false, -Dhttps.protocols=TLSv1,TLSv1.1,TLSv1.2, -Dsun.java2d.xrender=false, -Dsun.java2d.uiScale.enabled=false, -Dswing.aatext=true, -XX:-UsePerfData, -Djdk.map.althashing.threshold=512, -XX:StringTableSize=4072, -XX:+UseStringDeduplication, -XX:MaxGCPauseMillis=200, -XX:ParallelGCThreads=4, -XX:+ParallelRefProcEnabled, --add-opens=java.desktop/javax.swing.plaf.synth=ALL-UNNAMED, --add-opens=java.base/java.nio=ALL-UNNAMED, --add-opens=java.desktop/sun.swing=ALL-UNNAMED, --add-opens=java.desktop/javax.swing=ALL-UNNAMED, --add-opens=java.desktop/javax.swing.tree=ALL-UNNAMED, --add-opens=java.desktop/javax.swing.plaf.basic=ALL-UNNAMED, --add-opens=java.desktop/javax.swing.plaf.synth=ALL-UNNAMED, --add-opens=java.desktop/javax.swing.plaf.basic=ALL-UNNAMED, --add-opens=java.desktop/javax.swing=ALL-UNNAMED, --add-opens=java.desktop/javax.swing.tree=ALL-UNNAMED, --add-opens=java.desktop/java.awt.event=ALL-UNNAMED, --add-opens=java.desktop/sun.awt.X11=ALL-UNNAMED, --add-exports=java.desktop/javax.swing.plaf.synth=ALL-UNNAMED, --add-exports=java.base/java.nio=ALL-UNNAMED, --add-exports=java.desktop/sun.swing=ALL-UNNAMED, --add-exports=java.desktop/javax.swing=ALL-UNNAMED, --add-exports=java.desktop/javax.swing.tree=ALL-UNNAMED, --add-exports=java.desktop/javax.swing.plaf.basic=ALL-UNNAMED, --add-exports=java.desktop/sun.swing=ALL-UNNAMED, --add-exports=java.desktop/sun.swing.table=ALL-UNNAMED, --add-exports=java.desktop/sun.swing.plaf.synth=ALL-UNNAMED, --add-exports=java.desktop/sun.awt.shell=ALL-UNNAMED, --add-exports=java.base/sun.security.action=ALL-UNNAMED, --add-exports=java.desktop/sun.font=ALL-UNNAMED, --add-opens=java.desktop/sun.awt.X11=ALL-UNNAMED, -XX:NewSize=80m, -XX:MaxNewSize=80m, -Xms512m, -Xmx4072m, -Xss10m, -Xrs]
+Java initial memory (-Xms): 	512 MB
+Java maximum memory (-Xmx):	 3 GB
+
+User name: 	drew
+User home directory: /home/drew
+User working directory: /home/drew/Documents/github/jarvis
+User country: 	US
+User language: 	en
+User locale: 	en_US
+
+RDI_BASEROOT: /home/drew/embedded/xilinx/Vivado
+HDI_APPROOT: /home/drew/embedded/xilinx/Vivado/2024.2
+RDI_DATADIR: /home/drew/embedded/xilinx/Vivado/2024.2/data
+RDI_BINDIR: /home/drew/embedded/xilinx/Vivado/2024.2/bin
+
+Vivado preferences file: /home/drew/.Xilinx/Vivado/2024.2/vivado.xml
+Vivado preferences directory: /home/drew/.Xilinx/Vivado/2024.2/
+Vivado layouts directory: /home/drew/.Xilinx/Vivado/2024.2/data/layouts
+PlanAhead jar file: 	/home/drew/embedded/xilinx/Vivado/2024.2/lib/classes/planAhead.jar
+Vivado log file: 	/home/drew/Documents/github/jarvis/vivado.log
+Vivado journal file: 	/home/drew/Documents/github/jarvis/vivado.jou
+Engine tmp dir: 	./.Xil/Vivado-834480-noname
+Non-Default Parameters:	[]
+
+Xilinx & AMD Environment Variables
+--------------------------------------------------------------------------------------------
+GNOME_SHELL_SESSION_MODE: ubuntu
+PICO_SDK_PATH: /home/drew/Documents/github/pico-sdk
+PYENV_SHELL: zsh
+RDI_APPROOT: /home/drew/embedded/xilinx/Vivado/2024.2
+RDI_BASEROOT: /home/drew/embedded/xilinx/Vivado
+RDI_BINROOT: /home/drew/embedded/xilinx/Vivado/2024.2/bin
+RDI_BUILD: yes
+RDI_DATADIR: /home/drew/embedded/xilinx/Vivado/2024.2/data
+RDI_INSTALLROOT: /home/drew/embedded/xilinx
+RDI_INSTALLVER: 2024.2
+RDI_JAVA_PLATFORM: 
+RDI_JAVA_VERSION: 21.0.1_12
+RDI_LIBDIR: /home/drew/embedded/xilinx/Vivado/2024.2/lib/lnx64.o/Ubuntu/22:/home/drew/embedded/xilinx/Vivado/2024.2/lib/lnx64.o/Ubuntu:/home/drew/embedded/xilinx/Vivado/2024.2/lib/lnx64.o
+RDI_OPT_EXT: .o
+RDI_PATCHROOT: 
+RDI_PLATFORM: lnx64
+RDI_PREPEND_PATH: /home/drew/embedded/xilinx/Vitis/2024.2/bin:/home/drew/embedded/xilinx/Vivado/2024.2/ids_lite/ISE/bin/lin64
+RDI_PROG: /home/drew/embedded/xilinx/Vivado/2024.2/bin/unwrapped/lnx64.o/vivado
+RDI_SESSION_INFO: /home/drew/documents/git/jarvis:noname_1740025777_834429
+RDI_SHARED_DATA: /home/drew/embedded/xilinx/SharedData/2024.2/data
+RDI_TPS_ROOT: /home/drew/embedded/xilinx/Vivado/2024.2/tps/lnx64
+RDI_USE_JDK21: True
+SHELL: /usr/bin/zsh
+XILINX: /home/drew/embedded/xilinx/Vivado/2024.2/ids_lite/ISE
+XILINX_DSP: /home/drew/embedded/xilinx/Vivado/2024.2/ids_lite/ISE
+XILINX_HLS: /home/drew/embedded/xilinx/Vitis/2024.2
+XILINX_PLANAHEAD: /home/drew/embedded/xilinx/Vivado/2024.2
+XILINX_SDK: /home/drew/embedded/xilinx/Vitis/2024.2
+XILINX_VITIS: /home/drew/embedded/xilinx/Vitis/2024.2
+XILINX_VIVADO: /home/drew/embedded/xilinx/Vivado/2024.2
+
+
+GUI allocated memory:	512 MB
+GUI max memory:		4,072 MB
+Engine allocated memory: 1,352 MB
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+
+*/
+
+// TclEventType: START_GUI
+// Tcl Message: start_gui 
+// HMemoryUtils.trashcanNow. Engine heap size: 1,362 MB. GUI used memory: 76 MB. Current time: 2/19/25, 11:29:55 PM EST
+selectButton(PAResourceEtoH.GettingStartedView_OPEN_PROJECT, "Open Project"); // t (PAResourceEtoH.GettingStartedView_OPEN_PROJECT)
+// Run Command: PAResourceCommand.PACommandNames_OPEN_PROJECT
+// Elapsed time: 34 seconds
+setFileChooser("/home/drew/Documents/github/jarvis/software/blinky/blinky.xpr");
+// Opening Vivado Project: /home/drew/Documents/github/jarvis/software/blinky/blinky.xpr. Version: Vivado v2024.2 
+// TclEventType: DEBUG_PROBE_SET_CHANGE
+// TclEventType: FLOW_ADDED
+// TclEventType: MSGMGR_MOVEMSG
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: FILE_SET_NEW
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_CURRENT
+// TclEventType: PROJECT_DASHBOARD_NEW
+// TclEventType: PROJECT_DASHBOARD_GADGET_NEW
+// TclEventType: PROJECT_DASHBOARD_GADGET_CHANGE
+// TclEventType: PROJECT_DASHBOARD_GADGET_NEW
+// TclEventType: PROJECT_DASHBOARD_GADGET_CHANGE
+// TclEventType: PROJECT_DASHBOARD_GADGET_NEW
+// TclEventType: PROJECT_DASHBOARD_GADGET_CHANGE
+// TclEventType: PROJECT_DASHBOARD_GADGET_NEW
+// TclEventType: PROJECT_DASHBOARD_GADGET_CHANGE
+// TclEventType: PROJECT_DASHBOARD_GADGET_NEW
+// TclEventType: PROJECT_DASHBOARD_GADGET_CHANGE
+// TclEventType: PROJECT_DASHBOARD_GADGET_NEW
+// TclEventType: PROJECT_DASHBOARD_GADGET_CHANGE
+// TclEventType: IP_LOCK_CHANGE
+// TclEventType: COMPOSITE_FILE_CHANGE
+// TclEventType: IP_LOCK_CHANGE
+// TclEventType: COMPOSITE_FILE_CHANGE
+// TclEventType: BDCELL_LOCK_CHANGE
+// TclEventType: IP_LOCK_CHANGE
+// TclEventType: COMPOSITE_FILE_CHANGE
+// TclEventType: BDCELL_LOCK_CHANGE
+// TclEventType: IP_LOCK_CHANGE
+// TclEventType: COMPOSITE_FILE_CHANGE
+// TclEventType: IP_LOCK_CHANGE
+// TclEventType: COMPOSITE_FILE_CHANGE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: PROJECT_NEW
+// [GUI Memory]: 113 MB (+115541kb) [00:00:52]
+// [Engine Memory]: 1,401 MB (+1317644kb) [00:00:52]
+// [Engine Memory]: 1,584 MB (+117895kb) [00:00:53]
+// [GUI Memory]: 127 MB (+9710kb) [00:00:54]
+// WARNING: HEventQueue.dispatchEvent() is taking  2419 ms.
+// Tcl Message: open_project /home/drew/Documents/github/jarvis/software/blinky/blinky.xpr 
+// Tcl Message: INFO: [Project 1-313] Project file moved from '/home/richard/code/jarvis/software/blinky' since last save. 
+// HMemoryUtils.trashcanNow. Engine heap size: 1,613 MB. GUI used memory: 83 MB. Current time: 2/19/25, 11:30:37 PM EST
+// Tcl Message: Scanning sources... Finished scanning sources 
+// Tcl Message: INFO: [IP_Flow 19-234] Refreshing IP repositories INFO: [IP_Flow 19-1704] No user IP repositories specified INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/home/drew/embedded/xilinx/Vivado/2024.2/data/ip'. 
+// Tcl Message: INFO: [Project 1-5579] Found utility IPs instantiated in one or more block designs which have equivalent inline hdl with improved performance and reduced diskspace. It is recommended to migrate these utility IPs to inline hdl using the command upgrade_project -migrate_to_inline_hdl. The utility IPs may be deprecated in future releases. More information on inline hdl is available in UG994. 
+// Project name: blinky; location: /home/drew/Documents/github/jarvis/software/blinky; part: xc7z010clg400-1
+dismissDialog("Open Project"); // bh (Open Project Progress)
+// Tcl Message: update_compile_order -fileset sources_1 
+// Elapsed time: 22 seconds
+selectButton(PAResourceQtoS.RunGadget_SHOW_ERROR_AND_CRITICAL_WARNING_MESSAGES, "6 critical warnings"); // h (PAResourceQtoS.RunGadget_SHOW_ERROR_AND_CRITICAL_WARNING_MESSAGES)
+// Run Command: PAResourceCommand.PACommandNames_MESSAGE_WINDOW
+expandTree(PAResourceItoN.MsgTreePanel_MESSAGE_VIEW_TREE, "[, Implementation, Design Initialization, [Common 17-55] 'set_property' expects at least one object. [/home/richard/code/jarvis/software/blinky/blinky.srcs/constrs_1/imports/digilent-xdc-master/Zybo-Master.xdc:8]. ]", 3); // u.d (PAResourceItoN.MsgTreePanel_MESSAGE_VIEW_TREE)
+// [GUI Memory]: 145 MB (+11523kb) [00:01:22]
+selectTree(PAResourceItoN.MsgTreePanel_MESSAGE_VIEW_TREE, "[, Implementation, Design Initialization, [Common 17-55] 'set_property' expects at least one object. [/home/richard/code/jarvis/software/blinky/blinky.srcs/constrs_1/imports/digilent-xdc-master/Zybo-Master.xdc:8]. , [Common 17-55] 'set_property' expects at least one object. [/home/richard/code/jarvis/software/blinky/blinky.srcs/constrs_1/imports/digilent-xdc-master/Zybo-Master.xdc:27]. ]", 4, false); // u.d (PAResourceItoN.MsgTreePanel_MESSAGE_VIEW_TREE)
+messagesViewCrossProbe(PAResourceItoN.MsgTreePanel_MESSAGE_VIEW_TREE, "src;-;/home/richard/code/jarvis/software/blinky/blinky.srcs/constrs_1/imports/digilent-xdc-master/Zybo-Master.xdc;-;;-;16;-;line;-;27;-;;-;16;-;"); // u.d (PAResourceItoN.MsgTreePanel_MESSAGE_VIEW_TREE)
+selectButton(PAResourceOtoP.OpenFileAction_OK, "OK", "Unable to Open File"); // a (PAResourceOtoP.OpenFileAction_OK)
+dismissDialog("Unable to Open File"); // R.a (dialog1)
+// [GUI Memory]: 157 MB (+5282kb) [00:01:28]
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, Implementation, Run Implementation]", 18, false); // g (PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, Flow Navigator Tree)
+// Run Command: PAResourceCommand.PACommandNames_RUN_IMPLEMENTATION
+selectButton(RDIResource.BaseDialog_YES, "Yes", "Synthesis is Out-of-date"); // a (RDIResource.BaseDialog_YES)
+dismissDialog("Synthesis is Out-of-date"); // u (dialog2)
+// TclEventType: RUN_MODIFY
+// TclEventType: RUN_RESET
+// Tcl Message: reset_run synth_1 
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_RESET
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_RESET
+// TclEventType: RUN_MODIFY
+// Tcl Message: INFO: [Project 1-1161] Replacing file /home/drew/Documents/github/jarvis/software/blinky/blinky.srcs/utils_1/imports/synth_1/blinky_wrapper.dcp with file /home/drew/Documents/github/jarvis/software/blinky/blinky.runs/synth_1/blinky_wrapper.dcp 
+selectButton(RDIResource.BaseDialog_OK, "OK", "Launch Runs"); // a (RDIResource.BaseDialog_OK)
+// TclEventType: FILE_SET_CHANGE
+dismissDialog("Launch Runs"); // g (dialog3)
+// TclEventType: RUN_LAUNCH
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_MODIFY
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_MODIFY
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_MODIFY
+// Tcl Message: launch_runs impl_1 -jobs 8 
+// Tcl Message: [Wed Feb 19 23:31:14 2025] Launched synth_1... Run output will be captured here: /home/drew/Documents/github/jarvis/software/blinky/blinky.runs/synth_1/runme.log [Wed Feb 19 23:31:14 2025] Launched impl_1... Run output will be captured here: /home/drew/Documents/github/jarvis/software/blinky/blinky.runs/impl_1/runme.log 
+dismissDialog("Starting Design Runs"); // bh (Starting Design Runs Progress)
+// TclEventType: RUN_STATUS_CHANGE
+// HMemoryUtils.trashcanNow. Engine heap size: 1,675 MB. GUI used memory: 85 MB. Current time: 2/19/25, 11:31:20 PM EST
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_STEP_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_STEP_COMPLETED
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_STEP_COMPLETED
+// Elapsed time: 109 seconds
+selectButton(RDIResource.BaseDialog_OK, "OK", "Implementation Completed"); // a (RDIResource.BaseDialog_OK)
+// Run Command: PAResourceCommand.PACommandNames_GOTO_IMPLEMENTED_DESIGN
+// Tcl Message: open_run impl_1 
+// HMemoryUtils.trashcanNow. Engine heap size: 1,687 MB. GUI used memory: 87 MB. Current time: 2/19/25, 11:33:05 PM EST
+// TclEventType: SDC_CONSTRAINT_ADD
+// TclEventType: POWER_CNS_STALE
+// TclEventType: SDC_CONSTRAINT_ADD
+// TclEventType: FLOORPLAN_MODIFY
+// TclEventType: DESIGN_NEW
+// HMemoryUtils.trashcanNow. Engine heap size: 2,444 MB. GUI used memory: 86 MB. Current time: 2/19/25, 11:33:16 PM EST
+// [Engine Memory]: 2,444 MB (+818806kb) [00:03:33]
+// TclEventType: DESIGN_NEW
+// Xgd.load filename: /home/drew/Documents/github/jarvis/./.Xil/Vivado-834480-noname/xc7z010_detail.xgd_4544687F elapsed time: 1.6s
+// DeviceModel: Load Xgds SwingWorker Join Forever elapsed time: 1.8s
+// [Engine Memory]: 2,690 MB (+130002kb) [00:03:35]
+// TclEventType: HFED_INIT_ROUTE_STORAGE_COMPLETED
+// DeviceView Instantiated
+// WARNING: HEventQueue.dispatchEvent() is taking  1322 ms.
+// TclEventType: CURR_DESIGN_SET
+// Tcl Message: INFO: [Device 21-403] Loading part xc7z010clg400-1 
+// Tcl Message: Netlist sorting complete. Time (s): cpu = 00:00:00.05 ; elapsed = 00:00:00.05 . Memory (MB): peak = 7886.391 ; gain = 0.000 ; free physical = 5474 ; free virtual = 18528 
+// Tcl Message: INFO: [Netlist 29-17] Analyzing 5 Unisim elements for replacement INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds INFO: [Project 1-479] Netlist was created with Vivado 2024.2 INFO: [Project 1-570] Preparing netlist for logic optimization 
+// Tcl Message: Read ShapeDB Complete: Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00.01 . Memory (MB): peak = 7963.172 ; gain = 0.000 ; free physical = 5366 ; free virtual = 18420 
+// Tcl Message: INFO: [Timing 38-478] Restoring timing data from binary archive. INFO: [Timing 38-479] Binary timing data restore complete. INFO: [Project 1-856] Restoring constraints from binary archive. INFO: [Project 1-853] Binary constraint restore complete. INFO: [Designutils 20-5722] Start Reading Physical Databases. 
+// Tcl Message: Reading placement. 
+// Tcl Message: Read Netlist Cache: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 8520.766 ; gain = 0.000 ; free physical = 4868 ; free virtual = 17921 
+// Tcl Message: Reading placer database... 
+// Tcl Message: Read Device Cache: Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00.01 . Memory (MB): peak = 8520.766 ; gain = 0.000 ; free physical = 4868 ; free virtual = 17921 Read PlaceDB: Time (s): cpu = 00:00:00.12 ; elapsed = 00:00:00.12 . Memory (MB): peak = 8520.766 ; gain = 0.000 ; free physical = 4868 ; free virtual = 17922 Read PulsedLatchDB: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 8520.766 ; gain = 0.000 ; free physical = 4868 ; free virtual = 17922 
+// Tcl Message: Reading routing. 
+// Tcl Message: Read RouteStorage: Time (s): cpu = 00:00:00.03 ; elapsed = 00:00:00.02 . Memory (MB): peak = 8520.766 ; gain = 0.000 ; free physical = 4868 ; free virtual = 17922 Read Physdb Files: Time (s): cpu = 00:00:00.18 ; elapsed = 00:00:00.15 . Memory (MB): peak = 8520.766 ; gain = 0.000 ; free physical = 4868 ; free virtual = 17922 
+// Tcl Message: Restored from archive | CPU: 0.190000 secs | Memory: 1.434288 MB | 
+// Tcl Message: Finished XDEF File Restore: Time (s): cpu = 00:00:00.18 ; elapsed = 00:00:00.15 . Memory (MB): peak = 8520.766 ; gain = 0.000 ; free physical = 4868 ; free virtual = 17922 Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 8520.766 ; gain = 0.000 ; free physical = 4869 ; free virtual = 17923 
+// Tcl Message: INFO: [Project 1-111] Unisim Transformation Summary: No Unisim elements were transformed.  
+// TclEventType: CURR_DESIGN_SET
+// Device view-level: 0.0
+// RouteApi: Init Delay Mediator Swing Worker Finished
+// TclEventType: DRC_ADDED
+// Tcl Message: open_run: Time (s): cpu = 00:00:23 ; elapsed = 00:00:15 . Memory (MB): peak = 8866.703 ; gain = 999.473 ; free physical = 4587 ; free virtual = 17646 
+// TclEventType: DRC_ADDED
+// TclEventType: METHODOLOGY_ADDED
+// TclEventType: POWER_UPDATED
+// [GUI Memory]: 177 MB (+12867kb) [00:03:37]
+// TclEventType: TIMING_SUMMARY_UPDATED
+// 'dV' command handler elapsed time: 17 seconds
+// Elapsed time: 17 seconds
+dismissDialog("Open Implemented Design"); // bh (Open Implemented Design Progress)
+// [GUI Memory]: 186 MB (+116kb) [00:03:40]
+// [GUI Memory]: 196 MB (+535kb) [00:03:40]
+// [GUI Memory]: 206 MB (+176kb) [00:03:40]
+// Elapsed time: 17 seconds
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "Project Summary", 0); // o (PlanAheadTabBaseWorkspace_JideTabbedPane)
+selectButton(PAResourceQtoS.RunGadget_SHOW_ERROR_AND_CRITICAL_WARNING_MESSAGES, "10 critical warnings"); // h (PAResourceQtoS.RunGadget_SHOW_ERROR_AND_CRITICAL_WARNING_MESSAGES)
+// Run Command: PAResourceCommand.PACommandNames_MESSAGE_WINDOW
+selectTree(PAResourceItoN.MsgTreePanel_MESSAGE_VIEW_TREE, "[, Implementation, Design Initialization, [Vivado 12-4739] create_clock:No valid object(s) found for '-objects [get_ports clk]'. [/home/drew/Documents/github/jarvis/software/blinky/blinky.srcs/constrs_1/imports/digilent-xdc-master/Zybo-Master.xdc:9]. ]", 3, false); // u.d (PAResourceItoN.MsgTreePanel_MESSAGE_VIEW_TREE)
+selectTree(PAResourceItoN.MsgTreePanel_MESSAGE_VIEW_TREE, "[, Implementation, Design Initialization, [Vivado 12-4739] create_clock:No valid object(s) found for '-objects [get_ports clk]'. [/home/drew/Documents/github/jarvis/software/blinky/blinky.srcs/constrs_1/imports/digilent-xdc-master/Zybo-Master.xdc:9]. ]", 3, false); // u.d (PAResourceItoN.MsgTreePanel_MESSAGE_VIEW_TREE)
+selectTree(PAResourceItoN.MsgTreePanel_MESSAGE_VIEW_TREE, "[, Implementation, Design Initialization, [Vivado 12-4739] create_clock:No valid object(s) found for '-objects [get_ports clk]'. [/home/drew/Documents/github/jarvis/software/blinky/blinky.srcs/constrs_1/imports/digilent-xdc-master/Zybo-Master.xdc:9]. ]", 3, false, false, false, false, false, true); // u.d (PAResourceItoN.MsgTreePanel_MESSAGE_VIEW_TREE) - Double Click
+selectTree(PAResourceItoN.MsgTreePanel_MESSAGE_VIEW_TREE, "[, Implementation, Design Initialization, [Vivado 12-4739] create_clock:No valid object(s) found for '-objects [get_ports clk]'. [/home/drew/Documents/github/jarvis/software/blinky/blinky.srcs/constrs_1/imports/digilent-xdc-master/Zybo-Master.xdc:9]. ]", 3, false, false, false, false, true, false); // u.d (PAResourceItoN.MsgTreePanel_MESSAGE_VIEW_TREE) - Popup Trigger
+selectMenu(PAResourceItoN.MsgTreePanel_MESSAGE_SEVERITY, "Message Severity"); // an (PAResourceItoN.MsgTreePanel_MESSAGE_SEVERITY, Message Severity)
+// Elapsed time: 49 seconds
+expandTree(PAResourceItoN.NetlistTreeView_NETLIST_TREE, "[blinky_wrapper, Nets (142)]", 1); // aG (PAResourceItoN.NetlistTreeView_NETLIST_TREE)
+collapseTree(PAResourceItoN.NetlistTreeView_NETLIST_TREE, "[blinky_wrapper, Nets (142)]", 1); // aG (PAResourceItoN.NetlistTreeView_NETLIST_TREE)
+selectTab((HResource) null, (HResource) null, "Sources", 0); // aa
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, blinky_wrapper (blinky_wrapper.v)]", 1, true); // E (PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE) - Node
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, blinky_wrapper (blinky_wrapper.v)]", 1, true, false, false, false, false, true); // E (PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE) - Double Click - Node
+// HMemoryUtils.trashcanNow. Engine heap size: 2,817 MB. GUI used memory: 130 MB. Current time: 2/19/25, 11:34:45 PM EST
+// Elapsed time: 107 seconds
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Constraints]", 4); // E (PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Constraints, constrs_1, Zybo-Master.xdc]", 6, false); // E (PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Constraints, constrs_1, Zybo-Master.xdc]", 6, false, false, false, false, false, true); // E (PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE) - Double Click
+// [Engine Memory]: 2,838 MB (+14596kb) [00:06:49]
+// HMemoryUtils.trashcanNow. Engine heap size: 2,848 MB. GUI used memory: 129 MB. Current time: 2/19/25, 11:36:35 PM EST
+// Elapsed time: 11 seconds
+selectCodeEditor("Zybo-Master.xdc", 367, 131); // ae (Zybo-Master.xdc)
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "blinky_wrapper.v", 2); // o (PlanAheadTabBaseWorkspace_JideTabbedPane)
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "Device", 1); // o (PlanAheadTabBaseWorkspace_JideTabbedPane)
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "blinky_wrapper.v", 2); // o (PlanAheadTabBaseWorkspace_JideTabbedPane)
+selectButton(RDIResource.HPopupTitle_CLOSE, (String) null); // k (RDIResource.HPopupTitle_CLOSE)
+// HMemoryUtils.trashcanNow. Engine heap size: 2,899 MB. GUI used memory: 129 MB. Current time: 2/19/25, 11:37:05 PM EST
+selectButton(PAResourceCommand.PACommandNames_SCHEMATIC, "run_schematic"); // C (PAResourceCommand.PACommandNames_SCHEMATIC, run_schematic)
+// Run Command: PAResourceCommand.PACommandNames_SCHEMATIC
+// Elapsed time: 28 seconds
+selectButton(PAResourceItoN.NetlistSchematicView_SHOW_CELLS_IN_THIS_SCHEMATIC, "5 Cells"); // h (PAResourceItoN.NetlistSchematicView_SHOW_CELLS_IN_THIS_SCHEMATIC)
+// Elapsed time: 41 seconds
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources]", 0, true); // E (PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE) - Node
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources]", 0, true, false, false, false, true, false); // E (PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE) - Popup Trigger - Node
+selectMenu(PAResourceCommand.PACommandNames_AUTO_UPDATE_HIER, "Hierarchy Update"); // an (PAResourceCommand.PACommandNames_AUTO_UPDATE_HIER, Hierarchy Update)
+selectMenu(PAResourceQtoS.SrcMenu_IP_HIERARCHY, "IP Hierarchy"); // an (PAResourceQtoS.SrcMenu_IP_HIERARCHY, IP Hierarchy)
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "Project Summary", 0); // o (PlanAheadTabBaseWorkspace_JideTabbedPane)
+// Elapsed time: 28 seconds
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "Device", 1); // o (PlanAheadTabBaseWorkspace_JideTabbedPane)
+selectButton(RDIResource.HToolBar_SETTINGS, "Device_settings"); // w (RDIResource.HToolBar_SETTINGS, Device_settings): TRUE
+selectButton(RDIResource.HToolBar_SETTINGS, "Device_settings"); // w (RDIResource.HToolBar_SETTINGS, Device_settings): FALSE
+// [GUI Memory]: 223 MB (+6625kb) [00:09:13]
+// HMemoryUtils.trashcanNow. Engine heap size: 2,872 MB. GUI used memory: 135 MB. Current time: 2/19/25, 11:38:56 PM EST
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, blinky_wrapper (blinky_wrapper.v)]", 1, true, false, false, false, true, false); // E (PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE) - Popup Trigger - Node
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, IP Integrator, Open Block Design]", 7, false); // g (PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, Flow Navigator Tree)
+// Run Command: PAResourceCommand.PACommandNames_OPEN_BLOCK_DESIGN
+// TclEventType: LOAD_FEATURE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_CHANGE_CURRENT_DIAGRAM
+// TclEventType: LOAD_FEATURE
+// TclEventType: RSB_LOCK_CHANGE
+// TclEventType: RSB_CHANGE_CURRENT_DIAGRAM
+// TclEventType: RSB_LOCK_CHANGE
+// TclEventType: RSB_CHANGE_CURRENT_DIAGRAM
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_OPEN_DIAGRAM
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// Tcl Message: open_bd_design {/home/drew/Documents/github/jarvis/software/blinky/blinky.srcs/sources_1/bd/blinky/blinky.bd} 
+// Tcl Message: Reading block design file </home/drew/Documents/github/jarvis/software/blinky/blinky.srcs/sources_1/bd/blinky/blinky.bd>... Adding component instance block -- xilinx.com:ip:processing_system7:5.5 - processing_system7_0 Adding component instance block -- xilinx.com:ip:axi_gpio:2.0 - axi_gpio_0 Adding component instance block -- xilinx.com:ip:smartconnect:1.0 - axi_smc Adding component instance block -- xilinx.com:ip:proc_sys_reset:5.0 - rst_ps7_0_50M Successfully read diagram <blinky> from block design file </home/drew/Documents/github/jarvis/software/blinky/blinky.srcs/sources_1/bd/blinky/blinky.bd> 
+// TclEventType: RSB_OPEN_DIAGRAM
+runTclCommand (PAResourceOtoP.PAViews_SYSTEM, "unselect_objects"); // gh (PAResourceOtoP.PAViews_SYSTEM, PlanAheadTabSystem)
+closeView(PAResourceOtoP.PAViews_PROJECT_SUMMARY, "Project Summary"); // x (PAResourceOtoP.PAViews_PROJECT_SUMMARY, PlanAheadTabProject Summary)
+dismissDialog("Open Block Design"); // bh (Open Block Design Progress)
+// WARNING: HTimer (Open addressing views timer) is taking 408ms to process. Increasing delay to 1300 ms.
+runTclCommand (PAResourceOtoP.PAViews_SYSTEM, "unselect_objects"); // gh (PAResourceOtoP.PAViews_SYSTEM, PlanAheadTabSystem)
+// Elapsed time: 23 seconds
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "Zybo-Master.xdc", 2); // o (PlanAheadTabBaseWorkspace_JideTabbedPane)
+selectCodeEditor("Zybo-Master.xdc", 4, 126); // ae (Zybo-Master.xdc)
+selectCodeEditor("Zybo-Master.xdc", 3, 132); // ae (Zybo-Master.xdc)
+// TclEventType: FILE_SET_CHANGE
+// Elapsed time: 14 seconds
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, Implementation, Run Implementation]", 18, false); // g (PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, Flow Navigator Tree)
+// Run Command: PAResourceCommand.PACommandNames_RUN_IMPLEMENTATION
+selectButton(RDIResource.BaseDialog_YES, "Yes", "Synthesis is Out-of-date"); // a (RDIResource.BaseDialog_YES)
+dismissDialog("Synthesis is Out-of-date"); // u (dialog5)
+// TclEventType: RUN_MODIFY
+// TclEventType: DESIGN_STALE
+// TclEventType: RUN_RESET
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_RESET
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_RESET
+// TclEventType: RUN_MODIFY
+// Tcl Message: reset_run synth_1 
+// Tcl Message: INFO: [Project 1-1161] Replacing file /home/drew/Documents/github/jarvis/software/blinky/blinky.srcs/utils_1/imports/synth_1/blinky_wrapper.dcp with file /home/drew/Documents/github/jarvis/software/blinky/blinky.runs/synth_1/blinky_wrapper.dcp 
+// TclEventType: FILE_SET_CHANGE
+selectButton(RDIResource.BaseDialog_OK, "OK", "Launch Runs"); // a (RDIResource.BaseDialog_OK)
+dismissDialog("Launch Runs"); // g (dialog6)
+// TclEventType: RUN_LAUNCH
+// TclEventType: DESIGN_STALE
+// TclEventType: RUN_LAUNCH
+// TclEventType: RUN_MODIFY
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_MODIFY
+// Tcl Message: launch_runs impl_1 -jobs 8 
+// Tcl Message: [Wed Feb 19 23:40:00 2025] Launched synth_1... Run output will be captured here: /home/drew/Documents/github/jarvis/software/blinky/blinky.runs/synth_1/runme.log [Wed Feb 19 23:40:00 2025] Launched impl_1... Run output will be captured here: /home/drew/Documents/github/jarvis/software/blinky/blinky.runs/impl_1/runme.log 
+dismissDialog("Starting Design Runs"); // bh (Starting Design Runs Progress)
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_STEP_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_STEP_COMPLETED
+// TclEventType: DESIGN_STALE
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_STEP_COMPLETED
+// Elapsed time: 99 seconds
+selectButton(RDIResource.BaseDialog_OK, "OK", "Implementation Completed"); // a (RDIResource.BaseDialog_OK)
+// Run Command: PAResourceCommand.PACommandNames_GOTO_IMPLEMENTED_DESIGN
+// TclEventType: DESIGN_REFRESH
+// HMemoryUtils.trashcanNow. Engine heap size: 2,911 MB. GUI used memory: 130 MB. Current time: 2/19/25, 11:41:40 PM EST
+// TclEventType: TIMING_RESULTS_UNLOAD
+// Engine heap size: 2,911 MB. GUI used memory: 131 MB. Current time: 2/19/25, 11:41:40 PM EST
+// Tcl Message: refresh_design 
+// Tcl Message: Netlist sorting complete. Time (s): cpu = 00:00:00.06 ; elapsed = 00:00:00.06 . Memory (MB): peak = 8970.562 ; gain = 0.000 ; free physical = 4334 ; free virtual = 17404 
+// Tcl Message: INFO: [Netlist 29-17] Analyzing 5 Unisim elements for replacement INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds INFO: [Project 1-479] Netlist was created with Vivado 2024.2 INFO: [Project 1-570] Preparing netlist for logic optimization 
+// Tcl Message: Read ShapeDB Complete: Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00.01 . Memory (MB): peak = 8970.562 ; gain = 0.000 ; free physical = 4325 ; free virtual = 17394 
+// Tcl Message: INFO: [Timing 38-478] Restoring timing data from binary archive. 
+// TclEventType: SDC_CONSTRAINT_ADD
+// TclEventType: POWER_CNS_STALE
+// TclEventType: SDC_CONSTRAINT_ADD
+// TclEventType: FLOORPLAN_MODIFY
+// TclEventType: DESIGN_REFRESH
+// HMemoryUtils.trashcanNow. Engine heap size: 2,912 MB. GUI used memory: 107 MB. Current time: 2/19/25, 11:41:49 PM EST
+// Xgd.load filename: /home/drew/Documents/github/jarvis/./.Xil/Vivado-834480-noname/xc7z010_detail.xgd_317839AB elapsed time: 1.6s
+// DeviceModel: Load Xgds SwingWorker Join Forever elapsed time: 1.8s
+// DeviceModel: Load Xgds SwingWorker Join Forever elapsed time: 0.9s
+// DeviceView Instantiated
+// WARNING: HEventQueue.dispatchEvent() is taking  2010 ms.
+// Tcl Message: INFO: [Timing 38-479] Binary timing data restore complete. INFO: [Project 1-856] Restoring constraints from binary archive. INFO: [Project 1-853] Binary constraint restore complete. INFO: [Designutils 20-5722] Start Reading Physical Databases. 
+// Tcl Message: Reading placement. 
+// Tcl Message: Read Netlist Cache: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 8970.562 ; gain = 0.000 ; free physical = 4071 ; free virtual = 17128 
+// Tcl Message: Reading placer database... 
+// Tcl Message: Read Device Cache: Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00.02 . Memory (MB): peak = 8970.562 ; gain = 0.000 ; free physical = 4071 ; free virtual = 17128 Read PlaceDB: Time (s): cpu = 00:00:00.15 ; elapsed = 00:00:00.12 . Memory (MB): peak = 8970.562 ; gain = 0.000 ; free physical = 4086 ; free virtual = 17143 Read PulsedLatchDB: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 8970.562 ; gain = 0.000 ; free physical = 4086 ; free virtual = 17143 
+// Tcl Message: Reading routing. 
+// Tcl Message: Read RouteStorage: Time (s): cpu = 00:00:00.03 ; elapsed = 00:00:00.02 . Memory (MB): peak = 8970.562 ; gain = 0.000 ; free physical = 4086 ; free virtual = 17143 Read Physdb Files: Time (s): cpu = 00:00:00.2 ; elapsed = 00:00:00.17 . Memory (MB): peak = 8970.562 ; gain = 0.000 ; free physical = 4086 ; free virtual = 17143 
+// Tcl Message: Restored from archive | CPU: 0.220000 secs | Memory: 1.589180 MB | 
+// Tcl Message: Finished XDEF File Restore: Time (s): cpu = 00:00:00.2 ; elapsed = 00:00:00.17 . Memory (MB): peak = 8970.562 ; gain = 0.000 ; free physical = 4086 ; free virtual = 17143 
+// TclEventType: HFED_INIT_ROUTE_STORAGE_COMPLETED
+// RouteApi: Init Delay Mediator Swing Worker Finished
+// Device view-level: 0.0
+// TclEventType: DRC_ADDED
+// Device view-level: 0.0
+// Tcl Message: refresh_design: Time (s): cpu = 00:00:16 ; elapsed = 00:00:12 . Memory (MB): peak = 8987.707 ; gain = 17.145 ; free physical = 4144 ; free virtual = 17206 
+// TclEventType: DRC_ADDED
+// TclEventType: METHODOLOGY_ADDED
+// TclEventType: POWER_UPDATED
+// TclEventType: TIMING_SUMMARY_UPDATED
+// Elapsed time: 13 seconds
+dismissDialog("Reloading"); // bh (Reloading Progress)
+// Elapsed time: 10 seconds
+expandTree(PAResourceItoN.MsgTreePanel_MESSAGE_VIEW_TREE, "[, Implementation, Design Initialization, [Constraints 18-638] Undefined BOARD_PART property for current project while applying board-derived constraints. [/home/drew/Documents/github/jarvis/software/blinky/blinky.gen/sources_1/bd/blinky/ip/blinky_axi_gpio_0_0/blinky_axi_gpio_0_0_board.xdc:3]. ]", 2); // u.d (PAResourceItoN.MsgTreePanel_MESSAGE_VIEW_TREE)
+selectTree(PAResourceItoN.MsgTreePanel_MESSAGE_VIEW_TREE, "[, Implementation, Design Initialization, [Constraints 18-638] Undefined BOARD_PART property for current project while applying board-derived constraints. [/home/drew/Documents/github/jarvis/software/blinky/blinky.gen/sources_1/bd/blinky/ip/blinky_axi_gpio_0_0/blinky_axi_gpio_0_0_board.xdc:3]. ]", 2, true); // u.d (PAResourceItoN.MsgTreePanel_MESSAGE_VIEW_TREE) - Node
+messagesViewCrossProbe(PAResourceItoN.MsgTreePanel_MESSAGE_VIEW_TREE, "src;-;/home/drew/Documents/github/jarvis/software/blinky/blinky.gen/sources_1/bd/blinky/ip/blinky_axi_gpio_0_0/blinky_axi_gpio_0_0_board.xdc;-;;-;16;-;line;-;3;-;;-;16;-;"); // u.d (PAResourceItoN.MsgTreePanel_MESSAGE_VIEW_TREE)
+// Elapsed time: 12 seconds
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "Schematic", 4); // o (PlanAheadTabBaseWorkspace_JideTabbedPane)
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "Zybo-Master.xdc", 3); // o (PlanAheadTabBaseWorkspace_JideTabbedPane)
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "blinky_wrapper.v", 2); // o (PlanAheadTabBaseWorkspace_JideTabbedPane)
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "Project Summary", 0); // o (PlanAheadTabBaseWorkspace_JideTabbedPane)
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, IP Integrator, Open Block Design]", 7, false); // g (PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, Flow Navigator Tree)
+// Run Command: PAResourceCommand.PACommandNames_OPEN_BLOCK_DESIGN
+// TclEventType: RSB_OPEN_DIAGRAM
+closeView(PAResourceOtoP.PAViews_PROJECT_SUMMARY, "Project Summary"); // x (PAResourceOtoP.PAViews_PROJECT_SUMMARY, PlanAheadTabProject Summary)
+// Tcl Message: open_bd_design {/home/drew/Documents/github/jarvis/software/blinky/blinky.srcs/sources_1/bd/blinky/blinky.bd} 
+dismissDialog("Open Block Design"); // bh (Open Block Design Progress)
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "blinky_axi_gpio_0_0_board.xdc", 5); // o (PlanAheadTabBaseWorkspace_JideTabbedPane)
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "Address Map", 4); // o (PlanAheadTabBaseWorkspace_JideTabbedPane)
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "Address Editor", 3); // o (PlanAheadTabBaseWorkspace_JideTabbedPane)
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "Zybo-Master.xdc", 2); // o (PlanAheadTabBaseWorkspace_JideTabbedPane)
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "blinky_wrapper.v", 1); // o (PlanAheadTabBaseWorkspace_JideTabbedPane)
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "System", 0); // o (PlanAheadTabBaseWorkspace_JideTabbedPane)
+runTclCommand (PAResourceOtoP.PAViews_SYSTEM, "unselect_objects"); // gh (PAResourceOtoP.PAViews_SYSTEM, PlanAheadTabSystem)
