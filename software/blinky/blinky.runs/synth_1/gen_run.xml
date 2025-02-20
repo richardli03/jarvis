@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GenRun Id="synth_1" LaunchPart="xc7z010clg400-1" LaunchTime="1739501096" LaunchIncrCheckpoint="$PSRCDIR/utils_1/imports/synth_1/blinky_wrapper.dcp">
+<GenRun Id="synth_1" LaunchPart="xc7z010clg400-1" LaunchTime="1739937608" LaunchIncrCheckpoint="$PSRCDIR/utils_1/imports/synth_1/blinky_wrapper.dcp">
   <File Type="VDS-TIMING-PB" Name="blinky_wrapper_timing_summary_synth.pb"/>
   <File Type="VDS-TIMINGSUMMARY" Name="blinky_wrapper_timing_summary_synth.rpt"/>
   <File Type="RDS-DCP" Name="blinky_wrapper.dcp"/>
@@ -33,8 +33,10 @@
   </FileSet>
   <FileSet Name="constrs_in" Type="Constrs" RelSrcDir="$PSRCDIR/constrs_1" RelGenDir="$PGENDIR/constrs_1">
     <Filter Type="Constrs"/>
-    <File Path="$PPRDIR/zybo.xdc">
+    <File Path="$PSRCDIR/constrs_1/imports/digilent-xdc-master/Zybo-Master.xdc">
       <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../../../embedded/digilent-xdc-master/Zybo-Master.xdc"/>
+        <Attr Name="ImportTime" Val="1731455571"/>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="implementation"/>
       </FileInfo>
@@ -58,12 +60,10 @@
     </Config>
   </FileSet>
   <Strategy Version="1" Minor="2">
-    <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2024">
-      <Desc>Vivado Synthesis Defaults</Desc>
-    </StratHandle>
+    <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2024"/>
     <Step Id="synth_design"/>
   </Strategy>
-  <BlockFileSet Type="BlockSrcs" Name="blinky_rst_ps7_0_50M_0"/>
   <BlockFileSet Type="BlockSrcs" Name="blinky_axi_gpio_0_0"/>
+  <BlockFileSet Type="BlockSrcs" Name="blinky_rst_ps7_0_50M_0"/>
   <BlockFileSet Type="BlockSrcs" Name="blinky_processing_system7_0_0"/>
 </GenRun>

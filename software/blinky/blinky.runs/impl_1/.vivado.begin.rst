@@ -1,55 +1,5 @@
 <?xml version="1.0"?>
 <ProcessHandle Version="1" Minor="0">
-    <Process Command="vivado" Owner="richard" Host="beep-box" Pid="361700" HostCore="12" HostMemory="15968896">
-    </Process>
-</ProcessHandle>
-<?xml version="1.0"?>
-<ProcessHandle Version="1" Minor="0">
-    <Process Command="vivado" Owner="richard" Host="beep-box" Pid="383560" HostCore="12" HostMemory="15968896">
-    </Process>
-</ProcessHandle>
-<?xml version="1.0"?>
-<ProcessHandle Version="1" Minor="0">
-    <Process Command="vivado" Owner="richard" Host="beep-box" Pid="401929" HostCore="12" HostMemory="15968896">
-    </Process>
-</ProcessHandle>
-<?xml version="1.0"?>
-<ProcessHandle Version="1" Minor="0">
-    <Process Command="vivado" Owner="richard" Host="beep-box" Pid="428437" HostCore="12" HostMemory="15968896">
-    </Process>
-</ProcessHandle>
-<?xml version="1.0"?>
-<ProcessHandle Version="1" Minor="0">
-    <Process Command="vivado" Owner="richard" Host="beep-box" Pid="452974" HostCore="12" HostMemory="15968896">
-    </Process>
-</ProcessHandle>
-<?xml version="1.0"?>
-<ProcessHandle Version="1" Minor="0">
-    <Process Command="vivado" Owner="richard" Host="beep-box" Pid="476339" HostCore="12" HostMemory="15968896">
-    </Process>
-</ProcessHandle>
-<?xml version="1.0"?>
-<ProcessHandle Version="1" Minor="0">
-    <Process Command="vivado" Owner="richard" Host="beep-box" Pid="502004" HostCore="12" HostMemory="15968896">
-    </Process>
-</ProcessHandle>
-<?xml version="1.0"?>
-<ProcessHandle Version="1" Minor="0">
-    <Process Command="vivado" Owner="richard" Host="beep-box" Pid="526483" HostCore="12" HostMemory="15968896">
-    </Process>
-</ProcessHandle>
-<?xml version="1.0"?>
-<ProcessHandle Version="1" Minor="0">
-    <Process Command="vivado" Owner="richard" Host="beep-box" Pid="550585" HostCore="12" HostMemory="15968896">
-    </Process>
-</ProcessHandle>
-<?xml version="1.0"?>
-<ProcessHandle Version="1" Minor="0">
-    <Process Command="vivado" Owner="richard" Host="beep-box" Pid="574477" HostCore="12" HostMemory="15968896">
-    </Process>
-</ProcessHandle>
-<?xml version="1.0"?>
-<ProcessHandle Version="1" Minor="0">
-    <Process Command="vivado" Owner="richard" Host="beep-box" Pid="596648" HostCore="12" HostMemory="15968896">
+    <Process Command="vivado" Owner="richard" Host="beep-box" Pid="289102" HostCore="12" HostMemory="15968892">
     </Process>
 </ProcessHandle>

@@ -45,7 +45,7 @@
 
 /************************** Constant Definitions *****************************/
 
-#define LED 0b1111   /* Assumes bit 0 of GPIO is connected to an LED  */
+#define LED 0x01   /* Assumes bit 0 of GPIO is connected to an LED  */
 
 /*
  * The following constants map to the XPAR parameters created in the
@@ -124,6 +124,7 @@ XGpio Gpio; /* The Instance of the GPIO Driver */
 ******************************************************************************/
 int main(void)
 {
+    xil_printf("im sad :( \n");
 	int Status;
 	volatile int Delay;
 
@@ -146,10 +147,11 @@ int main(void)
 	while (1) {
 		/* Set the LED to High */
 		XGpio_DiscreteWrite(&Gpio, LED_CHANNEL, LED);
-        xil_printf("I AM ALIVEEEEEEEE!");
+
+        xil_printf("im sad :( \n");
 		/* Wait a small amount of time so the LED is visible */
 		for (Delay = 0; Delay < LED_DELAY; Delay++);
-       
+
 		/* Clear the LED bit */
 		XGpio_DiscreteClear(&Gpio, LED_CHANNEL, LED);
 

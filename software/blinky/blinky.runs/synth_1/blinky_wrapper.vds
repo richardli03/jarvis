@@ -3,8 +3,8 @@
 # SW Build 5239630 on Fri Nov 08 22:34:34 MST 2024
 # IP Build 5239520 on Sun Nov 10 16:12:51 MST 2024
 # SharedData Build 5239561 on Fri Nov 08 14:39:27 MST 2024
-# Start of session at: Thu Feb 13 21:44:59 2025
-# Process ID         : 574060
+# Start of session at: Tue Feb 18 23:00:11 2025
+# Process ID         : 288961
 # Current directory  : /home/richard/code/jarvis/software/blinky/blinky.runs/synth_1
 # Command line       : vivado -log blinky_wrapper.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source blinky_wrapper.tcl
 # Log file           : /home/richard/code/jarvis/software/blinky/blinky.runs/synth_1/blinky_wrapper.vds
@@ -13,13 +13,13 @@
 # Platform           : Ubuntu
 # Operating System   : Ubuntu 22.04.5 LTS
 # Processor Detail   : Intel(R) Core(TM) i7-10850H CPU @ 2.70GHz
-# CPU Frequency      : 3499.747 MHz
+# CPU Frequency      : 3568.235 MHz
 # CPU Physical cores : 6
 # CPU Logical cores  : 12
 # Host memory        : 16352 MB
 # Swap memory        : 2147 MB
 # Total Virtual      : 18499 MB
-# Available Virtual  : 7904 MB
+# Available Virtual  : 15834 MB
 #-----------------------------------------------------------
 source blinky_wrapper.tcl -notrace
 INFO: [IP_Flow 19-234] Refreshing IP repositories
@@ -37,26 +37,26 @@ INFO: [Designutils 20-5440] No compile time benefit to using incremental synthes
 INFO: [Designutils 20-4379] Flow is switching to default flow due to incremental criteria not met. If you would like to alter this behaviour and have the flow terminate instead, please set the following parameter config_implementation {autoIncr.Synth.RejectBehavior Terminate}
 INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 7 processes.
 INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
-INFO: [Synth 8-7075] Helper process launched with PID 574192
+INFO: [Synth 8-7075] Helper process launched with PID 289003
 ---------------------------------------------------------------------------------
-Starting RTL Elaboration : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 1933.758 ; gain = 420.797 ; free physical = 814 ; free virtual = 6517
+Starting RTL Elaboration : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 1933.758 ; gain = 420.828 ; free physical = 8452 ; free virtual = 13939
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-6157] synthesizing module 'blinky_wrapper' [/home/richard/code/jarvis/software/blinky/blinky.gen/sources_1/bd/blinky/hdl/blinky_wrapper.v:13]
 INFO: [Synth 8-6157] synthesizing module 'blinky' [/home/richard/code/jarvis/software/blinky/blinky.gen/sources_1/bd/blinky/synth/blinky.v:13]
-INFO: [Synth 8-6157] synthesizing module 'blinky_axi_gpio_0_0' [/home/richard/code/jarvis/software/blinky/blinky.runs/synth_1/.Xil/Vivado-574060-beep-box/realtime/blinky_axi_gpio_0_0_stub.v:6]
-INFO: [Synth 8-6155] done synthesizing module 'blinky_axi_gpio_0_0' (0#1) [/home/richard/code/jarvis/software/blinky/blinky.runs/synth_1/.Xil/Vivado-574060-beep-box/realtime/blinky_axi_gpio_0_0_stub.v:6]
-INFO: [Synth 8-6157] synthesizing module 'blinky_axi_smc_0' [/home/richard/code/jarvis/software/blinky/blinky.runs/synth_1/.Xil/Vivado-574060-beep-box/realtime/blinky_axi_smc_0_stub.v:6]
-INFO: [Synth 8-6155] done synthesizing module 'blinky_axi_smc_0' (0#1) [/home/richard/code/jarvis/software/blinky/blinky.runs/synth_1/.Xil/Vivado-574060-beep-box/realtime/blinky_axi_smc_0_stub.v:6]
+INFO: [Synth 8-6157] synthesizing module 'blinky_axi_gpio_0_0' [/home/richard/code/jarvis/software/blinky/blinky.runs/synth_1/.Xil/Vivado-288961-beep-box/realtime/blinky_axi_gpio_0_0_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'blinky_axi_gpio_0_0' (0#1) [/home/richard/code/jarvis/software/blinky/blinky.runs/synth_1/.Xil/Vivado-288961-beep-box/realtime/blinky_axi_gpio_0_0_stub.v:6]
+INFO: [Synth 8-6157] synthesizing module 'blinky_axi_smc_0' [/home/richard/code/jarvis/software/blinky/blinky.runs/synth_1/.Xil/Vivado-288961-beep-box/realtime/blinky_axi_smc_0_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'blinky_axi_smc_0' (0#1) [/home/richard/code/jarvis/software/blinky/blinky.runs/synth_1/.Xil/Vivado-288961-beep-box/realtime/blinky_axi_smc_0_stub.v:6]
 WARNING: [Synth 8-7071] port 'M00_AXI_awprot' of module 'blinky_axi_smc_0' is unconnected for instance 'axi_smc' [/home/richard/code/jarvis/software/blinky/blinky.gen/sources_1/bd/blinky/synth/blinky.v:162]
 WARNING: [Synth 8-7071] port 'M00_AXI_arprot' of module 'blinky_axi_smc_0' is unconnected for instance 'axi_smc' [/home/richard/code/jarvis/software/blinky/blinky.gen/sources_1/bd/blinky/synth/blinky.v:162]
 WARNING: [Synth 8-7023] instance 'axi_smc' of module 'blinky_axi_smc_0' has 59 connections declared, but only 57 given [/home/richard/code/jarvis/software/blinky/blinky.gen/sources_1/bd/blinky/synth/blinky.v:162]
-INFO: [Synth 8-6157] synthesizing module 'blinky_processing_system7_0_0' [/home/richard/code/jarvis/software/blinky/blinky.runs/synth_1/.Xil/Vivado-574060-beep-box/realtime/blinky_processing_system7_0_0_stub.v:6]
-INFO: [Synth 8-6155] done synthesizing module 'blinky_processing_system7_0_0' (0#1) [/home/richard/code/jarvis/software/blinky/blinky.runs/synth_1/.Xil/Vivado-574060-beep-box/realtime/blinky_processing_system7_0_0_stub.v:6]
+INFO: [Synth 8-6157] synthesizing module 'blinky_processing_system7_0_0' [/home/richard/code/jarvis/software/blinky/blinky.runs/synth_1/.Xil/Vivado-288961-beep-box/realtime/blinky_processing_system7_0_0_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'blinky_processing_system7_0_0' (0#1) [/home/richard/code/jarvis/software/blinky/blinky.runs/synth_1/.Xil/Vivado-288961-beep-box/realtime/blinky_processing_system7_0_0_stub.v:6]
 WARNING: [Synth 8-7071] port 'USB0_PORT_INDCTL' of module 'blinky_processing_system7_0_0' is unconnected for instance 'processing_system7_0' [/home/richard/code/jarvis/software/blinky/blinky.gen/sources_1/bd/blinky/synth/blinky.v:220]
 WARNING: [Synth 8-7071] port 'USB0_VBUS_PWRSELECT' of module 'blinky_processing_system7_0_0' is unconnected for instance 'processing_system7_0' [/home/richard/code/jarvis/software/blinky/blinky.gen/sources_1/bd/blinky/synth/blinky.v:220]
 WARNING: [Synth 8-7023] instance 'processing_system7_0' of module 'blinky_processing_system7_0_0' has 65 connections declared, but only 63 given [/home/richard/code/jarvis/software/blinky/blinky.gen/sources_1/bd/blinky/synth/blinky.v:220]
-INFO: [Synth 8-6157] synthesizing module 'blinky_rst_ps7_0_50M_0' [/home/richard/code/jarvis/software/blinky/blinky.runs/synth_1/.Xil/Vivado-574060-beep-box/realtime/blinky_rst_ps7_0_50M_0_stub.v:6]
-INFO: [Synth 8-6155] done synthesizing module 'blinky_rst_ps7_0_50M_0' (0#1) [/home/richard/code/jarvis/software/blinky/blinky.runs/synth_1/.Xil/Vivado-574060-beep-box/realtime/blinky_rst_ps7_0_50M_0_stub.v:6]
+INFO: [Synth 8-6157] synthesizing module 'blinky_rst_ps7_0_50M_0' [/home/richard/code/jarvis/software/blinky/blinky.runs/synth_1/.Xil/Vivado-288961-beep-box/realtime/blinky_rst_ps7_0_50M_0_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'blinky_rst_ps7_0_50M_0' (0#1) [/home/richard/code/jarvis/software/blinky/blinky.runs/synth_1/.Xil/Vivado-288961-beep-box/realtime/blinky_rst_ps7_0_50M_0_stub.v:6]
 WARNING: [Synth 8-7071] port 'mb_reset' of module 'blinky_rst_ps7_0_50M_0' is unconnected for instance 'rst_ps7_0_50M' [/home/richard/code/jarvis/software/blinky/blinky.gen/sources_1/bd/blinky/synth/blinky.v:284]
 WARNING: [Synth 8-7071] port 'bus_struct_reset' of module 'blinky_rst_ps7_0_50M_0' is unconnected for instance 'rst_ps7_0_50M' [/home/richard/code/jarvis/software/blinky/blinky.gen/sources_1/bd/blinky/synth/blinky.v:284]
 WARNING: [Synth 8-7071] port 'peripheral_reset' of module 'blinky_rst_ps7_0_50M_0' is unconnected for instance 'rst_ps7_0_50M' [/home/richard/code/jarvis/software/blinky/blinky.gen/sources_1/bd/blinky/synth/blinky.v:284]
@@ -65,18 +65,18 @@ WARNING: [Synth 8-7023] instance 'rst_ps7_0_50M' of module 'blinky_rst_ps7_0_50M
 INFO: [Synth 8-6155] done synthesizing module 'blinky' (0#1) [/home/richard/code/jarvis/software/blinky/blinky.gen/sources_1/bd/blinky/synth/blinky.v:13]
 INFO: [Synth 8-6155] done synthesizing module 'blinky_wrapper' (0#1) [/home/richard/code/jarvis/software/blinky/blinky.gen/sources_1/bd/blinky/hdl/blinky_wrapper.v:13]
 ---------------------------------------------------------------------------------
-Finished RTL Elaboration : Time (s): cpu = 00:00:05 ; elapsed = 00:00:05 . Memory (MB): peak = 2011.727 ; gain = 498.766 ; free physical = 721 ; free virtual = 6428
+Finished RTL Elaboration : Time (s): cpu = 00:00:05 ; elapsed = 00:00:06 . Memory (MB): peak = 2011.727 ; gain = 498.797 ; free physical = 8381 ; free virtual = 13872
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:05 ; elapsed = 00:00:06 . Memory (MB): peak = 2023.602 ; gain = 510.641 ; free physical = 721 ; free virtual = 6428
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:05 ; elapsed = 00:00:06 . Memory (MB): peak = 2023.602 ; gain = 510.672 ; free physical = 8381 ; free virtual = 13872
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:05 ; elapsed = 00:00:06 . Memory (MB): peak = 2023.602 ; gain = 510.641 ; free physical = 721 ; free virtual = 6428
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:05 ; elapsed = 00:00:06 . Memory (MB): peak = 2023.602 ; gain = 510.672 ; free physical = 8381 ; free virtual = 13872
 ---------------------------------------------------------------------------------
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2023.602 ; gain = 0.000 ; free physical = 721 ; free virtual = 6428
+Netlist sorting complete. Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00 . Memory (MB): peak = 2023.602 ; gain = 0.000 ; free physical = 8381 ; free virtual = 13872
 INFO: [Project 1-570] Preparing netlist for logic optimization
 
 Processing XDC Constraints
@@ -89,30 +89,35 @@ Parsing XDC File [/home/richard/code/jarvis/software/blinky/blinky.gen/sources_1
 Finished Parsing XDC File [/home/richard/code/jarvis/software/blinky/blinky.gen/sources_1/bd/blinky/ip/blinky_axi_smc_0/blinky_axi_smc_0/blinky_axi_smc_0_in_context.xdc] for cell 'blinky_i/axi_smc'
 Parsing XDC File [/home/richard/code/jarvis/software/blinky/blinky.gen/sources_1/bd/blinky/ip/blinky_rst_ps7_0_50M_0/blinky_rst_ps7_0_50M_0/blinky_rst_ps7_0_50M_0_in_context.xdc] for cell 'blinky_i/rst_ps7_0_50M'
 Finished Parsing XDC File [/home/richard/code/jarvis/software/blinky/blinky.gen/sources_1/bd/blinky/ip/blinky_rst_ps7_0_50M_0/blinky_rst_ps7_0_50M_0/blinky_rst_ps7_0_50M_0_in_context.xdc] for cell 'blinky_i/rst_ps7_0_50M'
-Parsing XDC File [/home/richard/code/jarvis/software/blinky/zybo.xdc]
-Finished Parsing XDC File [/home/richard/code/jarvis/software/blinky/zybo.xdc]
-INFO: [Project 1-236] Implementation specific constraints were found while reading constraint file [/home/richard/code/jarvis/software/blinky/zybo.xdc]. These constraints will be ignored for synthesis but will be used in implementation. Impacted constraints are listed in the file [.Xil/blinky_wrapper_propImpl.xdc].
-Resolution: To avoid this warning, move constraints listed in [.Xil/blinky_wrapper_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
+Parsing XDC File [/home/richard/code/jarvis/software/blinky/blinky.srcs/constrs_1/imports/digilent-xdc-master/Zybo-Master.xdc]
+WARNING: [Vivado 12-584] No ports matched 'clk'. [/home/richard/code/jarvis/software/blinky/blinky.srcs/constrs_1/imports/digilent-xdc-master/Zybo-Master.xdc:8]
+WARNING: [Vivado 12-584] No ports matched 'clk'. [/home/richard/code/jarvis/software/blinky/blinky.srcs/constrs_1/imports/digilent-xdc-master/Zybo-Master.xdc:9]
+WARNING: [Vivado 12-584] No ports matched 'led[0]'. [/home/richard/code/jarvis/software/blinky/blinky.srcs/constrs_1/imports/digilent-xdc-master/Zybo-Master.xdc:27]
+WARNING: [Vivado 12-584] No ports matched 'led[1]'. [/home/richard/code/jarvis/software/blinky/blinky.srcs/constrs_1/imports/digilent-xdc-master/Zybo-Master.xdc:28]
+WARNING: [Vivado 12-584] No ports matched 'led[2]'. [/home/richard/code/jarvis/software/blinky/blinky.srcs/constrs_1/imports/digilent-xdc-master/Zybo-Master.xdc:29]
+WARNING: [Vivado 12-584] No ports matched 'led[3]'. [/home/richard/code/jarvis/software/blinky/blinky.srcs/constrs_1/imports/digilent-xdc-master/Zybo-Master.xdc:30]
+Finished Parsing XDC File [/home/richard/code/jarvis/software/blinky/blinky.srcs/constrs_1/imports/digilent-xdc-master/Zybo-Master.xdc]
+WARNING: [Project 1-498] One or more constraints failed evaluation while reading constraint file [/home/richard/code/jarvis/software/blinky/blinky.srcs/constrs_1/imports/digilent-xdc-master/Zybo-Master.xdc] and the design contains unresolved black boxes. These constraints will be read post-synthesis (as long as their source constraint file is marked as used_in_implementation) and should be applied correctly then. You should review the constraints listed in the file [.Xil/blinky_wrapper_propImpl.xdc] and check the run log file to verify that these constraints were correctly applied.
 Parsing XDC File [/home/richard/code/jarvis/software/blinky/blinky.runs/synth_1/dont_touch.xdc]
 Finished Parsing XDC File [/home/richard/code/jarvis/software/blinky/blinky.runs/synth_1/dont_touch.xdc]
 Completed Processing XDC Constraints
 
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2072.527 ; gain = 0.000 ; free physical = 722 ; free virtual = 6432
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2072.527 ; gain = 0.000 ; free physical = 8372 ; free virtual = 13879
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
-Constraint Validation Runtime : Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00 . Memory (MB): peak = 2072.527 ; gain = 0.000 ; free physical = 725 ; free virtual = 6435
+Constraint Validation Runtime : Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00.01 . Memory (MB): peak = 2072.527 ; gain = 0.000 ; free physical = 8372 ; free virtual = 13879
 INFO: [Designutils 20-5440] No compile time benefit to using incremental synthesis; A full resynthesis will be run
 INFO: [Designutils 20-4379] Flow is switching to default flow due to incremental criteria not met. If you would like to alter this behaviour and have the flow terminate instead, please set the following parameter config_implementation {autoIncr.Synth.RejectBehavior Terminate}
 ---------------------------------------------------------------------------------
-Finished Constraint Validation : Time (s): cpu = 00:00:11 ; elapsed = 00:00:12 . Memory (MB): peak = 2072.527 ; gain = 559.566 ; free physical = 737 ; free virtual = 6438
+Finished Constraint Validation : Time (s): cpu = 00:00:11 ; elapsed = 00:00:12 . Memory (MB): peak = 2072.527 ; gain = 559.598 ; free physical = 8416 ; free virtual = 13923
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Loading Part and Timing Information
 ---------------------------------------------------------------------------------
 Loading part: xc7z010clg400-1
 ---------------------------------------------------------------------------------
-Finished Loading Part and Timing Information : Time (s): cpu = 00:00:11 ; elapsed = 00:00:12 . Memory (MB): peak = 2080.531 ; gain = 567.570 ; free physical = 737 ; free virtual = 6438
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:11 ; elapsed = 00:00:12 . Memory (MB): peak = 2080.531 ; gain = 567.602 ; free physical = 8416 ; free virtual = 13923
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying 'set_property' XDC Constraints
@@ -383,10 +388,10 @@ Applied set_property KEEP_HIERARCHY = SOFT for blinky_i/axi_gpio_0. (constraint 
 Applied set_property KEEP_HIERARCHY = SOFT for blinky_i/axi_smc. (constraint file  auto generated constraint).
 Applied set_property KEEP_HIERARCHY = SOFT for blinky_i/rst_ps7_0_50M. (constraint file  auto generated constraint).
 ---------------------------------------------------------------------------------
-Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:12 ; elapsed = 00:00:12 . Memory (MB): peak = 2080.531 ; gain = 567.570 ; free physical = 727 ; free virtual = 6431
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:12 ; elapsed = 00:00:12 . Memory (MB): peak = 2080.531 ; gain = 567.602 ; free physical = 8416 ; free virtual = 13923
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:12 ; elapsed = 00:00:12 . Memory (MB): peak = 2080.531 ; gain = 567.570 ; free physical = 742 ; free virtual = 6447
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:12 ; elapsed = 00:00:12 . Memory (MB): peak = 2080.531 ; gain = 567.602 ; free physical = 8414 ; free virtual = 13923
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start RTL Component Statistics 
@@ -409,25 +414,25 @@ Start Cross Boundary and Area Optimization
 ---------------------------------------------------------------------------------
 WARNING: [Synth 8-7080] Parallel synthesis criteria is not met
 ---------------------------------------------------------------------------------
-Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:13 ; elapsed = 00:00:13 . Memory (MB): peak = 2080.531 ; gain = 567.570 ; free physical = 728 ; free virtual = 6439
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:13 ; elapsed = 00:00:13 . Memory (MB): peak = 2080.531 ; gain = 567.602 ; free physical = 8423 ; free virtual = 13936
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying XDC Timing Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:19 ; elapsed = 00:00:19 . Memory (MB): peak = 2157.531 ; gain = 644.570 ; free physical = 658 ; free virtual = 6364
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:18 ; elapsed = 00:00:19 . Memory (MB): peak = 2157.531 ; gain = 644.602 ; free physical = 8360 ; free virtual = 13881
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Timing Optimization
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Timing Optimization : Time (s): cpu = 00:00:19 ; elapsed = 00:00:19 . Memory (MB): peak = 2157.531 ; gain = 644.570 ; free physical = 658 ; free virtual = 6364
+Finished Timing Optimization : Time (s): cpu = 00:00:18 ; elapsed = 00:00:19 . Memory (MB): peak = 2157.531 ; gain = 644.602 ; free physical = 8360 ; free virtual = 13881
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Technology Mapping
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Technology Mapping : Time (s): cpu = 00:00:19 ; elapsed = 00:00:19 . Memory (MB): peak = 2166.547 ; gain = 653.586 ; free physical = 650 ; free virtual = 6356
+Finished Technology Mapping : Time (s): cpu = 00:00:18 ; elapsed = 00:00:19 . Memory (MB): peak = 2167.555 ; gain = 654.625 ; free physical = 8352 ; free virtual = 13873
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start IO Insertion
@@ -445,37 +450,37 @@ Start Final Netlist Cleanup
 Finished Final Netlist Cleanup
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished IO Insertion : Time (s): cpu = 00:00:22 ; elapsed = 00:00:22 . Memory (MB): peak = 2337.359 ; gain = 824.398 ; free physical = 510 ; free virtual = 6216
+Finished IO Insertion : Time (s): cpu = 00:00:22 ; elapsed = 00:00:22 . Memory (MB): peak = 2337.367 ; gain = 824.438 ; free physical = 8223 ; free virtual = 13744
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Instances
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Instances : Time (s): cpu = 00:00:22 ; elapsed = 00:00:22 . Memory (MB): peak = 2337.359 ; gain = 824.398 ; free physical = 510 ; free virtual = 6216
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:22 ; elapsed = 00:00:22 . Memory (MB): peak = 2337.367 ; gain = 824.438 ; free physical = 8223 ; free virtual = 13744
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Rebuilding User Hierarchy
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:22 ; elapsed = 00:00:22 . Memory (MB): peak = 2337.359 ; gain = 824.398 ; free physical = 510 ; free virtual = 6216
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:22 ; elapsed = 00:00:22 . Memory (MB): peak = 2337.367 ; gain = 824.438 ; free physical = 8223 ; free virtual = 13744
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Ports
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Ports : Time (s): cpu = 00:00:22 ; elapsed = 00:00:22 . Memory (MB): peak = 2337.359 ; gain = 824.398 ; free physical = 510 ; free virtual = 6216
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:22 ; elapsed = 00:00:22 . Memory (MB): peak = 2337.367 ; gain = 824.438 ; free physical = 8223 ; free virtual = 13744
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:22 ; elapsed = 00:00:22 . Memory (MB): peak = 2337.359 ; gain = 824.398 ; free physical = 510 ; free virtual = 6216
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:22 ; elapsed = 00:00:22 . Memory (MB): peak = 2337.367 ; gain = 824.438 ; free physical = 8223 ; free virtual = 13744
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Nets
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Nets : Time (s): cpu = 00:00:22 ; elapsed = 00:00:22 . Memory (MB): peak = 2337.359 ; gain = 824.398 ; free physical = 510 ; free virtual = 6216
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:22 ; elapsed = 00:00:22 . Memory (MB): peak = 2337.367 ; gain = 824.438 ; free physical = 8223 ; free virtual = 13744
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Writing Synthesis Report
@@ -502,27 +507,27 @@ Report Cell Usage:
 |5     |OBUF                        |     4|
 +------+----------------------------+------+
 ---------------------------------------------------------------------------------
-Finished Writing Synthesis Report : Time (s): cpu = 00:00:22 ; elapsed = 00:00:22 . Memory (MB): peak = 2337.359 ; gain = 824.398 ; free physical = 510 ; free virtual = 6216
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:22 ; elapsed = 00:00:22 . Memory (MB): peak = 2337.367 ; gain = 824.438 ; free physical = 8223 ; free virtual = 13744
 ---------------------------------------------------------------------------------
 Synthesis finished with 0 errors, 0 critical warnings and 1 warnings.
-Synthesis Optimization Runtime : Time (s): cpu = 00:00:20 ; elapsed = 00:00:21 . Memory (MB): peak = 2337.359 ; gain = 775.473 ; free physical = 510 ; free virtual = 6216
-Synthesis Optimization Complete : Time (s): cpu = 00:00:22 ; elapsed = 00:00:22 . Memory (MB): peak = 2337.367 ; gain = 824.398 ; free physical = 510 ; free virtual = 6216
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:20 ; elapsed = 00:00:21 . Memory (MB): peak = 2337.367 ; gain = 775.512 ; free physical = 8223 ; free virtual = 13744
+Synthesis Optimization Complete : Time (s): cpu = 00:00:22 ; elapsed = 00:00:22 . Memory (MB): peak = 2337.375 ; gain = 824.438 ; free physical = 8223 ; free virtual = 13744
 INFO: [Project 1-571] Translating synthesized netlist
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2337.367 ; gain = 0.000 ; free physical = 652 ; free virtual = 6358
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2337.375 ; gain = 0.000 ; free physical = 8393 ; free virtual = 13916
 INFO: [Project 1-570] Preparing netlist for logic optimization
 INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2337.367 ; gain = 0.000 ; free physical = 641 ; free virtual = 6351
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2337.375 ; gain = 0.000 ; free physical = 8393 ; free virtual = 13916
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
 Synth Design complete | Checksum: eee1706f
 INFO: [Common 17-83] Releasing license: Synthesis
-34 Infos, 12 Warnings, 0 Critical Warnings and 0 Errors encountered.
+33 Infos, 19 Warnings, 0 Critical Warnings and 0 Errors encountered.
 synth_design completed successfully
-synth_design: Time (s): cpu = 00:00:32 ; elapsed = 00:00:29 . Memory (MB): peak = 2337.367 ; gain = 932.953 ; free physical = 640 ; free virtual = 6351
-INFO: [Common 17-2834] synth_design peak Physical Memory [PSS] (MB): overall = 1646.908; main = 1523.117; forked = 266.751
-INFO: [Common 17-2834] synth_design peak Virtual Memory [VSS] (MB): overall = 3130.273; main = 2337.363; forked = 915.723
-Write ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2361.371 ; gain = 0.000 ; free physical = 639 ; free virtual = 6350
+synth_design: Time (s): cpu = 00:00:31 ; elapsed = 00:00:29 . Memory (MB): peak = 2337.375 ; gain = 933.961 ; free physical = 8393 ; free virtual = 13916
+INFO: [Common 17-2834] synth_design peak Physical Memory [PSS] (MB): overall = 1680.466; main = 1547.192; forked = 269.327
+INFO: [Common 17-2834] synth_design peak Virtual Memory [VSS] (MB): overall = 3141.285; main = 2337.371; forked = 915.727
+Write ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2361.379 ; gain = 0.000 ; free physical = 8393 ; free virtual = 13916
 INFO: [Common 17-1381] The checkpoint '/home/richard/code/jarvis/software/blinky/blinky.runs/synth_1/blinky_wrapper.dcp' has been generated.
 INFO: [Vivado 12-24828] Executing command : report_utilization -file blinky_wrapper_utilization_synth.rpt -pb blinky_wrapper_utilization_synth.pb
-INFO: [Common 17-206] Exiting Vivado at Thu Feb 13 21:45:34 2025...
+INFO: [Common 17-206] Exiting Vivado at Tue Feb 18 23:00:46 2025...
