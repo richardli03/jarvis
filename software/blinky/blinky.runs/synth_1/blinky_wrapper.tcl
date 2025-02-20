@@ -70,6 +70,8 @@ set_property parent.project_path /home/drew/Documents/github/jarvis/software/bli
 set_property XPM_LIBRARIES {XPM_FIFO XPM_MEMORY} [current_project]
 set_property default_lib xil_defaultlib [current_project]
 set_property target_language Verilog [current_project]
+set_property board_part_repo_paths {/home/drew/documents/git/vivado-boards/new/board_files} [current_project]
+set_property board_part digilentinc.com:zybo:part0:2.0 [current_project]
 set_property ip_output_repo /home/drew/Documents/github/jarvis/software/blinky/blinky.cache/ip [current_project]
 set_property ip_cache_permissions {read write} [current_project]
 OPTRACE "Creating in-memory project" END { }
