@@ -56,8 +56,11 @@ if {$::dispatch::connected} {
 }
 
 OPTRACE "synth_1" START { ROLLUP_AUTO }
-set_param bd.open.in_stealth_mode 1
+set_param checkpoint.writeSynthRtdsInDcp 1
 set_param chipscope.maxJobs 2
+set_param synth.incrementalSynthesisCache ./.Xil/Vivado-2041822-noname/incrSyn
+set_msg_config -id {Synth 8-256} -limit 10000
+set_msg_config -id {Synth 8-638} -limit 10000
 OPTRACE "Creating in-memory project" START { }
 create_project -in_memory -part xc7z010clg400-1
 
@@ -78,8 +81,8 @@ OPTRACE "Creating in-memory project" END { }
 OPTRACE "Adding files" START { }
 read_verilog -library xil_defaultlib /home/drew/Documents/github/jarvis/software/blinky/blinky.gen/sources_1/bd/blinky/hdl/blinky_wrapper.v
 add_files /home/drew/Documents/github/jarvis/software/blinky/blinky.srcs/sources_1/bd/blinky/blinky.bd
+set_property is_enabled false [get_files -all /home/drew/Documents/github/jarvis/software/blinky/blinky.gen/sources_1/bd/blinky/ip/blinky_axi_gpio_0_0/blinky_axi_gpio_0_0_board.xdc]
 set_property used_in_implementation false [get_files -all /home/drew/Documents/github/jarvis/software/blinky/blinky.gen/sources_1/bd/blinky/ip/blinky_processing_system7_0_0/blinky_processing_system7_0_0.xdc]
-set_property used_in_implementation false [get_files -all /home/drew/Documents/github/jarvis/software/blinky/blinky.gen/sources_1/bd/blinky/ip/blinky_axi_gpio_0_0/blinky_axi_gpio_0_0_board.xdc]
 set_property used_in_implementation false [get_files -all /home/drew/Documents/github/jarvis/software/blinky/blinky.gen/sources_1/bd/blinky/ip/blinky_axi_gpio_0_0/blinky_axi_gpio_0_0_ooc.xdc]
 set_property used_in_implementation false [get_files -all /home/drew/Documents/github/jarvis/software/blinky/blinky.gen/sources_1/bd/blinky/ip/blinky_axi_gpio_0_0/blinky_axi_gpio_0_0.xdc]
 set_property used_in_implementation false [get_files -all /home/drew/Documents/github/jarvis/software/blinky/blinky.gen/sources_1/bd/blinky/ip/blinky_axi_smc_0/bd_0/ip/ip_1/bd_706f_psr_aclk_0_board.xdc]

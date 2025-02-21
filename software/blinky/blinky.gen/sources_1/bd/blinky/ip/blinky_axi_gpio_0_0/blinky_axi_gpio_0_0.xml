@@ -979,7 +979,7 @@ Each I/O pin of the AXI GPIO is individually programmable as an input or output 
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Fri Feb 14 01:45:30 UTC 2025</spirit:value>
+            <spirit:value>Thu Feb 20 16:25:23 UTC 2025</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
@@ -997,7 +997,7 @@ Each I/O pin of the AXI GPIO is individually programmable as an input or output 
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Fri Feb 14 01:43:47 UTC 2025</spirit:value>
+            <spirit:value>Thu Feb 20 16:24:24 UTC 2025</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
@@ -1037,7 +1037,7 @@ Each I/O pin of the AXI GPIO is individually programmable as an input or output 
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Fri Feb 14 01:43:47 UTC 2025</spirit:value>
+            <spirit:value>Thu Feb 20 16:24:24 UTC 2025</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
@@ -1057,7 +1057,7 @@ Each I/O pin of the AXI GPIO is individually programmable as an input or output 
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Fri Feb 14 01:43:47 UTC 2025</spirit:value>
+            <spirit:value>Thu Feb 20 16:24:24 UTC 2025</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
@@ -1086,7 +1086,7 @@ Each I/O pin of the AXI GPIO is individually programmable as an input or output 
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Fri Feb 14 01:43:47 UTC 2025</spirit:value>
+            <spirit:value>Thu Feb 20 16:24:24 UTC 2025</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
@@ -1106,7 +1106,7 @@ Each I/O pin of the AXI GPIO is individually programmable as an input or output 
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Fri Feb 14 01:43:47 UTC 2025</spirit:value>
+            <spirit:value>Thu Feb 20 16:24:24 UTC 2025</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
@@ -1674,13 +1674,12 @@ Each I/O pin of the AXI GPIO is individually programmable as an input or output 
   </spirit:model>
   <spirit:choices>
     <spirit:choice>
-      <spirit:name>choice_list_7ac0e025</spirit:name>
+      <spirit:name>choice_list_1d7b0cfc</spirit:name>
       <spirit:enumeration>Custom</spirit:enumeration>
       <spirit:enumeration>btns_4bits</spirit:enumeration>
-      <spirit:enumeration>hdmi_in_hpd_led</spirit:enumeration>
-      <spirit:enumeration>hdmi_out_hpd_led</spirit:enumeration>
+      <spirit:enumeration>hdmi_hpd</spirit:enumeration>
+      <spirit:enumeration>hdmi_out_en</spirit:enumeration>
       <spirit:enumeration>leds_4bits</spirit:enumeration>
-      <spirit:enumeration>rgb_led</spirit:enumeration>
       <spirit:enumeration>sws_4bits</spirit:enumeration>
     </spirit:choice>
     <spirit:choice>
@@ -2021,7 +2020,7 @@ Each I/O pin of the AXI GPIO is individually programmable as an input or output 
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>GPIO_BOARD_INTERFACE</spirit:name>
-      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.GPIO_BOARD_INTERFACE" spirit:choiceRef="choice_list_7ac0e025" spirit:order="14">leds_4bits</spirit:value>
+      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.GPIO_BOARD_INTERFACE" spirit:choiceRef="choice_list_1d7b0cfc" spirit:order="14">leds_4bits</spirit:value>
       <spirit:vendorExtensions>
         <xilinx:parameterInfo>
           <xilinx:enablement>
@@ -2032,7 +2031,7 @@ Each I/O pin of the AXI GPIO is individually programmable as an input or output 
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>GPIO2_BOARD_INTERFACE</spirit:name>
-      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.GPIO2_BOARD_INTERFACE" spirit:choiceRef="choice_list_7ac0e025" spirit:order="15">Custom</spirit:value>
+      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.GPIO2_BOARD_INTERFACE" spirit:choiceRef="choice_list_1d7b0cfc" spirit:order="15">Custom</spirit:value>
       <spirit:vendorExtensions>
         <xilinx:parameterInfo>
           <xilinx:enablement>

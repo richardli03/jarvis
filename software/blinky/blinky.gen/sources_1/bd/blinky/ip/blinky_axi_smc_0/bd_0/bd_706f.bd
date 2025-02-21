@@ -515,7 +515,7 @@
                 "value": "READ_WRITE"
               },
               "SEG000_BASE_ADDR": {
-                "value": "0x0000000041200000"
+                "value": "0x0000000042000000"
               },
               "SEG000_SECURE_READ": {
                 "value": "0"

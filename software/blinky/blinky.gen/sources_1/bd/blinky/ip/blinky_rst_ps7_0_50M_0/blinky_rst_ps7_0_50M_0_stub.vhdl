@@ -2,10 +2,10 @@
 -- Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2024.2 (lin64) Build 5239630 Fri Nov 08 22:34:34 MST 2024
--- Date        : Thu Feb 13 20:45:30 2025
--- Host        : beep-box running 64-bit Ubuntu 22.04.5 LTS
+-- Date        : Thu Feb 20 11:25:22 2025
+-- Host        : noname running 64-bit Ubuntu 22.04.4 LTS
 -- Command     : write_vhdl -force -mode synth_stub
---               /home/richard/code/jarvis/software/blinky/blinky.gen/sources_1/bd/blinky/ip/blinky_rst_ps7_0_50M_0/blinky_rst_ps7_0_50M_0_stub.vhdl
+--               /home/drew/Documents/github/jarvis/software/blinky/blinky.gen/sources_1/bd/blinky/ip/blinky_rst_ps7_0_50M_0/blinky_rst_ps7_0_50M_0_stub.vhdl
 -- Design      : blinky_rst_ps7_0_50M_0
 -- Purpose     : Stub declaration of top-level module interface
 -- Device      : xc7z010clg400-1

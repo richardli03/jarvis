@@ -124,7 +124,6 @@ XGpio Gpio; /* The Instance of the GPIO Driver */
 ******************************************************************************/
 int main(void)
 {
-    xil_printf("im sad :( \n");
 	int Status;
 	volatile int Delay;
 
@@ -148,7 +147,6 @@ int main(void)
 		/* Set the LED to High */
 		XGpio_DiscreteWrite(&Gpio, LED_CHANNEL, LED);
 
-        xil_printf("im sad :( \n");
 		/* Wait a small amount of time so the LED is visible */
 		for (Delay = 0; Delay < LED_DELAY; Delay++);
 

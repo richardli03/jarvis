@@ -1,4 +1,0 @@
-domain_path: /home/richard/code/jarvis/software/blinky/blink2/zynq_fsbl/zynq_fsbl_bsp
-app_src_dir: /home/richard/embedded/Vitis/2024.2/data/embeddedsw/lib/sw_apps/zynq_fsbl
-template: zynq_fsbl
-lang: c

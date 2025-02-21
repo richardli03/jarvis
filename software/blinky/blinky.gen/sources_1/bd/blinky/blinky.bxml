@@ -2,10 +2,10 @@
 <Root MajorVersion="0" MinorVersion="43">
   <CompositeFile CompositeFileTopName="blinky" CanBeSetAsTop="false" CanDisplayChildGraph="true">
     <Description>Composite Fileset</Description>
-    <Generation Name="SYNTHESIS" State="GENERATED" Timestamp="1739501232"/>
-    <Generation Name="SIMULATION" State="GENERATED" Timestamp="1739501232"/>
-    <Generation Name="IMPLEMENTATION" State="GENERATED" Timestamp="1739501232"/>
-    <Generation Name="HW_HANDOFF" State="GENERATED" Timestamp="1739501232"/>
+    <Generation Name="SYNTHESIS" State="GENERATED" Timestamp="1740082988"/>
+    <Generation Name="SIMULATION" State="GENERATED" Timestamp="1740082988"/>
+    <Generation Name="IMPLEMENTATION" State="GENERATED" Timestamp="1740082988"/>
+    <Generation Name="HW_HANDOFF" State="GENERATED" Timestamp="1740082988"/>
     <FileCollection Name="SOURCES" Type="SOURCES">
       <File Name="synth/blinky.v" Type="Verilog">
         <Properties IsEditable="false" IsVisible="true" IsNetlistSimulation="false" Timestamp="0" IsTrackable="false" IsStatusTracked="false"/>
@@ -42,12 +42,6 @@
         <UsedIn Val="OUT_OF_CONTEXT"/>
         <ProcessingOrder Val="NORMAL"/>
       </File>
-      <File Name="sim/blinky.protoinst">
-        <Properties IsEditable="false" IsVisible="true" IsNetlistSimulation="false" Timestamp="0" IsTrackable="false" IsStatusTracked="false"/>
-        <Library Name="xil_defaultlib"/>
-        <UsedIn Val="SIMULATION"/>
-        <ProcessingOrder Val="NORMAL"/>
-      </File>
       <File Name="hw_handoff/blinky.hwh" Type="HwHandoff">
         <Properties IsEditable="false" IsVisible="true" IsNetlistSimulation="false" Timestamp="0" IsTrackable="false" IsStatusTracked="false"/>
         <Library Name="xil_defaultlib"/>
@@ -64,6 +58,12 @@
         <Properties IsEditable="false" IsVisible="true" IsNetlistSimulation="false" Timestamp="0" IsTrackable="false" IsStatusTracked="false"/>
         <Library Name="xil_defaultlib"/>
         <UsedIn Val="HW_HANDOFF"/>
+        <ProcessingOrder Val="NORMAL"/>
+      </File>
+      <File Name="sim/blinky.protoinst">
+        <Properties IsEditable="false" IsVisible="true" IsNetlistSimulation="false" Timestamp="0" IsTrackable="false" IsStatusTracked="false"/>
+        <Library Name="xil_defaultlib"/>
+        <UsedIn Val="SIMULATION"/>
         <ProcessingOrder Val="NORMAL"/>
       </File>
     </FileCollection>

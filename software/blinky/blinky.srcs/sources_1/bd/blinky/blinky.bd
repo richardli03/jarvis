@@ -1,7 +1,7 @@
 {
   "design": {
     "design_info": {
-      "boundary_crc": "0xCFCA091D4AD41FA7",
+      "boundary_crc": "0xCFCA091D687AB6D5",
       "device": "xc7z010clg400-1",
       "gen_directory": "../../../../blinky.gen/sources_1/bd/blinky",
       "name": "blinky",
@@ -1455,9 +1455,9 @@
       "processing_system7_0_FCLK_CLK0": {
         "ports": [
           "processing_system7_0/FCLK_CLK0",
-          "processing_system7_0/M_AXI_GP0_ACLK",
-          "axi_smc/aclk",
           "axi_gpio_0/s_axi_aclk",
+          "axi_smc/aclk",
+          "processing_system7_0/M_AXI_GP0_ACLK",
           "rst_ps7_0_50M/slowest_sync_clk"
         ]
       },
@@ -1482,7 +1482,7 @@
             "segments": {
               "SEG_axi_gpio_0_Reg": {
                 "address_block": "/axi_gpio_0/S_AXI/Reg",
-                "offset": "0x41200000",
+                "offset": "0x42000000",
                 "range": "64K"
               }
             }

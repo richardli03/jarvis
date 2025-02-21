@@ -2,8 +2,8 @@
 //Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2024.2 (lin64) Build 5239630 Fri Nov 08 22:34:34 MST 2024
-//Date        : Thu Feb 13 21:31:35 2025
-//Host        : beep-box running 64-bit Ubuntu 22.04.5 LTS
+//Date        : Thu Feb 20 15:22:49 2025
+//Host        : noname running 64-bit Ubuntu 22.04.4 LTS
 //Command     : generate_target blinky_wrapper.bd
 //Design      : blinky_wrapper
 //Purpose     : IP block netlist
@@ -32,7 +32,10 @@ module blinky_wrapper
     FIXED_IO_ps_clk,
     FIXED_IO_ps_porb,
     FIXED_IO_ps_srstb,
-    leds_4bits_tri_o);
+    leds_4bits_tri_o, 
+    out_test_high,
+    clk
+    );
   inout [14:0]DDR_addr;
   inout [2:0]DDR_ba;
   inout DDR_cas_n;
@@ -55,6 +58,8 @@ module blinky_wrapper
   inout FIXED_IO_ps_porb;
   inout FIXED_IO_ps_srstb;
   output [3:0]leds_4bits_tri_o;
+  output out_test_high;
+  input clk;
 
   wire [14:0]DDR_addr;
   wire [2:0]DDR_ba;
@@ -78,6 +83,18 @@ module blinky_wrapper
   wire FIXED_IO_ps_porb;
   wire FIXED_IO_ps_srstb;
   wire [3:0]leds_4bits_tri_o;
+  reg out_test_high = 1'b0;
+
+  reg [23:0] blinky_counter = 24'b0; 
+
+  always @(posedge clk) begin
+    if (blinky_counter > 24'hFFFFF) begin
+        out_test_high <= out_test_high ^ 1'b1;
+        blinky_counter <= 24'b0;
+    end else begin
+        blinky_counter <= blinky_counter + 1;
+    end
+  end
 
   blinky blinky_i
        (.DDR_addr(DDR_addr),

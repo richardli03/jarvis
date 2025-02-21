@@ -2,8 +2,8 @@
 //Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2024.2 (lin64) Build 5239630 Fri Nov 08 22:34:34 MST 2024
-//Date        : Thu Feb 13 21:31:35 2025
-//Host        : beep-box running 64-bit Ubuntu 22.04.5 LTS
+//Date        : Thu Feb 20 11:24:08 2025
+//Host        : noname running 64-bit Ubuntu 22.04.4 LTS
 //Command     : generate_target blinky.bd
 //Design      : blinky
 //Purpose     : IP block netlist

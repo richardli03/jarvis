@@ -1,7 +1,7 @@
 {
   "name": "xgpio_example",
   "type": "HOST",
-  "platform": "blink2",
+  "platform": "platform",
   "domain": "standalone_ps7_cortexa9_0",
   "cpuInstance": "ps7_cortexa9_0",
   "cpuType": "cortex-a9",
