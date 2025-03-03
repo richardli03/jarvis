@@ -45,7 +45,8 @@ include hdl/components.mk
 	@echo "________________________________________________"
 	SYNTH_HDL_SRCS="${$*_SRCS}" FPGA_PART_NO=${FPGA_PART_NO} XDC_FILE="${$*_XDC}" SYNTH_TOP_MODULE="$*" ${VIVADO} ../scripts/synthesis_place_route.tcl
 	mv vivado.log log/vivado_$*.log
-	mv vivado.jou log/vivado_$*.jou 
+	mv vivado.jou log/vivado_$*.jou
+	mv clockInfo.txt log/clock_info_$*.txt
 
 # Program a bitstream
 %.program:
