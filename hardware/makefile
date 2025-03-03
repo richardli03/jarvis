@@ -1,5 +1,8 @@
 # Tools
 VIVADO=vivado -mode batch -source
+VENV_NAME=jarvis_venv
+PYTHON=../${VENV_NAME}/bin/python
+SURFER=surfer
 
 # Available bitstreams; used for .PHONY
 BITSTREAMS=flip_flop.bit
@@ -18,7 +21,7 @@ FPGA_PART_NO=${ZYBO_PART_NO}
 
 # Test all modules with cocotb
 test_all:
-	python3 -m pytest -v -o log_cli=True verif/py/
+	${PYTHON} -m pytest -v -o log_cli=True hardware/verif/py/
 
 # Clean temporary files
 clean:
@@ -31,8 +34,14 @@ include hdl/components.mk
 # any target
 .SECONDEXPANSION:
 
-%.test: $${%_TOP}
-	echo ${$*_TOP}
+# Test a module
+%.test:
+	${PYTHON} -m pytest -v -o log_cli=True hardware/verif/py/$*
+
+# Test and display waveforms for a module #TODO: Add config directory for waveforms
+%.waves:
+	${PYTHON} -m pytest -v -o log_cli=True hardware/verif/py/$*
+	${SURFER} waves/$*.fst
 
 # Generate a bitstream
 %.bit: ../scripts/synthesis_place_route.tcl $${%_TOP} $${_XDC} $${%_SRCS} $${%_DEPS}
