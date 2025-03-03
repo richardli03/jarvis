@@ -25,9 +25,7 @@ if {![info exists ::env(SYNTH_TOP_MODULE)]} {
 
 # Create directories
 file mkdir bit/
-file mkdir synth_log/
-file mkdir backup_log/
-file mkdir vivado_log/
+file mkdir log/
 
 # Read verilog and xdc into Vivado
 puts "Synthesizing for $::env(FPGA_PART_NO) with xdc $::env(XDC_FILE) and sources $::env(SYNTH_HDL_SRCS)"
@@ -36,16 +34,16 @@ read_xdc $::env(XDC_FILE)
 
 # Synthesize and optimize
 synth_design -top $::env(SYNTH_TOP_MODULE) -part $::env(FPGA_PART_NO)
-report_drc -file synth_log/drc.log -verbose
+report_drc -file log/drc.log -verbose
 write_checkpoint -force checkpoints/synthesis.checkpoint
 opt_design
 # power_opt_design # Not needed for now
 
 # Reports
-report_timing_summary -file synth_log/timing_summary.log
-report_timing -sort_by group -max_paths 100 -path_type summary -file synth_log/timing.log -verbose
-report_utilization -file synth_log/utilization.log -verbose
-report_utilization -hierarchical -file synth_log/utilization_by_module.log -verbose
+report_timing_summary -file log/timing_summary.log
+report_timing -sort_by group -max_paths 100 -path_type summary -file log/timing.log -verbose
+report_utilization -file log/utilization.log -verbose
+report_utilization -hierarchical -file log/utilization_by_module.log -verbose
 
 # Place and route
 place_design
@@ -54,7 +52,7 @@ write_checkpoint -force checkpoints/place.checkpoint
 route_design
 write_checkpoint -force checkpoints/route.checkpoint
 
-report_clocks -file synth_log/clocks.log
+report_clocks -file log/clocks.log
 
 # Write bitstream
 write_bitstream -force ./bit/$::env(SYNTH_TOP_MODULE)_$::env(FPGA_PART_NO).bit
