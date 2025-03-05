@@ -6,10 +6,9 @@ Then, run `vitis -s build.py` in the terminal.
 """
 
 import vitis
-import xdsb
 
 CREATE_APP_COMPONENT = False
-CREATE_PLATFORM_COMPONENT = False
+CREATE_PLATFORM_COMPONENT = True
 
 
 def main():
@@ -18,7 +17,7 @@ def main():
     client.set_workspace("blinky_4")
 
     print(f"Current workspace: {client.get_workspace()}")
-    PLATFORM_NAME = "platform"
+    PLATFORM_NAME = "xgpio_example"
 
     if CREATE_PLATFORM_COMPONENT:
         platform_obj = client.create_platform_component(
@@ -42,7 +41,7 @@ def main():
             name=APP_COMP_NAME,
             platform=platform_xpfm,
             domain="standalone_ps7_cortexa9_0",
-            template=None,
+            template="xgpio_example",
         )
     else:
         application_component = client.get_component(
@@ -56,12 +55,9 @@ def main():
 
 
 def flash():
-    jtag = xdsb.jtag.Jtag()
-
-    jtag.claim()
-    jtag.open()
+    print("LOL")
 
 
 if __name__ == "__main__":
     main()
-    flash
+    flash()
