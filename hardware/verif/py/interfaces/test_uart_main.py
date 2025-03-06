@@ -54,12 +54,13 @@ async def uart_main_random_read(dut, buffer_width: int = None):
         )
 
     # assert read data and read valid
-    assert read_data == dut.read_data.value
+    assert dut.read_data.value == read_data
+    # assert dut.read_valid.value == 1 #TODO: fix
 
     # idle and cooldown
     dut.rx.value = 1
     await ClockCycles(signal=dut.clk, num_cycles=5)
 
 
-def test_spi_main():
+def test_uart_main():
     hardware.verif.py.cocotb_runner.run_cocotb(top="uart_main", deps=[])
