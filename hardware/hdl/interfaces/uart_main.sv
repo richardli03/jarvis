@@ -35,7 +35,7 @@ module uart_main (
   localparam BUFFER_COUNTER_BITS = $clog2(BUFFER_WIDTH);
   localparam CLK_CYCLES_PER_BIT = CLK_FREQ / BAUD_RATE;
   localparam CLK_CYCLE_COUNTER_BITS = $clog2(CLK_CYCLES_PER_BIT);
-  localparam [CLK_CYCLE_COUNTER_BITS-1:0] CLK_CYCLES_TIL_SAMPLE = (CLK_CYCLE_COUNTER_BITS)'($clog2(CLK_CYCLES_PER_BIT / 2)); // determines when to sample
+  localparam [CLK_CYCLE_COUNTER_BITS-1:0] CLK_CYCLES_TIL_SAMPLE = (CLK_CYCLE_COUNTER_BITS)'(CLK_CYCLES_PER_BIT / 2); // determines when to sample
 
   // uart read states TODO: Move to package
   typedef enum logic [3:0] {
@@ -48,9 +48,9 @@ module uart_main (
 
   // internal rx state variables
   uart_rx_state_t rx_state, rx_next_state;
-  logic [BUFFER_COUNTER_BITS-1:0] rx_bit_counter;
+  logic [BUFFER_COUNTER_BITS:0] rx_bit_counter;
   logic [CLK_CYCLE_COUNTER_BITS-1:0] rx_clk_counter;
-  logic uart_clk, sample_clk, rx_shift_en, rx_bit_counter_rst_n, rx_clk_counter_rst_n;
+  logic rx_shift_en, rx_bit_counter_rst_n, rx_clk_counter_rst_n;
 
   // rx current state logic
   always_ff @( posedge clk ) begin : _rx_current_state_logic
@@ -61,71 +61,84 @@ module uart_main (
   end
 
   // rx next state logic
-  always_ff @( posedge uart_clk ) begin : _rx_next_state_logic
+  always_comb begin : _rx_next_state_logic
     unique case (rx_state)
       RESET:
-        rx_next_state <= IDLE;
+        rx_next_state = IDLE;
       IDLE:
         if (!rx)
-          rx_next_state <= START;
+          rx_next_state = START;
         else
-          rx_next_state <= IDLE;
+          rx_next_state = IDLE;
       START:
-        rx_next_state <= READ;
+        if (rx_clk_counter == '0)
+          rx_next_state = READ;
+        else
+          rx_next_state = START;
       READ:
         if (rx_bit_counter  == '0)
-          rx_next_state <= IDLE;
+          rx_next_state = IDLE;
         else
-          rx_next_state <= READ;
+          rx_next_state = READ;
       ERROR:
-        rx_next_state <= ERROR;
+        rx_next_state = ERROR;
       default:
-        rx_next_state <= ERROR; // catch glitches
+        rx_next_state = ERROR; // catch glitches
     endcase
   end
 
   // rx fsm outputs
   always_comb begin : _rx_fsm_outputs
     unique case (rx_state)
-      RESET, ERROR: {rx_shift_en, rx_clk_counter_rst_n, read_valid} = 3'b000;
-      START: {rx_shift_en, rx_clk_counter_rst_n, read_valid} = 3'b010;
-      IDLE: {rx_shift_en, rx_clk_counter_rst_n, read_valid} = 3'b001;
-      READ: {rx_shift_en, rx_clk_counter_rst_n, read_valid} = 3'b100;
-      default: {rx_shift_en, rx_clk_counter_rst_n, read_valid} = 3'b000;
+      RESET, ERROR: begin
+        {rx_clk_counter_rst_n, rx_bit_counter_rst_n} = 2'b00;
+        {rx_shift_en, read_valid} = 2'b00;
+      end
+      IDLE: begin
+        {rx_shift_en, read_valid} = 2'b01;
+        {rx_clk_counter_rst_n, rx_bit_counter_rst_n} = 2'b00;
+      end
+      START: begin
+        {rx_shift_en, read_valid} = 2'b00;
+        {rx_clk_counter_rst_n, rx_bit_counter_rst_n} = 2'b10;
+      end
+      READ: begin
+        {rx_shift_en, read_valid} = 2'b10;
+        {rx_clk_counter_rst_n, rx_bit_counter_rst_n} = 2'b11;
+      end
+      default: begin 
+        {rx_shift_en, read_valid} = 2'b00;
+        {rx_clk_counter_rst_n, rx_bit_counter_rst_n} = 2'b00;
+      end
     endcase
   end
 
   // rx shift register
-  always_ff @( posedge sample_clk ) begin : _rx_shift_register
+  always_ff @( posedge clk ) begin : _rx_shift_register
     if (!rst_n)
       read_data <= '0;
-    else if (rx_shift_en)
+    else if (rx_shift_en & rx_clk_counter == CLK_CYCLES_TIL_SAMPLE)
       read_data <= {rx, read_data[BUFFER_WIDTH-1:1]}; // lsb first
     else
       read_data <= read_data;
   end
 
   // rx bit counter
-  always_ff @( posedge sample_clk ) begin : _rx_bit_counter
+  always_ff @( posedge clk ) begin : _rx_bit_counter
     if (!rx_bit_counter_rst_n)
-      rx_bit_counter <= '1;
-    if (rx_bit_counter == '0)
-      rx_bit_counter <= '1;
-    else
+      rx_bit_counter <= (BUFFER_COUNTER_BITS + 1)'(BUFFER_WIDTH);
+    else if (rx_bit_counter == '0)
+      rx_bit_counter <= (BUFFER_COUNTER_BITS + 1)'(BUFFER_WIDTH);
+    else if (rx_clk_counter == CLK_CYCLES_TIL_SAMPLE)
       rx_bit_counter <= rx_bit_counter - 1;
   end
 
   // rx clock cycle counter
   always_ff @( posedge clk ) begin : _rx_clock_cycle_counter
     if (!rx_clk_counter_rst_n) begin
-      rx_clk_counter <= '1;
-      uart_clk <= 0;
-      sample_clk <= 0;
+      rx_clk_counter <= CLK_CYCLE_COUNTER_BITS'(CLK_CYCLES_PER_BIT - 1);
     end else if (rx_clk_counter == '0) begin
-      rx_clk_counter <= '1;
-      uart_clk <= uart_clk ^ 1'b1;
-    end else if (rx_clk_counter == CLK_CYCLES_TIL_SAMPLE) begin
-      sample_clk <= sample_clk ^ 1'b1;
+      rx_clk_counter <= CLK_CYCLE_COUNTER_BITS'(CLK_CYCLES_PER_BIT - 1);
     end else begin
       rx_clk_counter <= rx_clk_counter - 1;
     end
