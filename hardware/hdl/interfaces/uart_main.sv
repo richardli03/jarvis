@@ -235,10 +235,14 @@ module uart_main (
   // tx shift register
   always_ff @( posedge clk ) begin : _tx_shift_register
     if (!rst_n)
+      tx <= '1;
+    if (tx_state == TX_START)
       tx <= '0;
-    else if (tx_shift_en & tx_clk_counter == CLK_CYCLES_TIL_SAMPLE)
+    else if (tx_shift_en)
       tx <= write_data[BUFFER_WIDTH - tx_bit_counter]; // lsb first
-  end
+    else
+      tx <= '1;
+  end // TODO: TX not driving at end of TX
 
   // tx bit counter
   always_ff @( posedge clk ) begin : _tx_bit_counter
@@ -246,7 +250,7 @@ module uart_main (
       tx_bit_counter <= (BUFFER_COUNTER_BITS + 1)'(BUFFER_WIDTH);
     else if (tx_bit_counter == '0)
       tx_bit_counter <= (BUFFER_COUNTER_BITS + 1)'(BUFFER_WIDTH);
-    else if (tx_clk_counter == CLK_CYCLES_TIL_SAMPLE)
+    else if (tx_clk_counter == '0)
       tx_bit_counter <= tx_bit_counter - 1;
   end
 
