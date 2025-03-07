@@ -168,113 +168,75 @@
                     unfolded: true,
                     selected: false,
                 ),
+                (
+                    item_ref: (26),
+                    level: 1,
+                    unfolded: true,
+                    selected: false,
+                ),
+                (
+                    item_ref: (34),
+                    level: 0,
+                    unfolded: true,
+                    selected: false,
+                ),
+                (
+                    item_ref: (27),
+                    level: 1,
+                    unfolded: true,
+                    selected: false,
+                ),
+                (
+                    item_ref: (28),
+                    level: 1,
+                    unfolded: true,
+                    selected: false,
+                ),
+                (
+                    item_ref: (35),
+                    level: 0,
+                    unfolded: true,
+                    selected: false,
+                ),
+                (
+                    item_ref: (29),
+                    level: 1,
+                    unfolded: true,
+                    selected: false,
+                ),
+                (
+                    item_ref: (30),
+                    level: 1,
+                    unfolded: true,
+                    selected: false,
+                ),
+                (
+                    item_ref: (31),
+                    level: 1,
+                    unfolded: true,
+                    selected: false,
+                ),
+                (
+                    item_ref: (32),
+                    level: 1,
+                    unfolded: true,
+                    selected: false,
+                ),
             ],
         ),
         displayed_items: {
-            (22): Group((
-                name: "receive",
-                color: Some("Gray"),
-                background_color: Some("Gray"),
-                content: [],
-                is_open: false,
-            )),
-            (16): Variable((
+            (19): Variable((
                 variable_ref: (
                     path: (
                         strs: [
                             "uart_main",
                         ],
                     ),
-                    name: "tx",
+                    name: "write_ready",
                 ),
                 color: None,
                 background_color: None,
-                display_name: "tx",
-                display_name_type: Unique,
-                manual_name: None,
-                format: None,
-                field_formats: [],
-            )),
-            (13): Variable((
-                variable_ref: (
-                    path: (
-                        strs: [
-                            "uart_main",
-                        ],
-                    ),
-                    name: "rx_shift_en",
-                ),
-                color: None,
-                background_color: None,
-                display_name: "rx_shift_en",
-                display_name_type: Unique,
-                manual_name: None,
-                format: None,
-                field_formats: [],
-            )),
-            (12): Variable((
-                variable_ref: (
-                    path: (
-                        strs: [
-                            "uart_main",
-                        ],
-                    ),
-                    name: "rx_next_state",
-                ),
-                color: None,
-                background_color: None,
-                display_name: "rx_next_state [3:0]",
-                display_name_type: Unique,
-                manual_name: None,
-                format: None,
-                field_formats: [],
-            )),
-            (17): Variable((
-                variable_ref: (
-                    path: (
-                        strs: [
-                            "uart_main",
-                        ],
-                    ),
-                    name: "uart_clk",
-                ),
-                color: None,
-                background_color: None,
-                display_name: "uart_clk",
-                display_name_type: Unique,
-                manual_name: None,
-                format: None,
-                field_formats: [],
-            )),
-            (4): Variable((
-                variable_ref: (
-                    path: (
-                        strs: [
-                            "uart_main",
-                        ],
-                    ),
-                    name: "read_ready",
-                ),
-                color: None,
-                background_color: None,
-                display_name: "read_ready",
-                display_name_type: Unique,
-                manual_name: None,
-                format: None,
-                field_formats: [],
-            )),
-            (3): Variable((
-                variable_ref: (
-                    path: (
-                        strs: [
-                            "uart_main",
-                        ],
-                    ),
-                    name: "read_data",
-                ),
-                color: None,
-                background_color: None,
-                display_name: "read_data [7:0]",
+                display_name: "write_ready",
                 display_name_type: Unique,
                 manual_name: None,
                 format: None,
@@ -297,37 +259,6 @@
                 format: None,
                 field_formats: [],
             )),
-            (20): Variable((
-                variable_ref: (
-                    path: (
-                        strs: [
-                            "uart_main",
-                        ],
-                    ),
-                    name: "write_valid",
-                ),
-                color: None,
-                background_color: None,
-                display_name: "write_valid",
-                display_name_type: Unique,
-                manual_name: None,
-                format: None,
-                field_formats: [],
-            )),
-            (23): Group((
-                name: "transmit",
-                color: Some("Gray"),
-                background_color: Some("Gray"),
-                content: [],
-                is_open: false,
-            )),
-            (24): Group((
-                name: "receive_counters",
-                color: Some("Gray"),
-                background_color: Some("Gray"),
-                content: [],
-                is_open: false,
-            )),
             (10): Variable((
                 variable_ref: (
                     path: (
@@ -345,6 +276,149 @@
                 format: None,
                 field_formats: [],
             )),
+            (30): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "uart_main",
+                        ],
+                    ),
+                    name: "tx_bit_counter_rst_n",
+                ),
+                color: None,
+                background_color: None,
+                display_name: "tx_bit_counter_rst_n",
+                display_name_type: Unique,
+                manual_name: None,
+                format: None,
+                field_formats: [],
+            )),
+            (1): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "uart_main",
+                        ],
+                    ),
+                    name: "clk",
+                ),
+                color: None,
+                background_color: None,
+                display_name: "clk",
+                display_name_type: Unique,
+                manual_name: None,
+                format: None,
+                field_formats: [],
+            )),
+            (11): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "uart_main",
+                        ],
+                    ),
+                    name: "rx_clk_counter_rst_n",
+                ),
+                color: None,
+                background_color: None,
+                display_name: "rx_clk_counter_rst_n",
+                display_name_type: Unique,
+                manual_name: None,
+                format: None,
+                field_formats: [],
+            )),
+            (16): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "uart_main",
+                        ],
+                    ),
+                    name: "tx",
+                ),
+                color: None,
+                background_color: None,
+                display_name: "tx",
+                display_name_type: Unique,
+                manual_name: None,
+                format: None,
+                field_formats: [],
+            )),
+            (7): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "uart_main",
+                        ],
+                    ),
+                    name: "rx",
+                ),
+                color: None,
+                background_color: None,
+                display_name: "rx",
+                display_name_type: Unique,
+                manual_name: None,
+                format: None,
+                field_formats: [],
+            )),
+            (35): Group((
+                name: "transmit_counters",
+                color: Some("Gray"),
+                background_color: Some("Gray"),
+                content: [],
+                is_open: false,
+            )),
+            (2): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "uart_main",
+                        ],
+                    ),
+                    name: "mode",
+                ),
+                color: None,
+                background_color: None,
+                display_name: "mode",
+                display_name_type: Unique,
+                manual_name: None,
+                format: None,
+                field_formats: [],
+            )),
+            (27): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "uart_main",
+                        ],
+                    ),
+                    name: "tx_state",
+                ),
+                color: None,
+                background_color: None,
+                display_name: "tx_state [3:0]",
+                display_name_type: Unique,
+                manual_name: None,
+                format: None,
+                field_formats: [],
+            )),
+            (12): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "uart_main",
+                        ],
+                    ),
+                    name: "rx_next_state",
+                ),
+                color: None,
+                background_color: None,
+                display_name: "rx_next_state [3:0]",
+                display_name_type: Unique,
+                manual_name: None,
+                format: None,
+                field_formats: [],
+            )),
             (8): Variable((
                 variable_ref: (
                     path: (
@@ -356,7 +430,41 @@
                 ),
                 color: None,
                 background_color: None,
-                display_name: "rx_bit_counter [2:0]",
+                display_name: "rx_bit_counter [3:0]",
+                display_name_type: Unique,
+                manual_name: None,
+                format: None,
+                field_formats: [],
+            )),
+            (20): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "uart_main",
+                        ],
+                    ),
+                    name: "write_valid",
+                ),
+                color: None,
+                background_color: None,
+                display_name: "write_valid",
+                display_name_type: Unique,
+                manual_name: None,
+                format: None,
+                field_formats: [],
+            )),
+            (31): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "uart_main",
+                        ],
+                    ),
+                    name: "tx_clk_counter",
+                ),
+                color: None,
+                background_color: None,
+                display_name: "tx_clk_counter [6:0]",
                 display_name_type: Unique,
                 manual_name: None,
                 format: None,
@@ -379,9 +487,180 @@
                 format: None,
                 field_formats: [],
             )),
+            (28): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "uart_main",
+                        ],
+                    ),
+                    name: "tx_next_state",
+                ),
+                color: None,
+                background_color: None,
+                display_name: "tx_next_state [3:0]",
+                display_name_type: Unique,
+                manual_name: None,
+                format: None,
+                field_formats: [],
+            )),
+            (5): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "uart_main",
+                        ],
+                    ),
+                    name: "read_valid",
+                ),
+                color: None,
+                background_color: None,
+                display_name: "read_valid",
+                display_name_type: Unique,
+                manual_name: None,
+                format: None,
+                field_formats: [],
+            )),
+            (13): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "uart_main",
+                        ],
+                    ),
+                    name: "rx_shift_en",
+                ),
+                color: None,
+                background_color: None,
+                display_name: "rx_shift_en",
+                display_name_type: Unique,
+                manual_name: None,
+                format: None,
+                field_formats: [],
+            )),
+            (26): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "uart_main",
+                        ],
+                    ),
+                    name: "tx_shift_en",
+                ),
+                color: None,
+                background_color: None,
+                display_name: "tx_shift_en",
+                display_name_type: Unique,
+                manual_name: None,
+                format: None,
+                field_formats: [],
+            )),
+            (21): Group((
+                name: "receive",
+                color: None,
+                background_color: None,
+                content: [],
+                is_open: false,
+            )),
+            (4): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "uart_main",
+                        ],
+                    ),
+                    name: "read_ready",
+                ),
+                color: None,
+                background_color: None,
+                display_name: "read_ready",
+                display_name_type: Unique,
+                manual_name: None,
+                format: None,
+                field_formats: [],
+            )),
+            (29): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "uart_main",
+                        ],
+                    ),
+                    name: "tx_bit_counter",
+                ),
+                color: None,
+                background_color: None,
+                display_name: "tx_bit_counter [3:0]",
+                display_name_type: Unique,
+                manual_name: None,
+                format: None,
+                field_formats: [],
+            )),
+            (3): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "uart_main",
+                        ],
+                    ),
+                    name: "read_data",
+                ),
+                color: None,
+                background_color: None,
+                display_name: "read_data [7:0]",
+                display_name_type: Unique,
+                manual_name: None,
+                format: None,
+                field_formats: [],
+            )),
+            (22): Group((
+                name: "receive",
+                color: Some("Gray"),
+                background_color: Some("Gray"),
+                content: [],
+                is_open: false,
+            )),
+            (24): Group((
+                name: "receive_counters",
+                color: Some("Gray"),
+                background_color: Some("Gray"),
+                content: [],
+                is_open: false,
+            )),
+            (34): Group((
+                name: "transmit_states",
+                color: Some("Gray"),
+                background_color: Some("Gray"),
+                content: [],
+                is_open: false,
+            )),
+            (32): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "uart_main",
+                        ],
+                    ),
+                    name: "tx_clk_counter_rst_n",
+                ),
+                color: None,
+                background_color: None,
+                display_name: "tx_clk_counter_rst_n",
+                display_name_type: Unique,
+                manual_name: None,
+                format: None,
+                field_formats: [],
+            )),
+            (23): Group((
+                name: "transmit",
+                color: Some("Gray"),
+                background_color: Some("Gray"),
+                content: [],
+                is_open: false,
+            )),
             (25): Group((
                 name: "receive_states",
-                color: None,
+                color: Some("Gray"),
                 background_color: None,
                 content: [],
                 is_open: false,
@@ -420,134 +699,8 @@
                 format: None,
                 field_formats: [],
             )),
-            (7): Variable((
-                variable_ref: (
-                    path: (
-                        strs: [
-                            "uart_main",
-                        ],
-                    ),
-                    name: "rx",
-                ),
-                color: None,
-                background_color: None,
-                display_name: "rx",
-                display_name_type: Unique,
-                manual_name: None,
-                format: None,
-                field_formats: [],
-            )),
-            (2): Variable((
-                variable_ref: (
-                    path: (
-                        strs: [
-                            "uart_main",
-                        ],
-                    ),
-                    name: "mode",
-                ),
-                color: None,
-                background_color: None,
-                display_name: "mode",
-                display_name_type: Unique,
-                manual_name: None,
-                format: None,
-                field_formats: [],
-            )),
-            (11): Variable((
-                variable_ref: (
-                    path: (
-                        strs: [
-                            "uart_main",
-                        ],
-                    ),
-                    name: "rx_clk_counter_rst_n",
-                ),
-                color: None,
-                background_color: None,
-                display_name: "rx_clk_counter_rst_n",
-                display_name_type: Unique,
-                manual_name: None,
-                format: None,
-                field_formats: [],
-            )),
-            (15): Variable((
-                variable_ref: (
-                    path: (
-                        strs: [
-                            "uart_main",
-                        ],
-                    ),
-                    name: "sample_clk",
-                ),
-                color: None,
-                background_color: None,
-                display_name: "sample_clk",
-                display_name_type: Unique,
-                manual_name: None,
-                format: None,
-                field_formats: [],
-            )),
-            (21): Group((
-                name: "receive",
-                color: None,
-                background_color: None,
-                content: [],
-                is_open: false,
-            )),
-            (19): Variable((
-                variable_ref: (
-                    path: (
-                        strs: [
-                            "uart_main",
-                        ],
-                    ),
-                    name: "write_ready",
-                ),
-                color: None,
-                background_color: None,
-                display_name: "write_ready",
-                display_name_type: Unique,
-                manual_name: None,
-                format: None,
-                field_formats: [],
-            )),
-            (1): Variable((
-                variable_ref: (
-                    path: (
-                        strs: [
-                            "uart_main",
-                        ],
-                    ),
-                    name: "clk",
-                ),
-                color: None,
-                background_color: None,
-                display_name: "clk",
-                display_name_type: Unique,
-                manual_name: None,
-                format: None,
-                field_formats: [],
-            )),
-            (5): Variable((
-                variable_ref: (
-                    path: (
-                        strs: [
-                            "uart_main",
-                        ],
-                    ),
-                    name: "read_valid",
-                ),
-                color: None,
-                background_color: None,
-                display_name: "read_valid",
-                display_name_type: Unique,
-                manual_name: None,
-                format: None,
-                field_formats: [],
-            )),
         },
-        display_item_ref_counter: 25,
+        display_item_ref_counter: 35,
         viewports: [
             (
                 curr_left: (0.0),
@@ -561,10 +714,10 @@
             ),
         ],
         cursor: Some((1, [
-            295107,
+            7173508,
         ])),
         markers: {},
-        focused_item: None,
+        focused_item: Some((28)),
         focused_transaction: (None, None),
         default_variable_name_type: Unique,
         scroll_offset: 0.0,
@@ -574,7 +727,7 @@
     drag_started: false,
     drag_source_idx: None,
     drag_target_idx: Some((
-        before: (10),
+        before: (24),
         level: 1,
     )),
     previous_waves: None,
@@ -595,6 +748,6 @@
     variable_name_filter_type: Fuzzy,
     variable_name_filter_case_insensitive: true,
     rename_target: None,
-    sidepanel_width: Some(297.96875),
+    sidepanel_width: Some(300.0),
     ui_zoom_factor: None,
 )

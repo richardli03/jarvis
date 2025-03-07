@@ -242,7 +242,7 @@ module uart_main (
       tx <= write_data[BUFFER_WIDTH - tx_bit_counter]; // lsb first
     else
       tx <= '1;
-  end // TODO: TX not driving at end of TX
+  end // TODO: TX not driving at end of TX for some write_data
 
   // tx bit counter
   always_ff @( posedge clk ) begin : _tx_bit_counter
