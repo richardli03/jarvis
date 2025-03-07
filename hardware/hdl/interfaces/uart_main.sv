@@ -61,7 +61,7 @@ module uart_main (
  * =======================================
  */
 
-  // internal rx state variables
+  // internal rx variables
   uart_rx_state_t rx_state, rx_next_state;
   logic [BUFFER_COUNTER_BITS:0] rx_bit_counter;
   logic [CLK_CYCLE_COUNTER_BITS-1:0] rx_clk_counter;
@@ -106,8 +106,8 @@ module uart_main (
   always_comb begin : _rx_fsm_outputs
     unique case (rx_state)
       RX_RESET, RX_ERROR: begin
-        {rx_clk_counter_rst_n, rx_bit_counter_rst_n} = 2'b00;
         {rx_shift_en, read_valid} = 2'b00;
+        {rx_clk_counter_rst_n, rx_bit_counter_rst_n} = 2'b00;
       end
       RX_IDLE: begin
         {rx_shift_en, read_valid} = 2'b01;
@@ -159,109 +159,107 @@ module uart_main (
     end
   end
 
-// /* 
-//  * =======================================
-//  * Transceive
-//  * =======================================
-//  */
+/* 
+ * =======================================
+ * Transceive
+ * =======================================
+ */
 
-//   // internal tx state variables
-//   uart_tx_state_t tx_state, tx_next_state;
-//   logic [BUFFER_COUNTER_BITS:0] tx_bit_counter;
-//   logic [CLK_CYCLE_COUNTER_BITS-1:0] tx_clk_counter;
-//   logic tx_shift_en, tx_bit_counter_rst_n, tx_clk_counter_rst_n;
+  // internal tx variables
+  uart_tx_state_t tx_state, tx_next_state;
+  logic [BUFFER_COUNTER_BITS:0] tx_bit_counter;
+  logic [CLK_CYCLE_COUNTER_BITS-1:0] tx_clk_counter;
+  logic tx_shift_en, tx_bit_counter_rst_n, tx_clk_counter_rst_n;
 
-//   // tx current state logic
-//   always_ff @( posedge clk ) begin : _tx_current_state_logic
-//     if (!rst_n)
-//       tx_state <= RX_RESET;
-//     else 
-//       tx_state <= tx_next_state;
-//   end
+  // tx current state logic
+  always_ff @( posedge clk ) begin : _tx_current_state_logic
+    if (!rst_n)
+      tx_state <= TX_RESET;
+    else 
+      tx_state <= tx_next_state;
+  end
 
-//   // tx next state logic
-//   always_comb begin : _tx_next_state_logic
-//     unique case (tx_state)
-//       RX_RESET:
-//         tx_next_state = RX_IDLE;
-//       RX_IDLE:
-//         if (!tx)
-//           tx_next_state = RX_START;
-//         else
-//           tx_next_state = RX_IDLE;
-//       RX_START:
-//         if (tx_clk_counter == '0)
-//           tx_next_state = RX_READ;
-//         else
-//           tx_next_state = RX_START;
-//       RX_READ:
-//         if (tx_bit_counter  == '0)
-//           tx_next_state = RX_IDLE;
-//         else
-//           tx_next_state = RX_READ;
-//       RX_ERROR:
-//         tx_next_state = RX_ERROR;
-//       default:
-//         tx_next_state = RX_ERROR; // catch glitches
-//     endcase
-//   end
+  // tx next state logic
+  always_comb begin : _tx_next_state_logic
+    unique case (tx_state)
+      TX_RESET:
+        tx_next_state = TX_IDLE;
+      TX_IDLE:
+        if (write_valid)
+          tx_next_state = TX_START;
+        else
+          tx_next_state = TX_IDLE;
+      TX_START:
+        if (tx_clk_counter == '0)
+          tx_next_state = TX_WRITE;
+        else
+          tx_next_state = TX_START;
+      TX_WRITE:
+        if (tx_bit_counter  == '0)
+          tx_next_state = TX_IDLE;
+        else
+          tx_next_state = TX_WRITE;
+      TX_ERROR:
+        tx_next_state = TX_ERROR;
+      default:
+        tx_next_state = TX_ERROR; // catch glitches
+    endcase
+  end
 
-//   // tx fsm outputs
-//   always_comb begin : _tx_fsm_outputs
-//     unique case (tx_state)
-//       RX_RESET, RX_ERROR: begin
-//         {tx_clk_counter_rst_n, tx_bit_counter_rst_n} = 2'b00;
-//         {tx_shift_en, read_valid} = 2'b00;
-//       end
-//       RX_IDLE: begin
-//         {tx_shift_en, read_valid} = 2'b01;
-//         {tx_clk_counter_rst_n, tx_bit_counter_rst_n} = 2'b00;
-//       end
-//       RX_START: begin
-//         {tx_shift_en, read_valid} = 2'b00;
-//         {tx_clk_counter_rst_n, tx_bit_counter_rst_n} = 2'b10;
-//       end
-//       RX_READ: begin
-//         {tx_shift_en, read_valid} = 2'b10;
-//         {tx_clk_counter_rst_n, tx_bit_counter_rst_n} = 2'b11;
-//       end
-//       default: begin 
-//         {tx_shift_en, read_valid} = 2'b00;
-//         {tx_clk_counter_rst_n, tx_bit_counter_rst_n} = 2'b00;
-//       end
-//     endcase
-//   end
+  // tx fsm outputs
+  always_comb begin : _tx_fsm_outputs
+    unique case (tx_state)
+      TX_RESET, TX_ERROR: begin
+        {tx_shift_en, write_ready} = 2'b00;
+        {tx_clk_counter_rst_n, tx_bit_counter_rst_n} = 2'b00;
+      end
+      TX_IDLE: begin
+        {tx_shift_en, write_ready} = 2'b01;
+        {tx_clk_counter_rst_n, tx_bit_counter_rst_n} = 2'b00;
+      end
+      TX_START: begin
+        {tx_shift_en, write_ready} = 2'b00;
+        {tx_clk_counter_rst_n, tx_bit_counter_rst_n} = 2'b10;
+      end
+      TX_WRITE: begin
+        {tx_shift_en, write_ready} = 2'b10;
+        {tx_clk_counter_rst_n, tx_bit_counter_rst_n} = 2'b11;
+      end
+      default: begin 
+        {tx_shift_en, write_ready} = 2'b00;
+        {tx_clk_counter_rst_n, tx_bit_counter_rst_n} = 2'b00;
+      end
+    endcase
+  end
 
-//   // tx shift register
-//   always_ff @( posedge clk ) begin : _tx_shift_register
-//     if (!rst_n)
-//       read_data <= '0;
-//     else if (tx_shift_en & tx_clk_counter == CLK_CYCLES_TIL_SAMPLE)
-//       read_data <= {tx, read_data[BUFFER_WIDTH-1:1]}; // lsb first
-//     else
-//       read_data <= read_data;
-//   end
+  // tx shift register
+  always_ff @( posedge clk ) begin : _tx_shift_register
+    if (!rst_n)
+      tx <= '0;
+    else if (tx_shift_en & tx_clk_counter == CLK_CYCLES_TIL_SAMPLE)
+      tx <= write_data[BUFFER_WIDTH - tx_bit_counter]; // lsb first
+  end
 
-//   // tx bit counter
-//   always_ff @( posedge clk ) begin : _tx_bit_counter
-//     if (!tx_bit_counter_rst_n)
-//       tx_bit_counter <= (BUFFER_COUNTER_BITS + 1)'(BUFFER_WIDTH);
-//     else if (tx_bit_counter == '0)
-//       tx_bit_counter <= (BUFFER_COUNTER_BITS + 1)'(BUFFER_WIDTH);
-//     else if (tx_clk_counter == CLK_CYCLES_TIL_SAMPLE)
-//       tx_bit_counter <= tx_bit_counter - 1;
-//   end
+  // tx bit counter
+  always_ff @( posedge clk ) begin : _tx_bit_counter
+    if (!tx_bit_counter_rst_n)
+      tx_bit_counter <= (BUFFER_COUNTER_BITS + 1)'(BUFFER_WIDTH);
+    else if (tx_bit_counter == '0)
+      tx_bit_counter <= (BUFFER_COUNTER_BITS + 1)'(BUFFER_WIDTH);
+    else if (tx_clk_counter == CLK_CYCLES_TIL_SAMPLE)
+      tx_bit_counter <= tx_bit_counter - 1;
+  end
 
-//   // tx clock cycle counter
-//   always_ff @( posedge clk ) begin : _tx_clock_cycle_counter
-//     if (!tx_clk_counter_rst_n) begin
-//       tx_clk_counter <= CLK_CYCLE_COUNTER_BITS'(CLK_CYCLES_PER_BIT - 1);
-//     end else if (tx_clk_counter == '0) begin
-//       tx_clk_counter <= CLK_CYCLE_COUNTER_BITS'(CLK_CYCLES_PER_BIT - 1);
-//     end else begin
-//       tx_clk_counter <= tx_clk_counter - 1;
-//     end
-//   end
+  // tx clock cycle counter
+  always_ff @( posedge clk ) begin : _tx_clock_cycle_counter
+    if (!tx_clk_counter_rst_n) begin
+      tx_clk_counter <= CLK_CYCLE_COUNTER_BITS'(CLK_CYCLES_PER_BIT - 1);
+    end else if (tx_clk_counter == '0) begin
+      tx_clk_counter <= CLK_CYCLE_COUNTER_BITS'(CLK_CYCLES_PER_BIT - 1);
+    end else begin
+      tx_clk_counter <= tx_clk_counter - 1;
+    end
+  end
 
 endmodule : uart_main
 
