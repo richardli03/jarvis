@@ -7,29 +7,30 @@ Full-duplex uart main
 `begin_keywords "1800-2017"  // Use SystemVerilog 2017 keywords
 `default_nettype none
 
-module uart_main (
-    input logic rst_n,
-    input logic clk,
-    input logic mode,   // determines read/write
+module uart_main 
+#(
+  parameter BUFFER_WIDTH = 8,  // input and ouput fifo widths
+  parameter BAUD_RATE = 115_200,
+  parameter CLK_FREQ = 12_000_000
+)
+(
+  input logic rst_n,
+  input logic clk,
+  input logic mode,   // determines read/write
 
-    // uart rx
-    input  logic rx,
-    output logic [BUFFER_WIDTH-1:0] read_data,
-    input  logic read_ready,
-    output logic read_valid,
+  // uart rx
+  input  logic rx,
+  output logic [BUFFER_WIDTH-1:0] read_data,
+  input  logic read_ready,
+  output logic read_valid,
 
-    // uart tx
-    output logic tx,
-    input  logic [BUFFER_WIDTH-1:0] write_data,
-    input  logic write_valid,
-    output logic write_ready
+  // uart tx
+  output logic tx,
+  input  logic [BUFFER_WIDTH-1:0] write_data,
+  input  logic write_valid,
+  output logic write_ready
 );
   timeunit 1ns; timeprecision 100ps;
-
-  // parameters
-  parameter BUFFER_WIDTH = 8;  // input and ouput fifo widths
-  parameter BAUD_RATE = 115_200;
-  parameter CLK_FREQ = 12_000_000;
 
   // local parameters
   localparam BUFFER_COUNTER_BITS = $clog2(BUFFER_WIDTH);
@@ -161,7 +162,7 @@ module uart_main (
 
 /* 
  * =======================================
- * Transceive
+ * Transmit
  * =======================================
  */
 
