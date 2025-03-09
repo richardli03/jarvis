@@ -67,3 +67,4 @@ sim_build/
 *.checkpoint
 *.jou
 .Xil/
+clock_info*.txt
