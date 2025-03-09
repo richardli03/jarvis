@@ -1,5 +1,5 @@
 /*
-description
+Memory-mapped AXI 3 secondary.
 
 @param A_PARAMETER
 */
@@ -8,8 +8,10 @@ description
 `default_nettype none
 
 module template (
-  input logic rst_n,
-  input logic clk
+    // global
+    input logic aclk,
+    input logic areset_n,
+
 );
   timeunit 1ns; timeprecision 100ps;
 
