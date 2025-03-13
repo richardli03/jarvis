@@ -1,0 +1,4 @@
+domain_path: /home/drew/Documents/github/jarvis/software/blinky/platform/zynq_fsbl/zynq_fsbl_bsp
+app_src_dir: /home/drew/embedded/xilinx/Vitis/2024.2/data/embeddedsw/lib/sw_apps/zynq_fsbl
+template: zynq_fsbl
+lang: c

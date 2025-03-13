@@ -3,7 +3,7 @@ set(CMAKE_HOST_SYSTEM_NAME "Linux")
 set(CMAKE_HOST_SYSTEM_VERSION "6.8.0-52-generic")
 set(CMAKE_HOST_SYSTEM_PROCESSOR "x86_64")
 
-include("/home/drew/Documents/github/jarvis/software/blinky/platform/zynq_fsbl/zynq_fsbl_bsp/cortexa9_toolchain.cmake")
+include("/home/richard/code/jarvis/software/blinky_4/platform/zynq_fsbl/zynq_fsbl_bsp/cortexa9_toolchain.cmake")
 
 set(CMAKE_SYSTEM "Generic")
 set(CMAKE_SYSTEM_NAME "Generic")

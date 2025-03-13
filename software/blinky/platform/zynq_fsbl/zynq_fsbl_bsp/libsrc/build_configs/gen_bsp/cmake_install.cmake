@@ -1,4 +1,4 @@
-# Install script for directory: /home/drew/Documents/github/jarvis/software/blinky/platform/zynq_fsbl/zynq_fsbl_bsp
+# Install script for directory: /home/richard/code/jarvis/software/blinky_4/platform/zynq_fsbl/zynq_fsbl_bsp
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -34,32 +34,32 @@ endif()
 
 # Set default install directory permissions.
 if(NOT DEFINED CMAKE_OBJDUMP)
-  set(CMAKE_OBJDUMP "/home/drew/embedded/xilinx/Vitis/2024.2/gnu/aarch32/lin/gcc-arm-none-eabi/bin/arm-none-eabi-objdump")
+  set(CMAKE_OBJDUMP "/home/richard/embedded/Vitis/2024.2/gnu/aarch32/lin/gcc-arm-none-eabi/bin/arm-none-eabi-objdump")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/drew/Documents/github/jarvis/software/blinky/platform/zynq_fsbl/zynq_fsbl_bsp/libsrc/build_configs/gen_bsp/libsrc/cmake_install.cmake")
+  include("/home/richard/code/jarvis/software/blinky_4/platform/zynq_fsbl/zynq_fsbl_bsp/libsrc/build_configs/gen_bsp/libsrc/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/drew/Documents/github/jarvis/software/blinky/platform/zynq_fsbl/zynq_fsbl_bsp/libsrc/build_configs/gen_bsp/libsrc/standalone/src/cmake_install.cmake")
+  include("/home/richard/code/jarvis/software/blinky_4/platform/zynq_fsbl/zynq_fsbl_bsp/libsrc/build_configs/gen_bsp/libsrc/standalone/src/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/drew/Documents/github/jarvis/software/blinky/platform/zynq_fsbl/zynq_fsbl_bsp/libsrc/build_configs/gen_bsp/libsrc/xiltimer/src/cmake_install.cmake")
+  include("/home/richard/code/jarvis/software/blinky_4/platform/zynq_fsbl/zynq_fsbl_bsp/libsrc/build_configs/gen_bsp/libsrc/xiltimer/src/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/drew/Documents/github/jarvis/software/blinky/platform/zynq_fsbl/zynq_fsbl_bsp/libsrc/build_configs/gen_bsp/libsrc/xilffs/src/cmake_install.cmake")
+  include("/home/richard/code/jarvis/software/blinky_4/platform/zynq_fsbl/zynq_fsbl_bsp/libsrc/build_configs/gen_bsp/libsrc/xilffs/src/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/drew/Documents/github/jarvis/software/blinky/platform/zynq_fsbl/zynq_fsbl_bsp/libsrc/build_configs/gen_bsp/libsrc/xilrsa/src/cmake_install.cmake")
+  include("/home/richard/code/jarvis/software/blinky_4/platform/zynq_fsbl/zynq_fsbl_bsp/libsrc/build_configs/gen_bsp/libsrc/xilrsa/src/cmake_install.cmake")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT)
@@ -70,5 +70,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/drew/Documents/github/jarvis/software/blinky/platform/zynq_fsbl/zynq_fsbl_bsp/libsrc/build_configs/gen_bsp/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/richard/code/jarvis/software/blinky_4/platform/zynq_fsbl/zynq_fsbl_bsp/libsrc/build_configs/gen_bsp/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

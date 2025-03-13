@@ -11,17 +11,17 @@
                 lop_1 {
                     compatible = "system-device-tree-v1,lop,assist-v1";
                     node = "/";
-                    outdir = "/home/drew/Documents/github/jarvis/software/blinky/platform/zynq_fsbl/zynq_fsbl_bsp";
+                    outdir = "/home/richard/code/jarvis/software/blinky_4/platform/zynq_fsbl/zynq_fsbl_bsp";
                     id = "module,baremetal_validate_comp_xlnx";
-                    options = "ps7_cortexa9_0 /home/drew/embedded/xilinx/Vitis/2024.2/data/embeddedsw/lib/sw_services/xilffs_v5_3/src /home/drew/Documents/github/jarvis/software/blinky/_ide/.wsdata/.repo.yaml";
+                    options = "ps7_cortexa9_0 /home/richard/embedded/Vitis/2024.2/data/embeddedsw/lib/sw_services/xilffs_v5_3/src /home/richard/code/jarvis/software/blinky_4/_ide/.wsdata/.repo.yaml";
                 };
 
                 lop_2 {
                     compatible = "system-device-tree-v1,lop,assist-v1";
                     node = "/";
-                    outdir = "/home/drew/Documents/github/jarvis/software/blinky/platform/zynq_fsbl/zynq_fsbl_bsp";
+                    outdir = "/home/richard/code/jarvis/software/blinky_4/platform/zynq_fsbl/zynq_fsbl_bsp";
                     id = "module,baremetal_validate_comp_xlnx";
-                    options = "ps7_cortexa9_0 /home/drew/embedded/xilinx/Vitis/2024.2/data/embeddedsw/lib/sw_services/xilrsa_v1_8/src /home/drew/Documents/github/jarvis/software/blinky/_ide/.wsdata/.repo.yaml";
+                    options = "ps7_cortexa9_0 /home/richard/embedded/Vitis/2024.2/data/embeddedsw/lib/sw_services/xilrsa_v1_8/src /home/richard/code/jarvis/software/blinky_4/_ide/.wsdata/.repo.yaml";
                 };
 
         };

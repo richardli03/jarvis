@@ -1,4 +1,4 @@
-# Install script for directory: /home/drew/Documents/github/jarvis/software/blinky/platform/zynq_fsbl
+# Install script for directory: /home/richard/code/jarvis/software/blinky_4/platform/zynq_fsbl
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -34,7 +34,7 @@ endif()
 
 # Set default install directory permissions.
 if(NOT DEFINED CMAKE_OBJDUMP)
-  set(CMAKE_OBJDUMP "/home/drew/embedded/xilinx/Vitis/2024.2/gnu/aarch32/lin/gcc-arm-none-eabi/bin/arm-none-eabi-objdump")
+  set(CMAKE_OBJDUMP "/home/richard/embedded/Vitis/2024.2/gnu/aarch32/lin/gcc-arm-none-eabi/bin/arm-none-eabi-objdump")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/drew/Documents/github/jarvis/software/blinky/platform/zynq_fsbl/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/richard/code/jarvis/software/blinky_4/platform/zynq_fsbl/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

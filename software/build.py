@@ -9,12 +9,12 @@ import vitis
 
 CREATE_APP_COMPONENT = False
 CREATE_PLATFORM_COMPONENT = True
-
+WORKSPACE = "blinky"
 
 def main():
 
     client = vitis.create_client()
-    client.set_workspace("blinky_4")
+    client.set_workspace(WORKSPACE)
 
     print(f"Current workspace: {client.get_workspace()}")
     PLATFORM_NAME = "xgpio_example"
