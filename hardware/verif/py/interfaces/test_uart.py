@@ -71,6 +71,7 @@ async def uart_random_write(dut):
     # setup module parameters and variables
     buffer_width = 8
     write_data = random.randint(0, 2**buffer_width)
+    clk_cycles_til_sample = int(dut.CLK_CYCLES_PER_BIT.value / 2)
 
     # setup clock
     clock_period_ns = int(1e9 / dut.CLK_FREQ.value)
@@ -94,14 +95,14 @@ async def uart_random_write(dut):
 
     # start bit
     await FallingEdge(signal=dut.tx)
-    await ClockCycles(signal=dut.clk, num_cycles=dut.CLK_CYCLES_TIL_SAMPLE.value)
+    await ClockCycles(signal=dut.clk, num_cycles=clk_cycles_til_sample)
     assert dut.tx.value == 0
 
     # write bits
     for index in range(0, 8):
         await ClockCycles(signal=dut.clk, num_cycles=dut.CLK_CYCLES_PER_BIT.value)
         assert dut.tx.value == (write_data >> index) & 0b1
-    await ClockCycles(signal=dut.clk, num_cycles=dut.CLK_CYCLES_TIL_SAMPLE.value)
+    await ClockCycles(signal=dut.clk, num_cycles=clk_cycles_til_sample)
 
     # stop transmit
     dut.write_valid.value = 0
@@ -110,13 +111,13 @@ async def uart_random_write(dut):
     await ClockCycles(signal=dut.clk, num_cycles=5)
 
 
-@cocotb.test()
-@repeat(num_repeats=1)
-async def uart_random_loopback(dut):
-    """
-    Test random loopback tests with a UART main.
-    """
-    pass
+# @cocotb.test()
+# @repeat(num_repeats=1)
+# async def uart_random_loopback(dut):
+#     """
+#     Test random loopback tests with a UART main.
+#     """
+#     pass
 
 
 def test_uart():
