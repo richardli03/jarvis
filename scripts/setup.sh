@@ -5,7 +5,7 @@ venv_name="jarvis_venv"
 
 # Setup and install python venv if it does not exist
 if [ ! -d ../${venv_name} ]; then
-    pyenv install 3.11
+    pyenv install 3.11 --skip-existing
     pyenv local 3.11
     python3 -m venv ${venv_name}
     poetry install
