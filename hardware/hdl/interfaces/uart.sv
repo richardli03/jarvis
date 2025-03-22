@@ -1,7 +1,20 @@
 /*
-Full-duplex uart interface
+Full-duplex uart interface with parameterized synchronization and oversampling.
 
-@param BUFFER_WIDTH: The number of 
+The input synchronizer and oversampling form the input buffer, which directly
+samples rx. The rx buffer is filled using majority voting based on the
+oversampling poriton of the input buffer.
+
+The input buffer is centered, meaning that the halfway through a UART bit the
+input buffer is half full.
+
+@param BUFFER_WIDTH: The number of data bits in a transmission
+@param BAUD_RATE: The number of bits per second
+@param CLK_FREQ: The input module clock frequency
+@param SYNC_DEPTH: The depth of the input syncronyizer
+@param OVERSAMPLING_DEPTH: The number of samples to take for each bit. Care must be
+  taken to ensure the amount of oversampling does conflict with the baud rate.
+
 */
 
 `begin_keywords "1800-2017"  // Use SystemVerilog 2017 keywords
@@ -9,9 +22,11 @@ Full-duplex uart interface
 
 module uart 
 #(
-  parameter BUFFER_WIDTH = 8,  // input and ouput fifo widths
+  parameter BUFFER_WIDTH = 8,
   parameter BAUD_RATE = 115_200,
-  parameter CLK_FREQ = 12_000_000
+  parameter CLK_FREQ = 12_000_000,
+  parameter SYNC_DEPTH = 3,
+  parameter OVERSAMPLING_DEPTH = 4
 )
 (
   input logic rst_n,
@@ -30,15 +45,18 @@ module uart
   input  logic write_valid,
   output logic write_ready
 );
-  timeunit 1ns; timeprecision 100ps;
+  // timeunit 1ns; timeprecision 100ps;
 
   // local parameters
   localparam BUFFER_COUNTER_BITS = $clog2(BUFFER_WIDTH);
   localparam CLK_CYCLES_PER_BIT = CLK_FREQ / BAUD_RATE;
   localparam CLK_CYCLE_COUNTER_BITS = $clog2(CLK_CYCLES_PER_BIT);
-  localparam [CLK_CYCLE_COUNTER_BITS-1:0] CLK_CYCLES_TIL_SAMPLE = (CLK_CYCLE_COUNTER_BITS)'(CLK_CYCLES_PER_BIT / 2); // determines when to sample
+  localparam INPUT_BUFFER_WIDTH = SYNC_DEPTH + OVERSAMPLING_DEPTH;
+  // determines when to sample, ensures input buffer is centered
+  localparam [CLK_CYCLE_COUNTER_BITS-1:0] CLK_CYCLES_TIL_SAMPLE = (CLK_CYCLE_COUNTER_BITS)'((CLK_CYCLES_PER_BIT + INPUT_BUFFER_WIDTH) / 2);
+  localparam [CLK_CYCLE_COUNTER_BITS-1:0] CLK_CYCLES_AFTER_SAMPLE = (CLK_CYCLE_COUNTER_BITS)'((CLK_CYCLES_PER_BIT - INPUT_BUFFER_WIDTH) / 2);
 
-  // uart read states TODO: Move to package
+  // uart read states
   typedef enum logic [3:0] {
     RX_RESET = 4'b0000,
     RX_IDLE  = 4'b0001,
@@ -47,7 +65,16 @@ module uart
     RX_ERROR = 4'b1000
   } uart_rx_state_t;
 
-  // uart write states TODO: Move to package
+  // rx input buffer states
+  typedef enum logic [3:0] {
+    RESET = 4'b0000,
+    READY = 4'b0001,
+    ACTIVE = 4'b0010,
+    DONE = 4'b0100,
+    ERROR = 4'b1000
+  } input_buffer_state_t;
+
+  // uart write states
   typedef enum logic [3:0] {
     TX_RESET = 4'b0000,
     TX_IDLE  = 4'b0001,
@@ -64,9 +91,11 @@ module uart
 
   // internal rx variables
   uart_rx_state_t rx_state, rx_next_state;
+  input_buffer_state_t input_buffer_state, input_buffer_next_state;
   logic [BUFFER_COUNTER_BITS:0] rx_bit_counter;
   logic [CLK_CYCLE_COUNTER_BITS-1:0] rx_clk_counter;
-  logic rx_shift_en, rx_bit_counter_rst_n, rx_clk_counter_rst_n;
+  logic input_shift_en, input_sample, sample_done, rx_shift_en, rx_bit_counter_rst_n, rx_clk_counter_rst_n;
+  logic [INPUT_BUFFER_WIDTH-1:0] input_buffer;
 
   // rx current state logic
   always_ff @( posedge clk ) begin : _rx_current_state_logic
@@ -129,12 +158,76 @@ module uart
     endcase
   end
 
+  // input buffer current state logic
+  always_ff @( posedge clk ) begin : _input_buffer_current_state_logic
+    if (!rst_n)
+      input_buffer_state <= RESET;
+    else
+      input_buffer_state <= input_buffer_next_state;
+  end
+
+  // input buffer next state logic
+  always_comb begin : _input_buffer_next_state_logic
+    unique case (input_buffer_state)
+      RESET:
+        input_buffer_next_state = READY;
+      READY:
+        if ((rx_clk_counter <= CLK_CYCLES_TIL_SAMPLE) && (rx_clk_counter > CLK_CYCLES_AFTER_SAMPLE))
+          input_buffer_next_state = ACTIVE;
+        else
+          input_buffer_next_state = READY;
+      ACTIVE:
+        if (rx_clk_counter <= CLK_CYCLES_AFTER_SAMPLE)
+          input_buffer_next_state = DONE;
+        else
+          input_buffer_next_state = ACTIVE;
+      DONE:
+        if (rx_clk_counter == '0)
+          input_buffer_next_state = READY;
+        else
+          input_buffer_next_state = DONE;
+      default:
+        input_buffer_next_state = ERROR;
+    endcase
+  end
+
+  // input buffer fsm outputs
+  always_comb begin : _input_buffer_outputs
+    unique case (input_buffer_state)
+      RESET, READY, ERROR: begin
+        {input_shift_en, sample_done} = 2'b00;
+      end
+      ACTIVE: begin
+        {input_shift_en, sample_done} = 2'b10;
+      end
+      DONE: begin
+        {input_shift_en, sample_done} = 2'b01;
+      end
+      default: begin
+        {input_shift_en, sample_done} = 2'b00;
+      end
+    endcase
+  end
+
+  // input shift register, for synchronization and oversampling
+  always_ff @( posedge clk ) begin : _input_shift_register
+    if (!rst_n)
+      input_buffer <= '0;
+    else if (input_shift_en)
+      input_buffer <= {rx, input_buffer[INPUT_BUFFER_WIDTH-1:1]}; // lsb first
+    else
+      input_buffer <= input_buffer;
+  end
+
+  // input buffer majority voting
+  assign input_sample = ($countones(input_buffer[INPUT_BUFFER_WIDTH-1:SYNC_DEPTH-1]) >= OVERSAMPLING_DEPTH / 2);
+
   // rx shift register
   always_ff @( posedge clk ) begin : _rx_shift_register
     if (!rst_n)
       read_data <= '0;
-    else if (rx_shift_en & rx_clk_counter == CLK_CYCLES_TIL_SAMPLE)
-      read_data <= {rx, read_data[BUFFER_WIDTH-1:1]}; // lsb first
+    else if (rx_shift_en && sample_done)
+      read_data <= {input_sample, read_data[BUFFER_WIDTH-1:1]}; // lsb first
     else
       read_data <= read_data;
   end
@@ -145,7 +238,7 @@ module uart
       rx_bit_counter <= (BUFFER_COUNTER_BITS + 1)'(BUFFER_WIDTH);
     else if (rx_bit_counter == '0)
       rx_bit_counter <= (BUFFER_COUNTER_BITS + 1)'(BUFFER_WIDTH);
-    else if (rx_clk_counter == CLK_CYCLES_TIL_SAMPLE)
+    else if (sample_done)
       rx_bit_counter <= rx_bit_counter - 1;
   end
 
