@@ -330,13 +330,16 @@ module uart
   always_ff @( posedge clk ) begin : _tx_shift_register
     if (!rst_n)
       tx <= '1;
-    if (tx_state == TX_START)
+    else if (tx_next_state == TX_IDLE)
+      // Potentially sketchy. Cycle steal to prevent glitches on tx
+      tx <= '1;
+    else if (tx_state == TX_START)
       tx <= '0;
     else if (tx_shift_en)
       tx <= write_data[BUFFER_WIDTH - tx_bit_counter]; // lsb first
     else
       tx <= '1;
-  end // TODO: TX not driving at end of TX for some write_data
+  end
 
   // tx bit counter
   always_ff @( posedge clk ) begin : _tx_bit_counter

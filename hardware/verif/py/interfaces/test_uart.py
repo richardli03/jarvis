@@ -46,7 +46,7 @@ async def uart_random_read(dut, buffer_width: int = None):
     )
 
     # read bits
-    read_data = random.randint(0, 2**buffer_width)
+    read_data = random.randint(0, 2**buffer_width - 1)
     for index in range(0, 8):  # TODO: update for buffer width
         dut.rx.value = (read_data >> index) & 0b1
         await ClockCycles(
@@ -70,7 +70,7 @@ async def uart_random_write(dut):
     """
     # setup module parameters and variables
     buffer_width = 8
-    write_data = random.randint(0, 2**buffer_width)
+    write_data = random.randint(0, 2**buffer_width - 1)
     clk_cycles_til_sample = int(dut.CLK_CYCLES_PER_BIT.value / 2)
 
     # setup clock
