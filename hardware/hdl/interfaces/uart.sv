@@ -45,7 +45,7 @@ module uart
   input  logic write_valid,
   output logic write_ready
 );
-  // timeunit 1ns; timeprecision 100ps;
+  timeunit 1ns; timeprecision 100ps;
 
   // local parameters
   localparam BUFFER_COUNTER_BITS = $clog2(BUFFER_WIDTH);
