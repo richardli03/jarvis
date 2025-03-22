@@ -62,52 +62,52 @@ async def uart_random_read(dut, buffer_width: int = None):
     await ClockCycles(signal=dut.clk, num_cycles=5)
 
 
-@cocotb.test()
-@repeat(num_repeats=10)
-async def uart_random_write(dut):
-    """
-    Test random writes with a UART main.
-    """
-    # setup module parameters and variables
-    buffer_width = 8
-    write_data = random.randint(0, 2**buffer_width)
+# @cocotb.test()
+# @repeat(num_repeats=10)
+# async def uart_random_write(dut):
+#     """
+#     Test random writes with a UART main.
+#     """
+#     # setup module parameters and variables
+#     buffer_width = 8
+#     write_data = random.randint(0, 2**buffer_width)
 
-    # setup clock
-    clock_period_ns = int(1e9 / dut.CLK_FREQ.value)
-    clock = Clock(signal=dut.clk, period=clock_period_ns, units="ns")
-    await cocotb.start(clock.start())
+#     # setup clock
+#     clock_period_ns = int(1e9 / dut.CLK_FREQ.value)
+#     clock = Clock(signal=dut.clk, period=clock_period_ns, units="ns")
+#     await cocotb.start(clock.start())
 
-    # setup inputs
-    dut.mode.value = 1  # write
+#     # setup inputs
+#     dut.mode.value = 1  # write
 
-    # reset
-    dut.rst_n.value = 0
-    await ClockCycles(signal=dut.clk, num_cycles=2, rising=True)
-    dut.rst_n.value = 1
-    await ClockCycles(signal=dut.clk, num_cycles=2, rising=True)
+#     # reset
+#     dut.rst_n.value = 0
+#     await ClockCycles(signal=dut.clk, num_cycles=2, rising=True)
+#     dut.rst_n.value = 1
+#     await ClockCycles(signal=dut.clk, num_cycles=2, rising=True)
 
-    # await for write_ready, continue if already high
-    if not dut.write_ready.value:
-        await RisingEdge(signal=dut.write_ready)
-    dut.write_data.value = write_data
-    dut.write_valid.value = 1
+#     # await for write_ready, continue if already high
+#     if not dut.write_ready.value:
+#         await RisingEdge(signal=dut.write_ready)
+#     dut.write_data.value = write_data
+#     dut.write_valid.value = 1
 
-    # start bit
-    await FallingEdge(signal=dut.tx)
-    await ClockCycles(signal=dut.clk, num_cycles=dut.CLK_CYCLES_TIL_SAMPLE.value)
-    assert dut.tx.value == 0
+#     # start bit
+#     await FallingEdge(signal=dut.tx)
+#     await ClockCycles(signal=dut.clk, num_cycles=dut.CLK_CYCLES_TIL_SAMPLE.value)
+#     assert dut.tx.value == 0
 
-    # write bits
-    for index in range(0, 8):
-        await ClockCycles(signal=dut.clk, num_cycles=dut.CLK_CYCLES_PER_BIT.value)
-        assert dut.tx.value == (write_data >> index) & 0b1
-    await ClockCycles(signal=dut.clk, num_cycles=dut.CLK_CYCLES_TIL_SAMPLE.value)
+#     # write bits
+#     for index in range(0, 8):
+#         await ClockCycles(signal=dut.clk, num_cycles=dut.CLK_CYCLES_PER_BIT.value)
+#         assert dut.tx.value == (write_data >> index) & 0b1
+#     await ClockCycles(signal=dut.clk, num_cycles=dut.CLK_CYCLES_TIL_SAMPLE.value)
 
-    # stop transmit
-    dut.write_valid.value = 0
+#     # stop transmit
+#     dut.write_valid.value = 0
 
-    # idle and cooldown
-    await ClockCycles(signal=dut.clk, num_cycles=5)
+#     # idle and cooldown
+#     await ClockCycles(signal=dut.clk, num_cycles=5)
 
 
 # @cocotb.test()

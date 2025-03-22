@@ -94,7 +94,7 @@ module uart
   input_buffer_state_t input_buffer_state, input_buffer_next_state;
   logic [BUFFER_COUNTER_BITS:0] rx_bit_counter;
   logic [CLK_CYCLE_COUNTER_BITS-1:0] rx_clk_counter;
-  logic input_shift_en, input_sample, sample_done, rx_shift_en, rx_bit_counter_rst_n, rx_clk_counter_rst_n;
+  logic input_shift_en, input_sample, sample_done, rx_shift_en, rx_bit_counter_rst_n, rx_clk_counter_rst_n; // todo: remove sample_done
   logic [INPUT_BUFFER_WIDTH-1:0] input_buffer;
 
   // rx current state logic
@@ -226,7 +226,7 @@ module uart
   always_ff @( posedge clk ) begin : _rx_shift_register
     if (!rst_n)
       read_data <= '0;
-    else if (rx_shift_en && sample_done)
+    else if (rx_shift_en && rx_clk_counter == CLK_CYCLES_AFTER_SAMPLE)
       read_data <= {input_sample, read_data[BUFFER_WIDTH-1:1]}; // lsb first
     else
       read_data <= read_data;
@@ -238,7 +238,7 @@ module uart
       rx_bit_counter <= (BUFFER_COUNTER_BITS + 1)'(BUFFER_WIDTH);
     else if (rx_bit_counter == '0)
       rx_bit_counter <= (BUFFER_COUNTER_BITS + 1)'(BUFFER_WIDTH);
-    else if (sample_done)
+    else if (rx_clk_counter == CLK_CYCLES_AFTER_SAMPLE)
       rx_bit_counter <= rx_bit_counter - 1;
   end
 
