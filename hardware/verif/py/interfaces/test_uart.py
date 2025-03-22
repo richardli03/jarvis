@@ -16,7 +16,7 @@ from hardware.util.verif import repeat, parameterize
 @cocotb.test()
 @repeat(num_repeats=10)
 # @parameterize(parameter_name="buffer_width", values=[8, 16])
-async def uart_main_random_read(dut, buffer_width: int = None):
+async def uart_random_read(dut, buffer_width: int = None):
     """
     Test random reads with a UART main.
     """
@@ -64,7 +64,7 @@ async def uart_main_random_read(dut, buffer_width: int = None):
 
 @cocotb.test()
 @repeat(num_repeats=10)
-async def uart_main_random_write(dut):
+async def uart_random_write(dut):
     """
     Test random writes with a UART main.
     """
@@ -112,12 +112,12 @@ async def uart_main_random_write(dut):
 
 # @cocotb.test()
 # @repeat(num_repeats=1)
-# async def uart_main_random_loopback(dut):
+# async def uart_random_loopback(dut):
 #     """
 #     Test random loopback tests with a UART main.
 #     """
 #     pass
 
 
-def test_uart_main():
-    hardware.verif.py.cocotb_runner.run_cocotb(top="uart_main", deps=[])
+def test_uart():
+    hardware.verif.py.cocotb_runner.run_cocotb(top="uart", deps=[])

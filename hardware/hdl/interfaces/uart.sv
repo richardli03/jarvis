@@ -1,5 +1,5 @@
 /*
-Full-duplex uart main
+Full-duplex uart interface
 
 @param BUFFER_WIDTH: The number of 
 */
@@ -7,7 +7,7 @@ Full-duplex uart main
 `begin_keywords "1800-2017"  // Use SystemVerilog 2017 keywords
 `default_nettype none
 
-module uart_main 
+module uart 
 #(
   parameter BUFFER_WIDTH = 8,  // input and ouput fifo widths
   parameter BAUD_RATE = 115_200,
@@ -266,7 +266,7 @@ module uart_main
     end
   end
 
-endmodule : uart_main
+endmodule : uart
 
 `default_nettype wire 
 `end_keywords
