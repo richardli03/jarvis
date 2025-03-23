@@ -169,49 +169,6 @@ module uart
       input_buffer_state <= input_buffer_next_state;
   end
 
-  // // input buffer next state logic
-  // always_comb begin : _input_buffer_next_state_logic
-  //   unique case (input_buffer_state)
-  //     RESET:
-  //       input_buffer_next_state = READY;
-  //     READY:
-  //       if ((rx_clk_counter <= CLK_CYCLES_TIL_SAMPLE) && (rx_clk_counter > CLK_CYCLES_AFTER_SAMPLE))
-  //         input_buffer_next_state = ACTIVE;
-  //       else
-  //         input_buffer_next_state = READY;
-  //     ACTIVE:
-  //       if (rx_clk_counter <= CLK_CYCLES_AFTER_SAMPLE)
-  //         input_buffer_next_state = DONE;
-  //       else
-  //         input_buffer_next_state = ACTIVE;
-  //     DONE:
-  //       if (rx_clk_counter == '0)
-  //         input_buffer_next_state = READY;
-  //       else
-  //         input_buffer_next_state = DONE;
-  //     default:
-  //       input_buffer_next_state = ERROR;
-  //   endcase
-  // end
-
-  // // input buffer fsm outputs
-  // always_comb begin : _input_buffer_outputs
-  //   unique case (input_buffer_state)
-  //     RESET, READY, ERROR: begin
-  //       {input_shift_en} = 1'b0;
-  //     end
-  //     ACTIVE: begin
-  //       {input_shift_en} = 1'b1;
-  //     end
-  //     DONE: begin
-  //       {input_shift_en} = 1'b0;
-  //     end
-  //     default: begin
-  //       {input_shift_en} = 1'b0;
-  //     end
-  //   endcase
-  // end
-
   // input shift register, for synchronization and oversampling
   always_ff @( posedge clk ) begin : _input_shift_register
     if (!rst_n)
