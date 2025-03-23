@@ -53,8 +53,13 @@ async def uart_random_read(dut, buffer_width: int = None):
     assert dut.read_data.value == read_data
     # assert dut.read_valid.value == 1 #TODO: fix
 
-    # idle and cooldown
+    # stop bit
     dut.rx.value = 1
+    await ClockCycles(
+        signal=dut.clk, num_cycles=dut.CLK_CYCLES_PER_BIT.value, rising=True
+    )
+
+    # idle and cooldown
     await ClockCycles(signal=dut.clk, num_cycles=5)
 
 
@@ -67,7 +72,7 @@ async def uart_random_write(dut):
     # setup module parameters and variables
     buffer_width = 8
     write_data = random.randint(0, 2**buffer_width - 1)
-    clk_cycles_til_sample = int(dut.CLK_CYCLES_PER_BIT.value / 2)
+    clk_cycles_till_sample = int(dut.CLK_CYCLES_PER_BIT.value / 2)
 
     # setup clock
     clock_period_ns = int(1e9 / dut.CLK_FREQ.value)
@@ -88,17 +93,21 @@ async def uart_random_write(dut):
 
     # start bit
     await FallingEdge(signal=dut.tx)
-    await ClockCycles(signal=dut.clk, num_cycles=clk_cycles_til_sample)
+    await ClockCycles(signal=dut.clk, num_cycles=clk_cycles_till_sample)
     assert dut.tx.value == 0
 
     # write bits
     for index in range(0, 8):
         await ClockCycles(signal=dut.clk, num_cycles=dut.CLK_CYCLES_PER_BIT.value)
         assert dut.tx.value == (write_data >> index) & 0b1
-    await ClockCycles(signal=dut.clk, num_cycles=clk_cycles_til_sample)
+    await ClockCycles(signal=dut.clk, num_cycles=clk_cycles_till_sample)
 
     # stop transmit
     dut.write_valid.value = 0
+
+    # stop bit
+    await ClockCycles(signal=dut.clk, num_cycles=clk_cycles_till_sample)
+    assert dut.tx.value == 0b1
 
     # idle and cooldown
     await ClockCycles(signal=dut.clk, num_cycles=5)
@@ -113,7 +122,7 @@ async def uart_random_full_duplex(dut):
     # setup module parameters and variables
     buffer_width = 8
     write_data = random.randint(0, 2**buffer_width - 1)
-    clk_cycles_til_sample = int(dut.CLK_CYCLES_PER_BIT.value / 2)
+    clk_cycles_till_sample = int(dut.CLK_CYCLES_PER_BIT.value / 2)
 
     # setup clock
     clock_period_ns = int(1e9 / dut.CLK_FREQ.value)
@@ -138,21 +147,25 @@ async def uart_random_full_duplex(dut):
     # start bit
     dut.rx.value = 0
     await FallingEdge(signal=dut.tx)
-    await ClockCycles(signal=dut.clk, num_cycles=clk_cycles_til_sample)
+    await ClockCycles(signal=dut.clk, num_cycles=clk_cycles_till_sample)
     assert dut.tx.value == 0
 
     # read and write bits
     read_data = random.randint(0, 2**buffer_width - 1)
     for index in range(0, 8):
-        await ClockCycles(signal=dut.clk, num_cycles=clk_cycles_til_sample)
+        await ClockCycles(signal=dut.clk, num_cycles=clk_cycles_till_sample)
         dut.rx.value = (read_data >> index) & 0b1
-        await ClockCycles(signal=dut.clk, num_cycles=clk_cycles_til_sample)
+        await ClockCycles(signal=dut.clk, num_cycles=clk_cycles_till_sample)
         assert dut.tx.value == (write_data >> index) & 0b1
-    await ClockCycles(signal=dut.clk, num_cycles=clk_cycles_til_sample)
+    await ClockCycles(signal=dut.clk, num_cycles=clk_cycles_till_sample)
 
     # stop transmit and assert read data
     dut.write_valid.value = 0
     assert dut.read_data.value == read_data
+
+    # stop bit
+    await ClockCycles(signal=dut.clk, num_cycles=clk_cycles_till_sample)
+    assert dut.tx.value == 0b1
 
     # idle and cooldown
     dut.rx.value = 1

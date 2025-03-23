@@ -24,27 +24,38 @@ module uart
 #(
   parameter BUFFER_WIDTH = 8,
   parameter BAUD_RATE = 115_200,
-  parameter CLK_FREQ = 12_000_000,
+  parameter CLK_FREQ = 125_000_000,
   parameter SYNC_DEPTH = 3,
   parameter OVERSAMPLING_DEPTH = 4
 )
 (
-  input logic rst_n,
-  input logic clk,
+  input wire rst_n,
+  input wire clk,
 
   // uart rx
-  input  logic rx,
+  input  wire  rx,
   output logic [BUFFER_WIDTH-1:0] read_data,
-  input  logic read_ready,
+  input  wire  read_ready,
   output logic read_valid,
 
   // uart tx
   output logic tx,
-  input  logic [BUFFER_WIDTH-1:0] write_data,
-  input  logic write_valid,
-  output logic write_ready
+  input  wire  [BUFFER_WIDTH-1:0] write_data,
+  input  wire  write_valid,
+  output logic write_ready,
+
+  output logic [3:0] test_data,
+  output logic test_data_0, test_data_1, test_data_2
 );
   timeunit 1ns; timeprecision 100ps;
+
+  always_ff @( posedge clk ) begin
+    test_data <= rx_clk_counter[CLK_CYCLE_COUNTER_BITS-1:CLK_CYCLE_COUNTER_BITS-4];//{input_sample, rx, 1'b0, 1'b0};//read_data[3:0];//read_data[7:4];
+    test_data_0 <= rx_clk_counter == CLK_CYCLES_AFTER_SAMPLE;//(rx_shift_en && rx_clk_counter == CLK_CYCLES_AFTER_SAMPLE);
+    test_data_1 <= input_sample;
+    test_data_2 <= tx_shift_en;
+  end
+
 
   // local parameters
   localparam BUFFER_COUNTER_BITS = $clog2(BUFFER_WIDTH);
@@ -52,35 +63,29 @@ module uart
   localparam CLK_CYCLE_COUNTER_BITS = $clog2(CLK_CYCLES_PER_BIT);
   localparam INPUT_BUFFER_WIDTH = SYNC_DEPTH + OVERSAMPLING_DEPTH;
   // determines when to sample, ensures input buffer is centered
-  localparam [CLK_CYCLE_COUNTER_BITS-1:0] CLK_CYCLES_TIL_SAMPLE = (CLK_CYCLE_COUNTER_BITS)'((CLK_CYCLES_PER_BIT + INPUT_BUFFER_WIDTH) / 2);
+  localparam [CLK_CYCLE_COUNTER_BITS-1:0] CLK_CYCLES_TILL_SAMPLE = (CLK_CYCLE_COUNTER_BITS)'((CLK_CYCLES_PER_BIT + INPUT_BUFFER_WIDTH) / 2);
   localparam [CLK_CYCLE_COUNTER_BITS-1:0] CLK_CYCLES_AFTER_SAMPLE = (CLK_CYCLE_COUNTER_BITS)'((CLK_CYCLES_PER_BIT - INPUT_BUFFER_WIDTH) / 2);
+  localparam [CLK_CYCLE_COUNTER_BITS-1:0] CLK_CYCLES_PER_HALF_BIT = (CLK_CYCLE_COUNTER_BITS)'(CLK_CYCLES_PER_BIT/2);
   localparam OVERSAMPLING_DEPTH_BITS = $clog2(OVERSAMPLING_DEPTH);
 
   // uart read states
-  typedef enum logic [3:0] {
-    RX_RESET = 4'b0000,
-    RX_IDLE  = 4'b0001,
-    RX_START = 4'b0010,
-    RX_READ  = 4'b0100,
-    RX_ERROR = 4'b1000
+  typedef enum logic [4:0] {
+    RX_RESET = 5'b00000,
+    RX_IDLE  = 5'b00001,
+    RX_START = 5'b00010,
+    RX_READ  = 5'b00100,
+    RX_STOP  = 5'b01000,
+    RX_ERROR = 5'b10000
   } uart_rx_state_t;
 
-  // rx input buffer states
-  typedef enum logic [3:0] {
-    RESET = 4'b0000,
-    READY = 4'b0001,
-    ACTIVE = 4'b0010,
-    DONE = 4'b0100,
-    ERROR = 4'b1000
-  } input_buffer_state_t;
-
   // uart write states
-  typedef enum logic [3:0] {
-    TX_RESET = 4'b0000,
-    TX_IDLE  = 4'b0001,
-    TX_START = 4'b0010,
-    TX_WRITE = 4'b0100,
-    TX_ERROR = 4'b1000
+  typedef enum logic [4:0] {
+    TX_RESET = 5'b00000,
+    TX_IDLE  = 5'b00001,
+    TX_START = 5'b00010,
+    TX_WRITE = 5'b00100,
+    TX_STOP  = 5'b01000,
+    TX_ERROR = 5'b10000
   } uart_tx_state_t;
 
 /* 
@@ -91,7 +96,6 @@ module uart
 
   // internal rx variables
   uart_rx_state_t rx_state, rx_next_state;
-  input_buffer_state_t input_buffer_state, input_buffer_next_state;
   logic [BUFFER_COUNTER_BITS:0] rx_bit_counter;
   logic [CLK_CYCLE_COUNTER_BITS-1:0] rx_clk_counter;
   logic input_shift_en, input_sample, rx_shift_en, rx_bit_counter_rst_n, rx_clk_counter_rst_n, rx_post_reset;
@@ -122,9 +126,14 @@ module uart
           rx_next_state = RX_START;
       RX_READ:
         if (rx_bit_counter  == '0)
-          rx_next_state = RX_IDLE;
+          rx_next_state = RX_STOP;
         else
           rx_next_state = RX_READ;
+      RX_STOP:
+        if (rx_clk_counter  == CLK_CYCLES_PER_HALF_BIT)
+          rx_next_state = RX_IDLE;
+        else
+          rx_next_state = RX_STOP;
       RX_ERROR:
         rx_next_state = RX_ERROR;
       default:
@@ -136,7 +145,7 @@ module uart
   always_comb begin : _rx_fsm_outputs
     unique case (rx_state)
       RX_RESET, RX_ERROR: begin
-        {rx_shift_en, read_valid, rx_post_reset} = 3'b001;
+        {rx_shift_en, read_valid, rx_post_reset} = 3'b001; // todo: rx_post_rest inferred as a latch
         {rx_clk_counter_rst_n, rx_bit_counter_rst_n} = 2'b00;
       end
       RX_IDLE: begin
@@ -154,19 +163,15 @@ module uart
         {rx_shift_en, read_valid, rx_post_reset} = 3'b100;
         {rx_clk_counter_rst_n, rx_bit_counter_rst_n} = 2'b11;
       end
+      RX_STOP: begin
+        {rx_shift_en, read_valid, rx_post_reset} = 3'b010;
+        {rx_clk_counter_rst_n, rx_bit_counter_rst_n} = 2'b10;
+      end
       default: begin 
         {rx_shift_en, read_valid, rx_post_reset} = 3'b000;
         {rx_clk_counter_rst_n, rx_bit_counter_rst_n} = 2'b00;
       end
     endcase
-  end
-
-  // input buffer current state logic
-  always_ff @( posedge clk ) begin : _input_buffer_current_state_logic
-    if (!rst_n)
-      input_buffer_state <= RESET;
-    else
-      input_buffer_state <= input_buffer_next_state;
   end
 
   // input shift register, for synchronization and oversampling
@@ -179,7 +184,7 @@ module uart
     //   input_buffer <= input_buffer;
   end
 
-  //
+  // rx negative edge detector
   logic rx_negative_edge;
   assign rx_negative_edge = !input_buffer[OVERSAMPLING_DEPTH] & input_buffer[OVERSAMPLING_DEPTH - 1];
 
@@ -264,9 +269,14 @@ module uart
           tx_next_state = TX_START;
       TX_WRITE:
         if (tx_bit_counter  == '0)
-          tx_next_state = TX_IDLE;
+          tx_next_state = TX_STOP;
         else
           tx_next_state = TX_WRITE;
+      TX_STOP:
+        if (tx_clk_counter  == CLK_CYCLES_PER_HALF_BIT)
+          tx_next_state = TX_IDLE;
+        else
+          tx_next_state = TX_STOP;
       TX_ERROR:
         tx_next_state = TX_ERROR;
       default:
@@ -292,6 +302,10 @@ module uart
       TX_WRITE: begin
         {tx_shift_en, write_ready} = 2'b10;
         {tx_clk_counter_rst_n, tx_bit_counter_rst_n} = 2'b11;
+      end
+      TX_STOP: begin
+        {tx_shift_en, write_ready} = 2'b00;
+        {tx_clk_counter_rst_n, tx_bit_counter_rst_n} = 2'b10;
       end
       default: begin 
         {tx_shift_en, write_ready} = 2'b00;

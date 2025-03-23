@@ -8,7 +8,7 @@ Combinational count ones util.
 `default_nettype none
 
 module count_ones (
-  input  logic [N-1:0]         data,
+  input  wire [N-1:0]         data,
   output logic [COUNT_WIDTH:0] count
 );
   timeunit 1ns; timeprecision 100ps;

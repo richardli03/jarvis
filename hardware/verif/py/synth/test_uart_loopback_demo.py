@@ -22,7 +22,7 @@ async def uart_random_loopback(dut):
     """
     # setup module parameters and variables
     buffer_width = 8
-    clk_cycles_til_sample = int(dut.uart_0.CLK_CYCLES_PER_BIT.value / 2)
+    clk_cycles_till_sample = int(dut.uart_0.CLK_CYCLES_PER_BIT.value / 2)
 
     # setup clock
     clock_period_ns = int(1e9 / dut.CLK_FREQ.value)
@@ -58,10 +58,10 @@ async def uart_random_loopback(dut):
             )
 
             # await ClockCycles(
-            #     signal=dut.clk, num_cycles=dut.uart_0.CLK_CYCLES_TIL_SAMPLE.value
+            #     signal=dut.clk, num_cycles=dut.uart_0.clk_cycles_till_sample.value
             # )
             # await ClockCycles(
-            #     signal=dut.clk, num_cycles=dut.uart_0.CLK_CYCLES_TIL_SAMPLE.value
+            #     signal=dut.clk, num_cycles=dut.uart_0.clk_cycles_till_sample.value
             # )
             # # assert (
             # #     dut.tx.value == (previous_read_data >> index) & 0b1
@@ -72,6 +72,8 @@ async def uart_random_loopback(dut):
         await ClockCycles(signal=dut.clk, num_cycles=5)
 
         previous_read_data = read_data
+
+    # await ClockCycles(signal=dut.clk, num_cycles=100000)
 
 
 def test_uart_loopback():
