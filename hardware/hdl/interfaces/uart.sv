@@ -97,7 +97,7 @@ module uart
   input_buffer_state_t input_buffer_state, input_buffer_next_state;
   logic [BUFFER_COUNTER_BITS:0] rx_bit_counter;
   logic [CLK_CYCLE_COUNTER_BITS-1:0] rx_clk_counter;
-  logic input_shift_en, input_sample, sample_done, rx_shift_en, rx_bit_counter_rst_n, rx_clk_counter_rst_n; // todo: remove sample_done
+  logic input_shift_en, input_sample, rx_shift_en, rx_bit_counter_rst_n, rx_clk_counter_rst_n;
   logic [INPUT_BUFFER_WIDTH-1:0] input_buffer;
 
   // rx current state logic
@@ -198,16 +198,16 @@ module uart
   always_comb begin : _input_buffer_outputs
     unique case (input_buffer_state)
       RESET, READY, ERROR: begin
-        {input_shift_en, sample_done} = 2'b00;
+        {input_shift_en} = 1'b0;
       end
       ACTIVE: begin
-        {input_shift_en, sample_done} = 2'b10;
+        {input_shift_en} = 1'b1;
       end
       DONE: begin
-        {input_shift_en, sample_done} = 2'b01;
+        {input_shift_en} = 1'b0;
       end
       default: begin
-        {input_shift_en, sample_done} = 2'b00;
+        {input_shift_en} = 1'b0;
       end
     endcase
   end
