@@ -11,17 +11,17 @@ import hardware.verif.py.cocotb_runner
 
 from hardware.util.verif import repeat, parameterize
 
-NUM_REPEATS = 2
+NUM_REPEATS = 10
 
 
 @cocotb.test()
-@repeat(num_repeats=1)
 async def uart_random_loopback(dut):
     """
     Test loopback of random uart data.
     """
     # setup module parameters and variables
     buffer_width = 8
+    clk_cycles_til_sample = int(dut.uart_0.CLK_CYCLES_PER_BIT.value / 2)
 
     # setup clock
     clock_period_ns = int(1e9 / dut.CLK_FREQ.value)
@@ -37,7 +37,7 @@ async def uart_random_loopback(dut):
     dut.rst_n.value = 1
     await ClockCycles(signal=dut.clk, num_cycles=2, rising=True)
 
-    # prev
+    previous_read_data = 0b11111111
 
     for _ in range(0, NUM_REPEATS):
         # start bit
@@ -47,19 +47,22 @@ async def uart_random_loopback(dut):
         )
 
         # read bits
-        # read_data = random.randint(0, 2**buffer_width - 1)
-        read_data = 0b10101001
+        read_data = random.randint(0, 2**buffer_width - 1)
         for index in range(0, 8):
             dut.rx.value = (read_data >> index) & 0b1
             await ClockCycles(
-                signal=dut.clk,
-                num_cycles=dut.uart_0.CLK_CYCLES_PER_BIT.value,
-                rising=True,
+                signal=dut.clk, num_cycles=dut.uart_0.CLK_CYCLES_TIL_SAMPLE.value
+            )
+            # assert dut.tx.value == (previous_read_data >> index) & 0b1 #TODO: Fix or split into two test
+            await ClockCycles(
+                signal=dut.clk, num_cycles=dut.uart_0.CLK_CYCLES_TIL_SAMPLE.value
             )
 
         # idle and cooldown
         dut.rx.value = 1
         await ClockCycles(signal=dut.clk, num_cycles=5)
+
+        previous_read_data = read_data
 
 
 def test_uart_loopback():
