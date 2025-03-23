@@ -20,6 +20,8 @@ input buffer is half full.
 `begin_keywords "1800-2017"  // Use SystemVerilog 2017 keywords
 `default_nettype none
 
+// `include "count_ones.sv"
+
 module uart 
 #(
   parameter BUFFER_WIDTH = 8,
@@ -55,6 +57,7 @@ module uart
   // determines when to sample, ensures input buffer is centered
   localparam [CLK_CYCLE_COUNTER_BITS-1:0] CLK_CYCLES_TIL_SAMPLE = (CLK_CYCLE_COUNTER_BITS)'((CLK_CYCLES_PER_BIT + INPUT_BUFFER_WIDTH) / 2);
   localparam [CLK_CYCLE_COUNTER_BITS-1:0] CLK_CYCLES_AFTER_SAMPLE = (CLK_CYCLE_COUNTER_BITS)'((CLK_CYCLES_PER_BIT - INPUT_BUFFER_WIDTH) / 2);
+  localparam OVERSAMPLING_DEPTH_BITS = $clog2(OVERSAMPLING_DEPTH);
 
   // uart read states
   typedef enum logic [3:0] {
@@ -219,8 +222,18 @@ module uart
       input_buffer <= input_buffer;
   end
 
-  // input buffer majority voting
-  assign input_sample = ($countones(input_buffer[INPUT_BUFFER_WIDTH-1:SYNC_DEPTH-1]) >= OVERSAMPLING_DEPTH / 2);
+  // oversample count
+  logic [OVERSAMPLING_DEPTH_BITS:0] oversample_ones_count; 
+  count_ones #(
+    .N(OVERSAMPLING_DEPTH)
+  ) 
+  count_oversample_ones (
+    .data(input_buffer[OVERSAMPLING_DEPTH-1:0]),
+    .count(oversample_ones_count)
+  );
+
+  // sample based on oversample majority vote count
+  assign input_sample = (oversample_ones_count) >= (OVERSAMPLING_DEPTH_BITS+1)'(OVERSAMPLING_DEPTH / 2);
 
   // rx shift register
   always_ff @( posedge clk ) begin : _rx_shift_register

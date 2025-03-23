@@ -121,4 +121,4 @@ async def uart_random_write(dut):
 
 
 def test_uart():
-    hardware.verif.py.cocotb_runner.run_cocotb(top="uart", deps=[])
+    hardware.verif.py.cocotb_runner.run_cocotb(top="uart", deps=["count_ones"])
