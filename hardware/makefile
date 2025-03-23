@@ -29,6 +29,7 @@ clean:
 
 # Include module makefiles
 include hdl/components.mk
+include hdl/interfaces.mk
 
 # Applies to the rest of the file, used to expand generate/program bitstream to
 # any target

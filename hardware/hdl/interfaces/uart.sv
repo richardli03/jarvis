@@ -40,6 +40,7 @@ module uart
 
   // uart tx
   output logic tx,
+  // output logic tx_done,
   input  wire  [BUFFER_WIDTH-1:0] write_data,
   input  wire  write_valid,
   output logic write_ready,

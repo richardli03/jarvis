@@ -25,16 +25,55 @@ module uart_loopback_demo #(
   wire ready, valid;
   logic [7:0] data, next_data;
 
+  // data new flag
+  logic data_new, previous_ready,previous_valid, ready_negative_edge, valid_positive_edge;
+
+  // ready positive and valid negative edge detectors
+  always_ff @( posedge clk ) begin
+    previous_ready <= ready;
+    previous_valid <= valid;
+  end
+  assign ready_negative_edge = previous_ready & !ready;
+  assign valid_positive_edge = !previous_valid & valid;
+  
+  always_ff @( posedge clk ) begin
+    if (!rst_n)
+      data_new <= '0;
+    else if (ready_negative_edge)
+      data_new <= '0;
+    else if (valid_positive_edge)
+      data_new <= '1;
+    else
+      data_new <= data_new;
+  end
+
+  // // valid positive edge dectector
+  // // determines when new data is received on rx
+  // logic tx_en, valid_positive_edge,valid_negative_edge, previous_valid, data_new;
+  // always_ff @ ( posedge clk ) previous_valid <= valid;
+  // assign valid_positive_edge = !previous_valid & valid;
+  // assign valid_negative_edge = previous_valid & !valid;
+  // always_ff @( posedge clk ) begin
+  //   if (!rst_n)
+  //     data_new <= 0;
+  //   else if (valid_positive_edge)
+  //     tx_en <= 1;
+  //   else if (valid_negative_edge)
+  //     tx_en <= 0;
+  //   else
+  //     tx_en <= tx_en; 
+  // end
+
+
   // data buffer
   // allows for full duplex communication
   always_ff @( posedge clk ) begin
     if (!rst_n)
       data <= '0;
-    else if (valid)
+    else if (ready & valid)
       data <= next_data;
-    else
-      data <= data;
-      // rx_probe <= rx;
+    // else
+    //   data <= data;
   end
 
   // uart periperal
@@ -53,8 +92,9 @@ module uart_loopback_demo #(
     .read_ready(ready),
     .read_valid(valid),
     .tx(tx),
+    // .tx_en(tx_en),
     .write_data(data),
-    .write_valid(valid),
+    .write_valid(data_new),
     .write_ready(ready),
     .test_data(test_data),
     .test_data_0(test_data_0),
