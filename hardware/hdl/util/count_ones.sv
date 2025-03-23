@@ -8,7 +8,7 @@ Combinational count ones util.
 `default_nettype none
 
 module count_ones (
-  input logic [N-1:0] data,
+  input  logic [N-1:0]         data,
   output logic [COUNT_WIDTH:0] count
 );
   timeunit 1ns; timeprecision 100ps;
@@ -19,13 +19,12 @@ module count_ones (
   // local parameters
   localparam COUNT_WIDTH = $clog2(N);
 
-always_comb begin
+  always_comb begin
     count = '0;
-    for (int i = N-1; i >= 0; i--)
-        if (data[i]) count++; 
-end
+    for (int i = N - 1; i >= 0; i--) 
+      if (data[i]) count++;
+  end
 
 endmodule : count_ones
 
-`default_nettype wire 
-`end_keywords
+`default_nettype wire `end_keywords
