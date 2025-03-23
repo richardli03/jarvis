@@ -33,7 +33,6 @@ module uart
 (
   input logic rst_n,
   input logic clk,
-  input logic mode,   // determines read/write
 
   // uart rx
   input  logic rx,
