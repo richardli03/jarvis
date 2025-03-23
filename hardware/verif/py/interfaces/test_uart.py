@@ -1,5 +1,5 @@
 """
-Test for UART main.
+Test for UART module.
 """
 
 import random

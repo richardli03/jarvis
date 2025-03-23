@@ -20,8 +20,6 @@ input buffer is half full.
 `begin_keywords "1800-2017"  // Use SystemVerilog 2017 keywords
 `default_nettype none
 
-// `include "count_ones.sv"
-
 module uart 
 #(
   parameter BUFFER_WIDTH = 8,
@@ -96,7 +94,7 @@ module uart
   input_buffer_state_t input_buffer_state, input_buffer_next_state;
   logic [BUFFER_COUNTER_BITS:0] rx_bit_counter;
   logic [CLK_CYCLE_COUNTER_BITS-1:0] rx_clk_counter;
-  logic input_shift_en, input_sample, rx_shift_en, rx_bit_counter_rst_n, rx_clk_counter_rst_n;
+  logic input_shift_en, input_sample, rx_shift_en, rx_bit_counter_rst_n, rx_clk_counter_rst_n, rx_post_reset;
   logic [INPUT_BUFFER_WIDTH-1:0] input_buffer;
 
   // rx current state logic
@@ -138,23 +136,26 @@ module uart
   always_comb begin : _rx_fsm_outputs
     unique case (rx_state)
       RX_RESET, RX_ERROR: begin
-        {rx_shift_en, read_valid} = 2'b00;
+        {rx_shift_en, read_valid, rx_post_reset} = 3'b001;
         {rx_clk_counter_rst_n, rx_bit_counter_rst_n} = 2'b00;
       end
       RX_IDLE: begin
-        {rx_shift_en, read_valid} = 2'b01;
+        if (rx_post_reset)
+          {rx_shift_en, read_valid, rx_post_reset} = 3'b001;
+        else
+          {rx_shift_en, read_valid, rx_post_reset} = 3'b011;
         {rx_clk_counter_rst_n, rx_bit_counter_rst_n} = 2'b00;
       end
       RX_START: begin
-        {rx_shift_en, read_valid} = 2'b00;
+        {rx_shift_en, read_valid, rx_post_reset} = 3'b000;
         {rx_clk_counter_rst_n, rx_bit_counter_rst_n} = 2'b10;
       end
       RX_READ: begin
-        {rx_shift_en, read_valid} = 2'b10;
+        {rx_shift_en, read_valid, rx_post_reset} = 3'b100;
         {rx_clk_counter_rst_n, rx_bit_counter_rst_n} = 2'b11;
       end
       default: begin 
-        {rx_shift_en, read_valid} = 2'b00;
+        {rx_shift_en, read_valid, rx_post_reset} = 3'b000;
         {rx_clk_counter_rst_n, rx_bit_counter_rst_n} = 2'b00;
       end
     endcase
