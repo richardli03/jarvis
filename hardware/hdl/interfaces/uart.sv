@@ -111,7 +111,7 @@ module uart
       RX_RESET:
         rx_next_state = RX_IDLE;
       RX_IDLE:
-        if (!rx)
+        if (rx_negative_edge)
           rx_next_state = RX_START;
         else
           rx_next_state = RX_IDLE;
@@ -143,7 +143,7 @@ module uart
         if (rx_post_reset)
           {rx_shift_en, read_valid, rx_post_reset} = 3'b001;
         else
-          {rx_shift_en, read_valid, rx_post_reset} = 3'b011;
+          {rx_shift_en, read_valid, rx_post_reset} = 3'b010;
         {rx_clk_counter_rst_n, rx_bit_counter_rst_n} = 2'b00;
       end
       RX_START: begin
@@ -169,58 +169,62 @@ module uart
       input_buffer_state <= input_buffer_next_state;
   end
 
-  // input buffer next state logic
-  always_comb begin : _input_buffer_next_state_logic
-    unique case (input_buffer_state)
-      RESET:
-        input_buffer_next_state = READY;
-      READY:
-        if ((rx_clk_counter <= CLK_CYCLES_TIL_SAMPLE) && (rx_clk_counter > CLK_CYCLES_AFTER_SAMPLE))
-          input_buffer_next_state = ACTIVE;
-        else
-          input_buffer_next_state = READY;
-      ACTIVE:
-        if (rx_clk_counter <= CLK_CYCLES_AFTER_SAMPLE)
-          input_buffer_next_state = DONE;
-        else
-          input_buffer_next_state = ACTIVE;
-      DONE:
-        if (rx_clk_counter == '0)
-          input_buffer_next_state = READY;
-        else
-          input_buffer_next_state = DONE;
-      default:
-        input_buffer_next_state = ERROR;
-    endcase
-  end
+  // // input buffer next state logic
+  // always_comb begin : _input_buffer_next_state_logic
+  //   unique case (input_buffer_state)
+  //     RESET:
+  //       input_buffer_next_state = READY;
+  //     READY:
+  //       if ((rx_clk_counter <= CLK_CYCLES_TIL_SAMPLE) && (rx_clk_counter > CLK_CYCLES_AFTER_SAMPLE))
+  //         input_buffer_next_state = ACTIVE;
+  //       else
+  //         input_buffer_next_state = READY;
+  //     ACTIVE:
+  //       if (rx_clk_counter <= CLK_CYCLES_AFTER_SAMPLE)
+  //         input_buffer_next_state = DONE;
+  //       else
+  //         input_buffer_next_state = ACTIVE;
+  //     DONE:
+  //       if (rx_clk_counter == '0)
+  //         input_buffer_next_state = READY;
+  //       else
+  //         input_buffer_next_state = DONE;
+  //     default:
+  //       input_buffer_next_state = ERROR;
+  //   endcase
+  // end
 
-  // input buffer fsm outputs
-  always_comb begin : _input_buffer_outputs
-    unique case (input_buffer_state)
-      RESET, READY, ERROR: begin
-        {input_shift_en} = 1'b0;
-      end
-      ACTIVE: begin
-        {input_shift_en} = 1'b1;
-      end
-      DONE: begin
-        {input_shift_en} = 1'b0;
-      end
-      default: begin
-        {input_shift_en} = 1'b0;
-      end
-    endcase
-  end
+  // // input buffer fsm outputs
+  // always_comb begin : _input_buffer_outputs
+  //   unique case (input_buffer_state)
+  //     RESET, READY, ERROR: begin
+  //       {input_shift_en} = 1'b0;
+  //     end
+  //     ACTIVE: begin
+  //       {input_shift_en} = 1'b1;
+  //     end
+  //     DONE: begin
+  //       {input_shift_en} = 1'b0;
+  //     end
+  //     default: begin
+  //       {input_shift_en} = 1'b0;
+  //     end
+  //   endcase
+  // end
 
   // input shift register, for synchronization and oversampling
   always_ff @( posedge clk ) begin : _input_shift_register
     if (!rst_n)
       input_buffer <= '0;
-    else if (input_shift_en)
+    else //if (input_shift_en)
       input_buffer <= {rx, input_buffer[INPUT_BUFFER_WIDTH-1:1]}; // lsb first
-    else
-      input_buffer <= input_buffer;
+    // else
+    //   input_buffer <= input_buffer;
   end
+
+  //
+  logic rx_negative_edge;
+  assign rx_negative_edge = !input_buffer[OVERSAMPLING_DEPTH] & input_buffer[OVERSAMPLING_DEPTH - 1];
 
   // oversample count
   logic [OVERSAMPLING_DEPTH_BITS:0] oversample_ones_count; 

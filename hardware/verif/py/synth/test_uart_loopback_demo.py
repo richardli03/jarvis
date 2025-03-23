@@ -12,6 +12,7 @@ import hardware.verif.py.cocotb_runner
 from hardware.util.verif import repeat, parameterize
 
 NUM_REPEATS = 10
+random.seed(123)
 
 
 @cocotb.test()
@@ -51,12 +52,20 @@ async def uart_random_loopback(dut):
         for index in range(0, 8):
             dut.rx.value = (read_data >> index) & 0b1
             await ClockCycles(
-                signal=dut.clk, num_cycles=dut.uart_0.CLK_CYCLES_TIL_SAMPLE.value
+                signal=dut.clk,
+                num_cycles=dut.uart_0.CLK_CYCLES_PER_BIT.value,
+                rising=True,
             )
-            # assert dut.tx.value == (previous_read_data >> index) & 0b1 #TODO: Fix or split into two test
-            await ClockCycles(
-                signal=dut.clk, num_cycles=dut.uart_0.CLK_CYCLES_TIL_SAMPLE.value
-            )
+
+            # await ClockCycles(
+            #     signal=dut.clk, num_cycles=dut.uart_0.CLK_CYCLES_TIL_SAMPLE.value
+            # )
+            # await ClockCycles(
+            #     signal=dut.clk, num_cycles=dut.uart_0.CLK_CYCLES_TIL_SAMPLE.value
+            # )
+            # # assert (
+            # #     dut.tx.value == (previous_read_data >> index) & 0b1
+            # # )  # TODO: Fix or split into two test
 
         # idle and cooldown
         dut.rx.value = 1
