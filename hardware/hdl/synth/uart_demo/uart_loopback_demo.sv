@@ -21,8 +21,20 @@ module uart_loopback_demo #(
   timeunit 1ns; timeprecision 100ps;
 
   wire ready, valid;
-  logic [7:0] data;
+  logic [7:0] data, next_data;
 
+  // data buffer
+  // allows for full duplex communication
+  always_ff @( posedge clk ) begin
+    if (!rst_n)
+      data <= '0;
+    else if (valid)
+      data <= next_data;
+    else
+      data <= data;
+  end
+
+  // uart periperal
   uart #(
     .BUFFER_WIDTH(BUFFER_WIDTH),
     .BAUD_RATE(BAUD_RATE),
@@ -34,7 +46,7 @@ module uart_loopback_demo #(
     .rst_n(rst_n),
     .clk(clk),
     .rx(rx),
-    .read_data(data),
+    .read_data(next_data),
     .read_ready(ready),
     .read_valid(valid),
     .tx(tx),
