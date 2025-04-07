@@ -1,3 +1,0 @@
-/home/drew/Documents/github/jarvis/software/blinky/platform/zynq_fsbl/build/CMakeFiles/fsbl.elf.dir
-/home/drew/Documents/github/jarvis/software/blinky/platform/zynq_fsbl/build/CMakeFiles/edit_cache.dir
-/home/drew/Documents/github/jarvis/software/blinky/platform/zynq_fsbl/build/CMakeFiles/rebuild_cache.dir
