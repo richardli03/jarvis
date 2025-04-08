@@ -104,7 +104,6 @@ def build():
     # Check if platform already exists
     existing_platforms = client.list_platforms()
     print(f"Existing platforms: {existing_platforms}")
-    db()
     # the 0th element of the tuple is the platform name
 
     if any(f"{PLATFORM_NAME}.xpfm" in platform[0] for platform in existing_platforms):
@@ -112,14 +111,12 @@ def build():
     else:
         build_platform(client, PLATFORM_NAME, XSA_FILE, OS_TYPE)
 
-    db()
     platform_xpfm = client.find_platform_in_repos(PLATFORM_NAME)
     print(f"Using platform: {platform_xpfm}")
 
     # Check if application already exists
     existing_apps = client.list_components()
     print(f"Existing applications: {existing_apps}")
-    db()
     if any(APP_NAME == app["name"] for app in existing_apps):
         print(f"Application '{APP_NAME}' already exists, just rebuilding")
         app_component = client.get_component(APP_NAME)
@@ -127,7 +124,6 @@ def build():
     else:
         build_application(client, APP_NAME, platform_xpfm, APP_TEMPLATE, OS_TYPE)
 
-    db()
     return True
 
 
