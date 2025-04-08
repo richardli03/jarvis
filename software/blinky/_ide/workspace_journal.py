@@ -1,10 +1,10 @@
-# 2025-03-04T21:45:24.960187
+# 2025-04-07T20:35:05.053821
 import vitis
 
 client = vitis.create_client()
-client.set_workspace(path="blinky_4")
+client.set_workspace(path="blinky")
 
-comp = client.get_component(name="xgpio_example")
+comp = client.get_component(name="jarvis")
 comp.build()
 
 vitis.dispose()

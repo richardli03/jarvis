@@ -1,6 +1,6 @@
-#line 1 "../python-tester/hw/sdt/system-top.dts"
+#line 1 "../demo_platform/hw/sdt/system-top.dts"
 /dts-v1/;
-#line 1 "../python-tester/hw/sdt/zynq-7000.dtsi"
+#line 1 "../demo_platform/hw/sdt/zynq-7000.dtsi"
 // SPDX-License-Identifier: GPL-2.0+
 /*
  * Xilinx Zynq 7000 DTSI
@@ -590,7 +590,7 @@
 		};
 	};
 };
-#line 1 "../python-tester/hw/sdt/pl.dtsi"
+#line 1 "../demo_platform/hw/sdt/pl.dtsi"
 / {
 	amba_pl: amba_pl {
 		ranges;
@@ -636,7 +636,7 @@
 		};
 	};
 };
-#line 1 "../python-tester/hw/sdt/pcw.dtsi"
+#line 1 "../demo_platform/hw/sdt/pcw.dtsi"
 	&ps7_cortexa9_0 {
 		xlnx,rable = <0>;
 		xlnx,i-cache-size = <0x8000>;
@@ -943,7 +943,7 @@
 		fclk-enable = <0x1>;
 		ps-clk-frequency = <50000000>;
 	};
-#line 5 "../python-tester/hw/sdt/system-top.dts"
+#line 5 "../demo_platform/hw/sdt/system-top.dts"
 / {
 	board = "zybo";
 	compatible = "xlnx,zybo";
