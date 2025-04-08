@@ -1,3 +1,4 @@
+# run with `xcst flash.tcl` in this directory
 source args.tcl
 
 connect
