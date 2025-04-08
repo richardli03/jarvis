@@ -1,4 +1,6 @@
 # Software
+In order to use any software tools you'll have to run the Vitis setup script. It's in `Vitis/2024.2/settings64.sh`, wherever you installed Vitis (ex: `~/embedded/Vitis/2024.2/settings64.sh`)
+
 TODO:
 - add a central config file so you don't have to set it in python + args.tcl (idk how to pip install stuff to the vitis python version .o.)
 
@@ -9,4 +11,4 @@ To build + flash the board, run `vitis -s build.py` in the terminal.
 
 If you'd just like to flash, run `xsct flash.tcl` in the terminal. Or you can just run the script to rebuild the application component.
 
-NOTE that if you make a change in the name of the application component or `.xsa`, you'll have to change it in `args.tcl` AND `build.py`. Working on a fix. 
+NOTE that if you make a change in the name of the application component or `.xsa`, you'll have to change it in `args.tcl` AND `build.py`. Working on a fix.
