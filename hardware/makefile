@@ -21,7 +21,7 @@ FPGA_PART_NO=${ZYBO_PART_NO}
 
 # Test all modules with cocotb
 test_all:
-	${PYTHON} -m pytest -v -o log_cli=True hardware/verif/py/
+	${PYTHON} -m pytest -v -o log_cli=True verif/py/
 
 # Clean temporary files
 clean:

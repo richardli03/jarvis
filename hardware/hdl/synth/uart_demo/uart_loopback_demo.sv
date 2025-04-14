@@ -16,9 +16,7 @@ module uart_loopback_demo #(
   input wire rst_n,
   input wire clk,
   input wire rx,
-  output logic tx,
-  output logic [3:0] test_data,
-  output logic test_data_0, test_data_1, test_data_2
+  output logic tx
 );
   timeunit 1ns; timeprecision 100ps;
 
@@ -74,7 +72,7 @@ module uart_loopback_demo #(
     .tx(tx),
     .write_data(data),
     .write_valid(data_new),
-    .write_ready(ready),
+    .write_ready(ready)
   );
 
 endmodule : uart_loopback_demo
