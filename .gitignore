@@ -55,6 +55,7 @@ dkms.conf
 jarvis_venv/
 .pytest_cache/
 .python-version
+__pycache__/
 
 # vscode
 .vscode/
