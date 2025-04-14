@@ -47,24 +47,6 @@ module uart_loopback_demo #(
       data_new <= data_new;
   end
 
-  // // valid positive edge dectector
-  // // determines when new data is received on rx
-  // logic tx_en, valid_positive_edge,valid_negative_edge, previous_valid, data_new;
-  // always_ff @ ( posedge clk ) previous_valid <= valid;
-  // assign valid_positive_edge = !previous_valid & valid;
-  // assign valid_negative_edge = previous_valid & !valid;
-  // always_ff @( posedge clk ) begin
-  //   if (!rst_n)
-  //     data_new <= 0;
-  //   else if (valid_positive_edge)
-  //     tx_en <= 1;
-  //   else if (valid_negative_edge)
-  //     tx_en <= 0;
-  //   else
-  //     tx_en <= tx_en; 
-  // end
-
-
   // data buffer
   // allows for full duplex communication
   always_ff @( posedge clk ) begin
@@ -72,8 +54,6 @@ module uart_loopback_demo #(
       data <= '0;
     else if (ready & valid)
       data <= next_data;
-    // else
-    //   data <= data;
   end
 
   // uart periperal
@@ -92,14 +72,9 @@ module uart_loopback_demo #(
     .read_ready(ready),
     .read_valid(valid),
     .tx(tx),
-    // .tx_en(tx_en),
     .write_data(data),
     .write_valid(data_new),
     .write_ready(ready),
-    .test_data(test_data),
-    .test_data_0(test_data_0),
-    .test_data_1(test_data_1),
-    .test_data_2(test_data_2)
   );
 
 endmodule : uart_loopback_demo

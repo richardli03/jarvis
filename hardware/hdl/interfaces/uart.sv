@@ -43,20 +43,9 @@ module uart
   // output logic tx_done,
   input  wire  [BUFFER_WIDTH-1:0] write_data,
   input  wire  write_valid,
-  output logic write_ready,
-
-  output logic [3:0] test_data,
-  output logic test_data_0, test_data_1, test_data_2
+  output logic write_ready
 );
   timeunit 1ns; timeprecision 100ps;
-
-  always_ff @( posedge clk ) begin
-    test_data <= rx_clk_counter[CLK_CYCLE_COUNTER_BITS-1:CLK_CYCLE_COUNTER_BITS-4];//{input_sample, rx, 1'b0, 1'b0};//read_data[3:0];//read_data[7:4];
-    test_data_0 <= rx_clk_counter == CLK_CYCLES_AFTER_SAMPLE;//(rx_shift_en && rx_clk_counter == CLK_CYCLES_AFTER_SAMPLE);
-    test_data_1 <= input_sample;
-    test_data_2 <= tx_shift_en;
-  end
-
 
   // local parameters
   localparam BUFFER_COUNTER_BITS = $clog2(BUFFER_WIDTH);
