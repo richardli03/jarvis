@@ -1,3 +1,6 @@
+*.bak
+*workspace_journal*
+vitis_journal.py
 # Prerequisites
 *.d
 
