@@ -14,13 +14,13 @@ import subprocess
 
 
 # Configuration
-WORKSPACE = "blinky"  # relative path
+WORKSPACE = "freeRTOStestproj"  # relative path
 XSA_FILE = "blinky_wrapper_7.xsa"  # Path to your XSA file
-PLATFORM_NAME = "demo_platform"  # Name for the platform component
-APP_NAME = "jarvis"  # Name for the application component
+PLATFORM_NAME = "platform"  # Name for the platform component
+APP_NAME = "freertos_hello_world"  # Name for the application component
 
 CPU_TYPE = "ps7_cortexa9_0"  # CPU type
-OS_TYPE = "standalone"  # OS type
+OS_TYPE = "freertos"  # OS type (standalone, freertos)
 
 APP_TEMPLATE = "empty_application"
 
@@ -134,13 +134,12 @@ def flash():
 
 
 if __name__ == "__main__":
-    while True:
-        user_confirmation = input("Build project? (y/n): ")
-        if user_confirmation.lower() in ["yes", "y"]:
-            success = build()
-        else:
-            success = True
-            break
+
+    user_confirmation = input("Build project? (y/n): ")
+    if user_confirmation.lower() in ["yes", "y"]:
+        success = build()
+    else:
+        success = True
 
     if success:
         while True:
