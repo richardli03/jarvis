@@ -30,10 +30,10 @@ module i2s
   output logic rx_valid,
 
   // i2s tx
-  input  wire  tx,
+  output logic tx,
   output logic tx_lrclk,
   input  logic [BIT_DEPTH-1:0] tx_data,
-  input  wire  tx_ready,
+  output logic tx_ready,
   input  wire  tx_valid,
 
   // device specific //TODO: move to higher level module
@@ -98,6 +98,7 @@ always_comb begin : _bclk_clk_divider
     bclk = 1;
 end
 
+// TODO: synthesis difference between this and the block above
 // always_ff @( posedge mclk ) begin : _bclk_clk_divider
 //   if (!rst_n)
 //     bclk <= 0;
@@ -118,7 +119,6 @@ end
   i2s_state_t rx_state, rx_next_state;
   logic [BUFFER_COUNTER_BITS-1:0] rx_bit_counter; 
   logic rx_shift_en, rx_bit_counter_rst_n;
-  logic [BIT_DEPTH-1:0] input_buffer;
 
   // rx current state logic
   always_ff @( posedge mclk ) begin : _rx_current_state_logic
@@ -136,7 +136,7 @@ end
       IDLE:
         rx_next_state = LEFT_START;
       LEFT_START:
-        if (bclk_counter == '0)
+        if (bclk_counter == '0) // bclk falling edge
           rx_next_state = LEFT;
       LEFT:
         if (rx_bit_counter == '0)
@@ -145,7 +145,7 @@ end
         if (rx_lrclk == 1) // unsure if this will work with 32 bit words
           rx_next_state = RIGHT_START;
       RIGHT_START:
-        if (bclk_counter == '0)
+        if (bclk_counter == '0) // bclk falling edge
           rx_next_state = RIGHT;
       RIGHT:
       if (rx_bit_counter == '0)
@@ -252,6 +252,152 @@ end
       rx_lrclk = 0;
     else
       rx_lrclk = 1;
+  end
+
+  /* 
+ * =============================================================================
+ * transmit
+ * =============================================================================
+ */
+
+  // internal tx variables
+  i2s_state_t tx_state, tx_next_state;
+  logic [BUFFER_COUNTER_BITS-1:0] tx_bit_counter; 
+  logic tx_shift_en, tx_bit_counter_rst_n;
+
+  // tx current state logic
+  always_ff @( posedge mclk ) begin : _tx_current_state_logic
+    if (!rst_n)
+      tx_state <= RESET;
+    else
+      tx_state <= tx_next_state;
+  end
+
+  // rx next state logic
+  always_comb begin : _tx_next_state_logic
+    unique case (tx_state)
+      RESET:
+        tx_next_state = LEFT_START;
+      IDLE:
+        if (tx_valid)
+          tx_next_state = LEFT_START;
+      LEFT_START:
+        if (bclk_counter == '0) // bclk falling edge
+          tx_next_state = LEFT;
+      LEFT:
+        if (tx_bit_counter == '0)
+          tx_next_state = LEFT_IDLE;
+      LEFT_IDLE:
+        if (tx_lrclk == 1) // unsure if this will work with 32 bit words
+          tx_next_state = RIGHT_START;
+      RIGHT_START:
+        if (bclk_counter == '0) // bclk falling edge
+          tx_next_state = RIGHT;
+      RIGHT:
+      if (tx_bit_counter == '0)
+        tx_next_state = RIGHT_IDLE;
+      RIGHT_IDLE:
+        if (tx_lrclk == 0) // unsure if this will work with 32 bit words
+          tx_next_state = LEFT_START;
+      ERROR:
+        tx_next_state = ERROR;
+      default:
+        tx_next_state = ERROR; // catch glitches
+    endcase
+  end
+
+  // tx fsm outputs
+  always_comb begin : _tx_fsm_outputs
+    unique case (rx_state)
+      RESET, ERROR: begin
+        {tx_shift_en, tx_bit_counter_rst_n} = 2'b00;
+        {tx_lrclk_rst_n} = 1'b0;
+        {tx_ready} = 1'b0;
+      end
+      IDLE: begin
+        {tx_shift_en, tx_bit_counter_rst_n} = 2'b00;
+        {tx_lrclk_rst_n} = 1'b0;
+        {tx_ready} = 1'b1;
+      end
+      LEFT_START: begin
+        {tx_shift_en, tx_bit_counter_rst_n} = 2'b00;
+        {tx_lrclk_rst_n} = 1'b1;
+        {tx_ready} = 1'b0;
+      end
+      LEFT: begin
+        {tx_shift_en, tx_bit_counter_rst_n} = 2'b11;
+        {tx_lrclk_rst_n} = 1'b1;
+        {tx_ready} = 1'b0;
+      end
+      LEFT_IDLE: begin
+        {tx_shift_en, tx_bit_counter_rst_n} = 2'b00;
+        {tx_lrclk_rst_n} = 1'b1;
+        {tx_ready} = 1'b0;
+      end
+      RIGHT_START: begin
+        {tx_shift_en, tx_bit_counter_rst_n} = 2'b00;
+        {tx_lrclk_rst_n} = 1'b1;
+        {tx_ready} = 1'b0;
+      end
+      RIGHT: begin
+        {tx_shift_en, tx_bit_counter_rst_n} = 2'b11;
+        {tx_lrclk_rst_n} = 1'b1;
+        {tx_ready} = 1'b0;
+      end
+      RIGHT_IDLE: begin
+        {tx_shift_en, tx_bit_counter_rst_n} = 2'b00;
+        {tx_lrclk_rst_n} = 1'b1;
+        {tx_ready} = 1'b0;
+      end
+      default: begin
+        {tx_shift_en, tx_bit_counter_rst_n} = 2'b00;
+        {tx_lrclk_rst_n} = 1'b0;
+        {tx_ready} = 1'b0;
+      end
+    endcase
+  end
+
+  // receive shift register
+  always_ff @( posedge bclk ) begin : _tx_shift_register
+    if (!rst_n)
+      tx <= 0;
+    else if (tx_shift_en)
+      tx <= tx_data[tx_bit_counter]; // msb first
+    else
+      tx <= tx;
+  end
+
+  // tx bit counter
+  always_ff @( posedge bclk ) begin : _tx_bit_counter
+    if (!rx_bit_counter_rst_n)
+      rx_bit_counter <= BIT_DEPTH;
+    else if (rx_bit_counter == '0)
+      rx_bit_counter <= BIT_DEPTH - 1;
+    else
+      rx_bit_counter <= rx_bit_counter - 1;
+  end
+
+  logic tx_lrclk_rst_n;
+  logic [LRCLK_COUNTER_BITS-1:0] tx_lrclk_counter;
+
+  // tx lrclk counter
+  always_ff @( posedge mclk ) begin : _tx_lrclk_clk_counter
+    if (!tx_lrclk_rst_n)
+      tx_lrclk_counter <= (LRCLK_COUNTER_BITS)'(LRCLK_DIV - 1);
+    else if (tx_lrclk_counter == '0)
+      tx_lrclk_counter <= (LRCLK_COUNTER_BITS)'(LRCLK_DIV - 1);
+    else
+      tx_lrclk_counter <= tx_lrclk_counter - 1;
+  end
+
+  // tx lrclk output
+  always_comb begin : _tx_lrclk_clk_div
+    if (!tx_lrclk_rst_n)
+      tx_lrclk = 1;
+    else if (tx_lrclk_counter[LRCLK_COUNTER_BITS-1:0] >= (LRCLK_COUNTER_BITS)'(LRCLK_DIV / 2))
+      tx_lrclk = 0;
+    else
+      tx_lrclk = 1;
   end
 
 endmodule : i2s
