@@ -9,26 +9,29 @@ I2S Codec interface
 
 module i2s
 #(
-  parameter BIT_DEPTH = 24
+  parameter BIT_DEPTH = 24,
+  parameter WORD_LENGTH = 32,
+  parameter MCLK_FREQ = 125_000_000,
+  parameter BCLK_DIV = 4,
+  parameter LRCLK_DIV = 256
 )
 (
   input wire rst_n,
-  input wire clk,
 
   // i2s common
-  output logic mclk,
-  output logic blck,
+  input  wire  mclk,
+  output logic bclk,
 
   // i2s rx
   output logic rx,
-  output logic rx_lr_clk,
+  output logic rx_lrclk,
   output logic [BIT_DEPTH-1:0] rx_data,
   input  wire  rx_ready,
   output logic rx_valid,
 
   // i2s tx
   input  wire  tx,
-  output logic tx_lr_clk,
+  output logic tx_lrclk,
   input  logic [BIT_DEPTH-1:0] tx_data,
   input  wire  tx_ready,
   input  wire  tx_valid,
@@ -38,17 +41,72 @@ module i2s
 );
   timeunit 1ns; timeprecision 100ps;
 
-  // local parameters
+/* 
+ * =============================================================================
+ * local parameters
+ * =============================================================================
+ */
+  // general
   localparam BUFFER_COUNTER_BITS = $clog2(BIT_DEPTH);
 
-  // i2s states
-  typedef enum logic [3:0] {
-    RESET = 4'b0000,
-    IDLE  = 4'b0001,
-    LEFT  = 4'b0010,
-    RIGHT = 4'b0100,
-    ERROR = 4'b1000
+  // clk dividers
+  localparam BCLK_COUNTER_BITS = $clog2(BCLK_DIV);
+  localparam LRCLK_COUNTER_BITS = $clog2(LRCLK_DIV);
+
+
+/* 
+ * =============================================================================
+ * states
+ * =============================================================================
+ */
+  // I2S states
+  typedef enum logic [7:0] {
+    RESET       = 8'b00000000,
+    IDLE        = 8'b00000001,
+    LEFT_START  = 8'b00000010,
+    LEFT        = 8'b00000100,
+    LEFT_IDLE   = 8'b00001000,
+    RIGHT_START = 8'b00010000,
+    RIGHT       = 8'b00100000,
+    RIGHT_IDLE  = 8'b01000000,
+    ERROR       = 8'b10000000
   } i2s_state_t;
+
+
+/* 
+ * =============================================================================
+ * bclk clk divider
+ * =============================================================================
+ */
+logic [BCLK_COUNTER_BITS-1:0] bclk_counter;
+
+// bclk counter
+always_ff @( posedge mclk ) begin : _bclk_clk_counter
+  if (!rst_n)
+    bclk_counter <= '0;
+  else if (bclk_counter == '0)
+    bclk_counter <= (BCLK_COUNTER_BITS)'(LRCLK_DIV - 1);
+  else
+    bclk_counter <= bclk_counter - 1;
+end
+
+// bclk_output
+always_comb begin : _bclk_clk_divider
+  if (bclk_counter[BCLK_COUNTER_BITS-1:0] >= (BCLK_COUNTER_BITS)'(BCLK_DIV / 2))
+    bclk = 0;
+  else
+    bclk = 1;
+end
+
+// always_ff @( posedge mclk ) begin : _bclk_clk_divider
+//   if (!rst_n)
+//     bclk <= 0;
+//   else if (clk_counter[BCLK_COUNTER_BITS-1:0] >= (BCLK_COUNTER_BITS)'(BCLK_DIV / 2))
+//     bclk <= 0;
+//   else
+//     bclk <= 1;
+// end
+
 
 /* 
  * =============================================================================
@@ -63,7 +121,7 @@ module i2s
   logic [BIT_DEPTH-1:0] input_buffer;
 
   // rx current state logic
-  always_ff @( posedge clk ) begin : _rx_current_state_logic
+  always_ff @( posedge mclk ) begin : _rx_current_state_logic
     if (!rst_n)
       rx_state <= RESET;
     else
@@ -74,15 +132,27 @@ module i2s
   always_comb begin : _rx_next_state_logic
     unique case (rx_state)
       RESET:
-        rx_next_state = LEFT;
+        rx_next_state = LEFT_START;
       IDLE:
-        rx_next_state = LEFT;
+        rx_next_state = LEFT_START;
+      LEFT_START:
+        if (bclk_counter == '0)
+          rx_next_state = LEFT;
       LEFT:
         if (rx_bit_counter == '0)
+          rx_next_state = LEFT_IDLE;
+      LEFT_IDLE:
+        if (rx_lrclk == 1) // unsure if this will work with 32 bit words
+          rx_next_state = RIGHT_START;
+      RIGHT_START:
+        if (bclk_counter == '0)
           rx_next_state = RIGHT;
       RIGHT:
       if (rx_bit_counter == '0)
-        rx_next_state = LEFT;
+        rx_next_state = RIGHT_IDLE;
+      RIGHT_IDLE:
+        if (rx_lrclk == 0) // unsure if this will work with 32 bit words
+          rx_next_state = LEFT_START;
       ERROR:
         rx_next_state = ERROR;
       default:
@@ -93,16 +163,56 @@ module i2s
   // rx fsm outputs
   always_comb begin : _rx_fsm_outputs
     unique case (rx_state)
-      RESET, ERROR: {rx_shift_en, rx_bit_counter_rst_n} = 2'b01;
-      IDLE: {rx_shift_en, rx_bit_counter_rst_n} = 2'b10;
-      LEFT: {rx_shift_en, rx_bit_counter_rst_n} = 2'b11;
-      RIGHT: {rx_shift_en, rx_bit_counter_rst_n} = 2'b11;
-      default: {rx_shift_en, rx_bit_counter_rst_n} = 2'b01;
+      RESET, ERROR: begin
+        {rx_shift_en, rx_bit_counter_rst_n} = 2'b00;
+        {rx_lrclk_rst_n} = 1'b0;
+        {rx_valid} = 1'b0;
+      end
+      IDLE: begin
+        {rx_shift_en, rx_bit_counter_rst_n} = 2'b00;
+        {rx_lrclk_rst_n} = 1'b0;
+        {rx_valid} = 1'b0;
+      end
+      LEFT_START: begin
+        {rx_shift_en, rx_bit_counter_rst_n} = 2'b00;
+        {rx_lrclk_rst_n} = 1'b1;
+        {rx_valid} = 1'b1;  // TODO: this will not be valid first sample after reset
+      end
+      LEFT: begin
+        {rx_shift_en, rx_bit_counter_rst_n} = 2'b11;
+        {rx_lrclk_rst_n} = 1'b1;
+        {rx_valid} = 1'b0;
+      end
+      LEFT_IDLE: begin
+        {rx_shift_en, rx_bit_counter_rst_n} = 2'b00;
+        {rx_lrclk_rst_n} = 1'b1;
+        {rx_valid} = 1'b1;
+      end
+      RIGHT_START: begin
+        {rx_shift_en, rx_bit_counter_rst_n} = 2'b00;
+        {rx_lrclk_rst_n} = 1'b1;
+        {rx_valid} = 1'b1;  // TODO: this will not be valid first sample after reset
+      end
+      RIGHT: begin
+        {rx_shift_en, rx_bit_counter_rst_n} = 2'b11;
+        {rx_lrclk_rst_n} = 1'b1;
+        {rx_valid} = 1'b0;
+      end
+      RIGHT_IDLE: begin
+        {rx_shift_en, rx_bit_counter_rst_n} = 2'b00;
+        {rx_lrclk_rst_n} = 1'b1;
+        {rx_valid} = 1'b1;
+      end
+      default: begin
+        {rx_shift_en, rx_bit_counter_rst_n} = 2'b00;
+        {rx_lrclk_rst_n} = 1'b0;
+        {rx_valid} = 1'b0;
+      end
     endcase
   end
 
   // receive shift register
-  always_ff @( posedge clk) begin : _rx_shift_register
+  always_ff @( posedge bclk ) begin : _rx_shift_register
     if (!rst_n)
       rx_data <= '0;
     else if (rx_shift_en)
@@ -112,13 +222,36 @@ module i2s
   end
 
   // rx bit counter
-  always_ff @( posedge clk ) begin : _rx_bit_counter
+  always_ff @( posedge bclk ) begin : _rx_bit_counter
     if (!rx_bit_counter_rst_n)
       rx_bit_counter <= BIT_DEPTH;
     else if (rx_bit_counter == '0)
       rx_bit_counter <= BIT_DEPTH - 1;
     else
       rx_bit_counter <= rx_bit_counter - 1;
+  end
+
+  logic rx_lrclk_rst_n;
+  logic [LRCLK_COUNTER_BITS-1:0] rx_lrclk_counter;
+
+  // rx lrclk counter
+  always_ff @( posedge mclk ) begin : _rx_lrclk_clk_counter
+    if (!rx_lrclk_rst_n)
+      rx_lrclk_counter <= (LRCLK_COUNTER_BITS)'(LRCLK_DIV - 1);
+    else if (rx_lrclk_counter == '0)
+      rx_lrclk_counter <= (LRCLK_COUNTER_BITS)'(LRCLK_DIV - 1);
+    else
+      rx_lrclk_counter <= rx_lrclk_counter - 1;
+  end
+
+  // rx lrclk output
+  always_comb begin : _rx_lrclk_clk_div
+    if (!rx_lrclk_rst_n)
+      rx_lrclk = 1;
+    else if (rx_lrclk_counter[LRCLK_COUNTER_BITS-1:0] >= (LRCLK_COUNTER_BITS)'(LRCLK_DIV / 2))
+      rx_lrclk = 0;
+    else
+      rx_lrclk = 1;
   end
 
 endmodule : i2s

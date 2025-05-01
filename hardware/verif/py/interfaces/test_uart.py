@@ -1,5 +1,5 @@
 """
-Test for UART module.
+Tests for UART module.
 """
 
 import random
@@ -14,7 +14,7 @@ from hardware.util.verif import repeat, parameterize
 
 @cocotb.test()
 @repeat(num_repeats=10)
-async def uart_random_read(dut, buffer_width: int = None):
+async def uart_random_receive(dut, buffer_width: int = None):
     """
     Test random reads with a UART main.
     """
@@ -65,7 +65,7 @@ async def uart_random_read(dut, buffer_width: int = None):
 
 @cocotb.test()
 @repeat(num_repeats=10)
-async def uart_random_write(dut):
+async def uart_random_transmit(dut):
     """
     Test random writes with a UART main.
     """
