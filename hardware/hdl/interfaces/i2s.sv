@@ -51,7 +51,8 @@ module i2s
 
   // clk dividers
   localparam BCLK_COUNTER_BITS = $clog2(BCLK_DIV);
-  localparam LRCLK_COUNTER_BITS = $clog2(LRCLK_DIV);
+  localparam LRCLK_BCLK_DIV = LRCLK_DIV/BCLK_DIV;
+  localparam LRCLK_COUNTER_BITS = $clog2(LRCLK_BCLK_DIV);
 
 
 /* 
@@ -81,10 +82,11 @@ module i2s
 logic [BCLK_COUNTER_BITS-1:0] bclk_counter;
 
 // bclk counter
+initial bclk_counter = '0;
 always_ff @( posedge mclk ) begin : _bclk_clk_counter
-  if (!rst_n)
-    bclk_counter <= '0;
-  else if (bclk_counter == '0)
+  // if (!rst_n)
+  //   bclk_counter <= '0;
+  if (bclk_counter == '0)
     bclk_counter <= (BCLK_COUNTER_BITS)'(LRCLK_DIV - 1);
   else
     bclk_counter <= bclk_counter - 1;
@@ -248,7 +250,7 @@ end
   always_comb begin : _rx_lrclk_clk_div
     if (!rx_lrclk_rst_n)
       rx_lrclk = 1;
-    else if (rx_lrclk_counter[LRCLK_COUNTER_BITS-1:0] >= (LRCLK_COUNTER_BITS)'(LRCLK_DIV / 2))
+    else if (rx_lrclk_counter[LRCLK_COUNTER_BITS-1:0] >= (LRCLK_COUNTER_BITS)'(LRCLK_BCLK_DIV / 2))
       rx_lrclk = 0;
     else
       rx_lrclk = 1;
@@ -273,11 +275,11 @@ end
       tx_state <= tx_next_state;
   end
 
-  // rx next state logic
+  // tx next state logic
   always_comb begin : _tx_next_state_logic
     unique case (tx_state)
       RESET:
-        tx_next_state = LEFT_START;
+        tx_next_state = IDLE;
       IDLE:
         if (tx_valid)
           tx_next_state = LEFT_START;
@@ -308,7 +310,7 @@ end
 
   // tx fsm outputs
   always_comb begin : _tx_fsm_outputs
-    unique case (rx_state)
+    unique case (tx_state)
       RESET, ERROR: begin
         {tx_shift_en, tx_bit_counter_rst_n} = 2'b00;
         {tx_lrclk_rst_n} = 1'b0;
@@ -358,35 +360,37 @@ end
   end
 
   // receive shift register
-  always_ff @( posedge bclk ) begin : _tx_shift_register
+  always_ff @( posedge mclk ) begin : _tx_shift_register
     if (!rst_n)
       tx <= 0;
     else if (tx_shift_en)
-      tx <= tx_data[tx_bit_counter]; // msb first
+      tx <= tx_data[tx_bit_counter - 1]; // msb first
     else
       tx <= tx;
   end
 
   // tx bit counter
   always_ff @( posedge bclk ) begin : _tx_bit_counter
-    if (!rx_bit_counter_rst_n)
-      rx_bit_counter <= BIT_DEPTH;
-    else if (rx_bit_counter == '0)
-      rx_bit_counter <= BIT_DEPTH - 1;
+    if (!tx_bit_counter_rst_n)
+      tx_bit_counter <= BIT_DEPTH;
+    else if (tx_bit_counter == '0)
+      tx_bit_counter <= BIT_DEPTH - 1;
     else
-      rx_bit_counter <= rx_bit_counter - 1;
+      tx_bit_counter <= tx_bit_counter - 1;
   end
 
   logic tx_lrclk_rst_n;
   logic [LRCLK_COUNTER_BITS-1:0] tx_lrclk_counter;
+  initial tx_lrclk_counter = '0;
 
   // tx lrclk counter
-  always_ff @( posedge mclk ) begin : _tx_lrclk_clk_counter
+  always_ff @( posedge bclk ) begin : _tx_lrclk_counter
     if (!tx_lrclk_rst_n)
-      tx_lrclk_counter <= (LRCLK_COUNTER_BITS)'(LRCLK_DIV - 1);
+      tx_lrclk_counter <= (LRCLK_COUNTER_BITS)'(LRCLK_BCLK_DIV - 1);
     else if (tx_lrclk_counter == '0)
-      tx_lrclk_counter <= (LRCLK_COUNTER_BITS)'(LRCLK_DIV - 1);
+      tx_lrclk_counter <= (LRCLK_COUNTER_BITS)'(LRCLK_BCLK_DIV - 1);
     else
+      // tx_lrclk_counter <= '0;
       tx_lrclk_counter <= tx_lrclk_counter - 1;
   end
 
@@ -394,7 +398,7 @@ end
   always_comb begin : _tx_lrclk_clk_div
     if (!tx_lrclk_rst_n)
       tx_lrclk = 1;
-    else if (tx_lrclk_counter[LRCLK_COUNTER_BITS-1:0] >= (LRCLK_COUNTER_BITS)'(LRCLK_DIV / 2))
+    else if (tx_lrclk_counter >= (LRCLK_COUNTER_BITS)'(LRCLK_BCLK_DIV / 2))
       tx_lrclk = 0;
     else
       tx_lrclk = 1;
