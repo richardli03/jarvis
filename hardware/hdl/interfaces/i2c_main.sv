@@ -21,55 +21,70 @@ module i2c
   input  wire  clk,
   output logic sda,
   output logic scl,
-  output logic ready,
-  input  wire  valid
+  input  wire  mode, // r/w: 0/1
+
+  // read
+  input  wire   read_ready,
+  output logic  read_valid,
+
+  // write
+  output logic  write_ready,
+  input  wrie   write_valid
 );
   timeunit 1ns; timeprecision 100ps;
 
 
-  /* 
-  * =============================================================================
-  * local parameters
-  * =============================================================================
-  */
+/* 
+ * =============================================================================
+ * local parameters
+ * =============================================================================
+ */
   localparam SCL_CLK_CYCLES_PER_BIT = CLK_FREQ / SCL_FREQ;
   localparam SCL_CLK_CYCLE_COUNTER_BITS = $clog2(SCL_CLK_CYCLES_PER_BIT);
   // +5 is for 1 start bit, 1 r/w bit, 2 ACKs, and 1 stop bit
   localparam TOTAL_READ_WRITE_BITS = DEVICE_ADDR_WIDTH + REGISTER_ADDR_WIDTH + DATA_WIDTH + 5;
+  localparam DEVICE_ADDR_COUNTER_BITS = $clog2(DEVICE_ADDR_WIDTH);
+  localparam REGISTER_ADDR_COUNTER_BITS = $clog2(REGISTER_ADDR_WIDTH);
+  localparam DATA_COUNTER_BITS = $clog2(DATA_WIDTH);
 
   // i2c read states
-  typedef enum logic [9:0] {
-    READ_RESET         = 10'b0000000000,
-    READ_IDLE          = 10'b0000000010,
-    READ_START         = 10'b0000000100,
-    READ_BIT           = 10'b0000001000,
-    READ_ADDR          = 10'b0000010000,
-    READ_DATA_PRE_ACK  = 10'b0000100000,
-    READ_DATA_POST_ACK = 10'b0001000000,
-    READ_MAIN_ACK      = 10'b0010000000,
-    READ_SECONDARY_ACK = 10'b0100000000,
-    READ_STOP          = 10'b1000000000
+  typedef enum logic [10:0] {
+    READ_RESET         = 11'b00000000000,
+    READ_IDLE          = 11'b00000000001,
+    READ_START         = 11'b00000000010,
+    READ_ADDR          = 11'b00000000100,
+    READ_BIT           = 11'b00000001000,
+    READ_ADDR_ACK      = 11'b00000010000,
+    READ_REG_ADDR      = 11'b00000100000,
+    READ_DATA_PRE_ACK  = 11'b00001000000,
+    READ_DATA_ACK_0    = 11'b00010000000,
+    READ_DATA_POST_ACK = 11'b00100000000,
+    READ_DATA_ACK_1    = 11'b01000000000,
+    READ_STOP          = 11'b10000000000
   } i2c_read_state_t;
 
   // i2c write states
-  typedef enum logic [8:0] {
-    WRITE_RESET         = 9'b000000000,
-    WRITE_IDLE          = 9'b000000010,
-    WRITE_START         = 9'b000000100,
-    WRITE_BIT           = 9'b000001000,
-    WRITE_ADDR          = 9'b000010000,
-    WRITE_DATA_PRE_ACK  = 9'b000100000,
-    WRITE_DATA_POST_ACK = 9'b001000000,
-    WRITE_ACK           = 9'b010000000,
-    WRITE_STOP          = 9'b100000000
+  typedef enum logic [10:0] {
+    WRITE_RESET         = 11'b00000000000,
+    WRITE_IDLE          = 11'b00000000001,
+    WRITE_START         = 11'b00000000010,
+    WRITE_ADDR          = 11'b00000000100,
+    WRITE_BIT           = 11'b00000001000,
+    WRITE_ADDR_ACK      = 11'b00000010000,
+    WRITE_REG_ADDR      = 11'b00000100000,
+    WRITE_DATA_PRE_ACK  = 11'b00001000000,
+    WRITE_DATA_ACK_0    = 11'b00010000000,
+    WRITE_DATA_POST_ACK = 11'b00100000000,
+    WRITE_DATA_ACK_1    = 11'b01000000000,
+    WRITE_STOP          = 11'b10000000000
   } i2c_write_state_t;
 
 
-  /* 
-  * =============================================================================
-  * scl clk divider
-  * =============================================================================
-  */
+/* 
+ * =============================================================================
+ * scl clk divider
+ * =============================================================================
+ */
   logic _scl; // internal scl clock
   logic [SCL_CLK_CYCLE_COUNTER_BITS-1:0] scl_counter;
 
@@ -91,16 +106,61 @@ module i2c
   end
 
 
-  /* 
-  * =============================================================================
-  * read
-  * =============================================================================
-  */
+/* 
+ * =============================================================================
+ * common counters
+ * =============================================================================
+ */
+  // device address bit counter
+  logic [DEVICE_ADDR_-1:0] device_addr_bit_counter;
+  logic device_addr_bit_counter_rst_n;
+
+  always_ff @( posedge _scl ) begin : _device_addr_bit_counter
+    if (!device_addr_bit_counter_rst_n)
+      device_addr_bit_counter <= DEVICE_ADDR_WIDTH - 1;
+    else if (device_addr_bit_counter == '0)
+      device_addr_bit_counter <= DEVICE_ADDR_WIDTH - 1;
+    else
+      device_addr_bit_counter <= device_addr_bit_counter - 1;
+  end
+
+  // register address bit counter
+  logic [REGISTER_ADDR_WIDTH - 1:0] register_bit_counter;
+  logic register_bit_counter_rst_n;
+
+  always_ff @( posedge _scl ) begin : _register_bit_counter
+    if (register_bit_counter_rst_n)
+      register_bit_counter <= REGISTER_ADDR_WIDTH - 1;
+    else if (register_bit_counter == '0)
+      register_bit_counter <= REGISTER_ADDR_WIDTH - 1;
+    else
+      register_bit_counter <= register_bit_counter - 1;
+  end
+
+  // data bit counter
+  logic [DATA_WIDTH - 1:0] data_bit_counter;
+  logic data_bit_counter_rst_n;
+
+  always_ff @( posedge _scl ) begin : _data_bit_counter
+    if (data_bit_counter_rst_n)
+      data_bit_counter <= DATA_WIDTH - 1;
+    else if (data_bit_counter == '0)
+      data_bit_counter <= DATA_WIDTH - 1;
+    else
+      data_bit_counter <= data_bit_counter - 1;
+  end
+
+
+/* 
+ * =============================================================================
+ * read
+ * =============================================================================
+ */
 
   // internal read variables
   i2c_read_state_t read_state, read_next_state;
-  logic dev_addr_shift_en, reg_addr_shift_en, reg_data_shift_en;
-  logic dev_addr_counter_rst_n, reg_addr_counter_rst_n, reg_data_counter_rst_n;
+  logic device_addr_shift_en, reg_addr_shift_en, reg_data_shift_en;
+  logic device_addr_counter_rst_n, reg_addr_counter_rst_n, reg_data_counter_rst_n;
 
   // read current state logic
   always_ff @( posedge _scl ) begin : _read_current_state_logic
@@ -108,6 +168,59 @@ module i2c
       read_state <= READ_RESET;
     else
       read_state <= read_next_state;
+  end
+
+  // read next state logic
+  always_comb begin : _read_next_state_logic
+    unique case (read_state)
+      READ_RESET:
+        read_next_state = READ_IDLE;
+      READ_IDLE:
+        if (read_ready)
+          read_next_state = READ_START;
+      READ_START:
+        read_next_state = READ_ADDR;
+      READ_ADDR:
+        if (device_addr_bit_counter == '0)
+          read_next_state = READ_BIT;
+      READ_BIT:
+        read_next_state = READ_ADDR_ACK;
+      READ_ADDR_ACK:
+        read_next_state = READ_REG_ADDR;
+      READ_REG_ADDR:
+        if (register_bit_counter == '0)
+          read_next_state = READ_DATA_PRE_ACK;
+      READ_DATA_PRE_ACK:
+        read_next_state = READ_DATA_ACK_0;
+      READ_DATA_ACK_0:
+        read_next_state = READ_DATA_POST_ACK;
+      READ_DATA_POST_ACK:
+        if (data_bit_counter == '0)
+          read_next_state = READ_DATA_ACK_1;
+      READ_DATA_ACK_1:
+        read_next_state = READ_STOP;
+      READ_STOP:
+        read_next_State = READ_IDLE;
+    endcase
+  end
+
+  // read fsm outputs
+  always_comb begin : _read_fsm_outputs
+    unique case (read_state)
+      READ_RESET:
+        {device_addr_bit_counter_rst_n, register_bit_counter_rst_n, data_bit_counter_rst_n} = 3'bzzz;
+      READ_IDLE:
+      READ_START:
+      READ_ADDR:
+      READ_BIT:
+      READ_ADDR_ACK:
+      READ_REG_ADDR:
+      READ_DATA_PRE_ACK:
+      READ_DATA_ACK_0:
+      READ_DATA_POST_ACK:
+      READ_DATA_ACK_1:
+      READ_STOP:
+    endcase
   end
 
 endmodule : i2c
