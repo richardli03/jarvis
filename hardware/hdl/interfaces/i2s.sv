@@ -83,43 +83,43 @@ module i2s
  * bclk clk divider
  * =============================================================================
  */
-logic [BCLK_COUNTER_BITS-1:0] bclk_counter;
+  logic [BCLK_COUNTER_BITS-1:0] bclk_counter;
 
-// bclk counter
-initial bclk_counter = '0;
-always_ff @( posedge mclk ) begin : _bclk_clk_counter
-  if (bclk_counter == '0)
-    bclk_counter <= (BCLK_COUNTER_BITS)'(LRCLK_DIV - 1);
-  else
-    bclk_counter <= bclk_counter - 1;
-end
+  // bclk counter
+  initial bclk_counter = '0;
+  always_ff @( posedge mclk ) begin : _bclk_clk_counter
+    if (bclk_counter == '0)
+      bclk_counter <= (BCLK_COUNTER_BITS)'(LRCLK_DIV - 1);
+    else
+      bclk_counter <= bclk_counter - 1;
+  end
 
-// bclk_output
-always_comb begin : _bclk_clk_divider
-  if (bclk_counter[BCLK_COUNTER_BITS-1:0] >= (BCLK_COUNTER_BITS)'(BCLK_DIV / 2))
-    bclk = 0;
-  else
-    bclk = 1;
-end
+  // bclk_output
+  always_comb begin : _bclk_clk_divider
+    if (bclk_counter[BCLK_COUNTER_BITS-1:0] >= (BCLK_COUNTER_BITS)'(BCLK_DIV / 2))
+      bclk = 0;
+    else
+      bclk = 1;
+  end
 
-// // TODO: synthesis difference between this and the block above
-// always_ff @( posedge mclk ) begin : _bclk_clk_divider
-//   if (!rst_n)
-//     bclk <= 0;
-//   else if (bclk_counter[BCLK_COUNTER_BITS-1:0] >= (BCLK_COUNTER_BITS)'(BCLK_DIV / 2))
-//     bclk <= 0;
-//   else
-//     bclk <= 1;
-// end
+  // // TODO: synthesis difference between this and the block above
+  // always_ff @( posedge mclk ) begin : _bclk_clk_divider
+  //   if (!rst_n)
+  //     bclk <= 0;
+  //   else if (bclk_counter[BCLK_COUNTER_BITS-1:0] >= (BCLK_COUNTER_BITS)'(BCLK_DIV / 2))
+  //     bclk <= 0;
+  //   else
+  //     bclk <= 1;
+  // end
 
-// inverted bclk output
-logic bclk_inv;
-always_comb begin : _bclk_inv_clk_divider
-  if (bclk_counter[BCLK_COUNTER_BITS-1:0] >= (BCLK_COUNTER_BITS)'(BCLK_DIV / 2))
-    bclk_inv = 1;
-  else
-    bclk_inv = 0;
-end
+  // inverted bclk output
+  logic bclk_inv;
+  always_comb begin : _bclk_inv_clk_divider
+    if (bclk_counter[BCLK_COUNTER_BITS-1:0] >= (BCLK_COUNTER_BITS)'(BCLK_DIV / 2))
+      bclk_inv = 1;
+    else
+      bclk_inv = 0;
+  end
 
 /* 
  * =============================================================================
@@ -267,7 +267,7 @@ end
   end
 
 
-  /* 
+/* 
  * =============================================================================
  * transmit
  * =============================================================================
