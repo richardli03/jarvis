@@ -112,6 +112,14 @@ end
 //     bclk <= 1;
 // end
 
+// inverted bclk output
+logic bclk_inv;
+always_comb begin : _bclk_inv_clk_divider
+  if (bclk_counter[BCLK_COUNTER_BITS-1:0] >= (BCLK_COUNTER_BITS)'(BCLK_DIV / 2))
+    bclk_inv = 1;
+  else
+    bclk_inv = 0;
+end
 
 /* 
  * =============================================================================
@@ -215,7 +223,7 @@ end
     endcase
   end
 
-  // receive shift register
+  // rx shift register
   always_ff @( posedge bclk ) begin : _rx_shift_register
     if (!rst_n)
       rx_data <= '0;
@@ -258,6 +266,7 @@ end
       rx_lrclk = 1;
   end
 
+
   /* 
  * =============================================================================
  * transmit
@@ -270,7 +279,8 @@ end
   logic tx_shift_en, tx_bit_counter_rst_n;
 
   // tx current state logic
-  always_ff @( posedge mclk ) begin : _tx_current_state_logic
+  initial tx_state = RESET;
+  always_ff @( posedge bclk_inv ) begin : _tx_current_state_logic
     if (!rst_n)
       tx_state <= RESET;
     else
@@ -283,25 +293,24 @@ end
       RESET:
         tx_next_state = IDLE;
       IDLE:
-        if (tx_valid)
+        if (tx_valid) // TODO: may prevent state transition
           tx_next_state = LEFT_START;
       LEFT_START:
-        if (bclk_counter == '0) // bclk falling edge
+        if (tx_lrclk_counter == (LRCLK_COUNTER_BITS)'(LRCLK_DIV - 2))
           tx_next_state = LEFT;
       LEFT:
         if (tx_bit_counter == '0)
           tx_next_state = LEFT_IDLE;
       LEFT_IDLE:
-        if (tx_lrclk == 1) // unsure if this will work with 32 bit words
+        if ((tx_lrclk_counter == (LRCLK_COUNTER_BITS)'((LRCLK_DIV/2) - 1)) && tx_valid) // TODO: may prevent state transition
           tx_next_state = RIGHT_START;
       RIGHT_START:
-        if (bclk_counter == '0) // bclk falling edge
-          tx_next_state = RIGHT;
+        tx_next_state = RIGHT;
       RIGHT:
-      if (tx_bit_counter == '0)
-        tx_next_state = RIGHT_IDLE;
+        if (tx_bit_counter == '0)
+          tx_next_state = RIGHT_IDLE;
       RIGHT_IDLE:
-        if (tx_lrclk == 0) // unsure if this will work with 32 bit words
+        if ((tx_lrclk_counter == 0) && tx_ready) // TODO: may prevent state transition
           tx_next_state = LEFT_START;
       ERROR:
         tx_next_state = ERROR;
@@ -326,7 +335,7 @@ end
       LEFT_START: begin
         {tx_shift_en, tx_bit_counter_rst_n} = 2'b00;
         {tx_lrclk_rst_n} = 1'b1;
-        {tx_ready} = 1'b0;
+        {tx_ready} = 1'b0;  
       end
       LEFT: begin
         {tx_shift_en, tx_bit_counter_rst_n} = 2'b11;
@@ -336,7 +345,7 @@ end
       LEFT_IDLE: begin
         {tx_shift_en, tx_bit_counter_rst_n} = 2'b00;
         {tx_lrclk_rst_n} = 1'b1;
-        {tx_ready} = 1'b0;
+        {tx_ready} = 1'b1;
       end
       RIGHT_START: begin
         {tx_shift_en, tx_bit_counter_rst_n} = 2'b00;
@@ -351,7 +360,7 @@ end
       RIGHT_IDLE: begin
         {tx_shift_en, tx_bit_counter_rst_n} = 2'b00;
         {tx_lrclk_rst_n} = 1'b1;
-        {tx_ready} = 1'b0;
+        {tx_ready} = 1'b1;
       end
       default: begin
         {tx_shift_en, tx_bit_counter_rst_n} = 2'b00;
@@ -361,20 +370,20 @@ end
     endcase
   end
 
-  // receive shift register
-  always_ff @( posedge mclk ) begin : _tx_shift_register
+  // tx shift register
+  always_ff @( posedge bclk_inv ) begin : _tx_shift_register
     if (!rst_n)
-      tx <= 0;
+      tx <= '0;
     else if (tx_shift_en)
-      tx <= tx_data[tx_bit_counter - 1]; // msb first
+      tx <= tx_data[tx_bit_counter]; // msb first
     else
       tx <= tx;
   end
 
   // tx bit counter
-  always_ff @( posedge bclk ) begin : _tx_bit_counter
+  always_ff @( posedge bclk_inv ) begin : _tx_bit_counter
     if (!tx_bit_counter_rst_n)
-      tx_bit_counter <= BIT_DEPTH;
+      tx_bit_counter <= BIT_DEPTH - 1;
     else if (tx_bit_counter == '0)
       tx_bit_counter <= BIT_DEPTH - 1;
     else
@@ -383,16 +392,14 @@ end
 
   logic tx_lrclk_rst_n;
   logic [LRCLK_COUNTER_BITS-1:0] tx_lrclk_counter;
-  initial tx_lrclk_counter = '0;
 
   // tx lrclk counter
-  always_ff @( posedge bclk ) begin : _tx_lrclk_counter
+  always_ff @( posedge bclk ) begin : _tx_lrclk_clk_counter
     if (!tx_lrclk_rst_n)
-      tx_lrclk_counter <= (LRCLK_COUNTER_BITS)'(LRCLK_DIV - 1);
+      tx_lrclk_counter <= 0;
     else if (tx_lrclk_counter == '0)
       tx_lrclk_counter <= (LRCLK_COUNTER_BITS)'(LRCLK_DIV - 1);
     else
-      // tx_lrclk_counter <= '0;
       tx_lrclk_counter <= tx_lrclk_counter - 1;
   end
 
@@ -400,7 +407,7 @@ end
   always_comb begin : _tx_lrclk_clk_div
     if (!tx_lrclk_rst_n)
       tx_lrclk = 1;
-    else if (tx_lrclk_counter >= (LRCLK_COUNTER_BITS)'(LRCLK_DIV / 2))
+    else if (tx_lrclk_counter[LRCLK_COUNTER_BITS-1:0] >= (LRCLK_COUNTER_BITS)'(LRCLK_DIV / 2))
       tx_lrclk = 0;
     else
       tx_lrclk = 1;
