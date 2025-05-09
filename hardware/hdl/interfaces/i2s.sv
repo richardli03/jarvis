@@ -1,7 +1,12 @@
 /*
-I2S Codec interface
+I2S Codec interface.
+
+Specifically written for the Analog Devices SSM2603.
 
 @param BIT_DEPTH: The bit depth of the codec.
+@param MCLK_FREQ: The MCLK frequency used for the codec and interface.
+@param BCLK_DIV: The number of MCLK cycles per BCLK cycle.
+@param LRCLK_DIV: The number of BCLK cycles per LRCLK cycle.
 */
 
 `begin_keywords "1800-2017"  // Use SystemVerilog 2017 keywords
@@ -10,10 +15,9 @@ I2S Codec interface
 module i2s
 #(
   parameter BIT_DEPTH = 24,
-  parameter WORD_LENGTH = 32,
-  parameter MCLK_FREQ = 125_000_000,
+  parameter MCLK_FREQ = 12_288_000,
   parameter BCLK_DIV = 4,
-  parameter LRCLK_DIV = 256
+  parameter LRCLK_DIV = 64
 )
 (
   input wire rst_n,
@@ -48,11 +52,11 @@ module i2s
  */
   // general
   localparam BUFFER_COUNTER_BITS = $clog2(BIT_DEPTH);
+  localparam WORD_LENGTH = LRCLK_DIV / 2;
 
   // clk dividers
   localparam BCLK_COUNTER_BITS = $clog2(BCLK_DIV);
-  localparam LRCLK_BCLK_DIV = LRCLK_DIV/BCLK_DIV;
-  localparam LRCLK_COUNTER_BITS = $clog2(LRCLK_BCLK_DIV);
+  localparam LRCLK_COUNTER_BITS = $clog2(LRCLK_DIV);
 
 
 /* 
@@ -84,8 +88,6 @@ logic [BCLK_COUNTER_BITS-1:0] bclk_counter;
 // bclk counter
 initial bclk_counter = '0;
 always_ff @( posedge mclk ) begin : _bclk_clk_counter
-  // if (!rst_n)
-  //   bclk_counter <= '0;
   if (bclk_counter == '0)
     bclk_counter <= (BCLK_COUNTER_BITS)'(LRCLK_DIV - 1);
   else
@@ -100,11 +102,11 @@ always_comb begin : _bclk_clk_divider
     bclk = 1;
 end
 
-// TODO: synthesis difference between this and the block above
+// // TODO: synthesis difference between this and the block above
 // always_ff @( posedge mclk ) begin : _bclk_clk_divider
 //   if (!rst_n)
 //     bclk <= 0;
-//   else if (clk_counter[BCLK_COUNTER_BITS-1:0] >= (BCLK_COUNTER_BITS)'(BCLK_DIV / 2))
+//   else if (bclk_counter[BCLK_COUNTER_BITS-1:0] >= (BCLK_COUNTER_BITS)'(BCLK_DIV / 2))
 //     bclk <= 0;
 //   else
 //     bclk <= 1;
@@ -123,7 +125,8 @@ end
   logic rx_shift_en, rx_bit_counter_rst_n;
 
   // rx current state logic
-  always_ff @( posedge mclk ) begin : _rx_current_state_logic
+  initial rx_state = RESET;
+  always_ff @( posedge bclk ) begin : _rx_current_state_logic
     if (!rst_n)
       rx_state <= RESET;
     else
@@ -138,22 +141,21 @@ end
       IDLE:
         rx_next_state = LEFT_START;
       LEFT_START:
-        if (bclk_counter == '0) // bclk falling edge
+        if (rx_lrclk_counter == (LRCLK_COUNTER_BITS)'(LRCLK_DIV - 2))
           rx_next_state = LEFT;
       LEFT:
         if (rx_bit_counter == '0)
           rx_next_state = LEFT_IDLE;
       LEFT_IDLE:
-        if (rx_lrclk == 1) // unsure if this will work with 32 bit words
+        if (rx_lrclk_counter == (LRCLK_COUNTER_BITS)'((LRCLK_DIV/2) - 1))
           rx_next_state = RIGHT_START;
       RIGHT_START:
-        if (bclk_counter == '0) // bclk falling edge
-          rx_next_state = RIGHT;
+        rx_next_state = RIGHT;
       RIGHT:
-      if (rx_bit_counter == '0)
-        rx_next_state = RIGHT_IDLE;
+        if (rx_bit_counter == '0)
+          rx_next_state = RIGHT_IDLE;
       RIGHT_IDLE:
-        if (rx_lrclk == 0) // unsure if this will work with 32 bit words
+        if (rx_lrclk_counter == 0)
           rx_next_state = LEFT_START;
       ERROR:
         rx_next_state = ERROR;
@@ -226,7 +228,7 @@ end
   // rx bit counter
   always_ff @( posedge bclk ) begin : _rx_bit_counter
     if (!rx_bit_counter_rst_n)
-      rx_bit_counter <= BIT_DEPTH;
+      rx_bit_counter <= BIT_DEPTH - 1;
     else if (rx_bit_counter == '0)
       rx_bit_counter <= BIT_DEPTH - 1;
     else
@@ -237,9 +239,9 @@ end
   logic [LRCLK_COUNTER_BITS-1:0] rx_lrclk_counter;
 
   // rx lrclk counter
-  always_ff @( posedge mclk ) begin : _rx_lrclk_clk_counter
+  always_ff @( posedge bclk ) begin : _rx_lrclk_clk_counter
     if (!rx_lrclk_rst_n)
-      rx_lrclk_counter <= (LRCLK_COUNTER_BITS)'(LRCLK_DIV - 1);
+      rx_lrclk_counter <= 0;
     else if (rx_lrclk_counter == '0)
       rx_lrclk_counter <= (LRCLK_COUNTER_BITS)'(LRCLK_DIV - 1);
     else
@@ -250,7 +252,7 @@ end
   always_comb begin : _rx_lrclk_clk_div
     if (!rx_lrclk_rst_n)
       rx_lrclk = 1;
-    else if (rx_lrclk_counter[LRCLK_COUNTER_BITS-1:0] >= (LRCLK_COUNTER_BITS)'(LRCLK_BCLK_DIV / 2))
+    else if (rx_lrclk_counter[LRCLK_COUNTER_BITS-1:0] >= (LRCLK_COUNTER_BITS)'(LRCLK_DIV / 2))
       rx_lrclk = 0;
     else
       rx_lrclk = 1;
@@ -386,9 +388,9 @@ end
   // tx lrclk counter
   always_ff @( posedge bclk ) begin : _tx_lrclk_counter
     if (!tx_lrclk_rst_n)
-      tx_lrclk_counter <= (LRCLK_COUNTER_BITS)'(LRCLK_BCLK_DIV - 1);
+      tx_lrclk_counter <= (LRCLK_COUNTER_BITS)'(LRCLK_DIV - 1);
     else if (tx_lrclk_counter == '0)
-      tx_lrclk_counter <= (LRCLK_COUNTER_BITS)'(LRCLK_BCLK_DIV - 1);
+      tx_lrclk_counter <= (LRCLK_COUNTER_BITS)'(LRCLK_DIV - 1);
     else
       // tx_lrclk_counter <= '0;
       tx_lrclk_counter <= tx_lrclk_counter - 1;
@@ -398,7 +400,7 @@ end
   always_comb begin : _tx_lrclk_clk_div
     if (!tx_lrclk_rst_n)
       tx_lrclk = 1;
-    else if (tx_lrclk_counter >= (LRCLK_COUNTER_BITS)'(LRCLK_BCLK_DIV / 2))
+    else if (tx_lrclk_counter >= (LRCLK_COUNTER_BITS)'(LRCLK_DIV / 2))
       tx_lrclk = 0;
     else
       tx_lrclk = 1;
