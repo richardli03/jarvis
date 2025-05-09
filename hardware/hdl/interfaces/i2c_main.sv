@@ -7,7 +7,7 @@ I2C main.
 `begin_keywords "1800-2017"  // Use SystemVerilog 2017 keywords
 `default_nettype none
 
-module i2c
+module i2c_main
 #(
   parameter CLK_FREQ = 125_000_000,
   parameter SCL_FREQ = 400_000,
@@ -276,7 +276,6 @@ module i2c
 
   // sda output
 
-
   // scl output
 
-endmodule : i2c
+endmodule : i2c_main
