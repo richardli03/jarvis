@@ -1,0 +1,843 @@
+(
+    show_hierarchy: None,
+    show_menu: None,
+    show_ticks: None,
+    show_toolbar: None,
+    show_tooltip: None,
+    show_scope_tooltip: None,
+    show_default_timeline: None,
+    show_overview: None,
+    show_statusbar: None,
+    align_names_right: None,
+    show_variable_indices: None,
+    show_variable_direction: None,
+    show_empty_scopes: None,
+    show_parameters_in_scopes: None,
+    highlight_focused: None,
+    waves: Some((
+        source: File("../sim_build/i2s/i2s.fst"),
+        format: Fst,
+        active_scope: Some(WaveScope((
+            strs: [
+                "i2s",
+            ],
+        ))),
+        items_tree: (
+            items: [
+                (
+                    item_ref: (28),
+                    level: 0,
+                    unfolded: true,
+                    selected: false,
+                ),
+                (
+                    item_ref: (27),
+                    level: 0,
+                    unfolded: true,
+                    selected: false,
+                ),
+                (
+                    item_ref: (26),
+                    level: 0,
+                    unfolded: true,
+                    selected: false,
+                ),
+                (
+                    item_ref: (23),
+                    level: 0,
+                    unfolded: true,
+                    selected: false,
+                ),
+                (
+                    item_ref: (24),
+                    level: 0,
+                    unfolded: true,
+                    selected: false,
+                ),
+                (
+                    item_ref: (21),
+                    level: 0,
+                    unfolded: true,
+                    selected: false,
+                ),
+                (
+                    item_ref: (32),
+                    level: 1,
+                    unfolded: true,
+                    selected: false,
+                ),
+                (
+                    item_ref: (29),
+                    level: 1,
+                    unfolded: true,
+                    selected: false,
+                ),
+                (
+                    item_ref: (37),
+                    level: 1,
+                    unfolded: true,
+                    selected: false,
+                ),
+                (
+                    item_ref: (40),
+                    level: 1,
+                    unfolded: true,
+                    selected: false,
+                ),
+                (
+                    item_ref: (33),
+                    level: 1,
+                    unfolded: true,
+                    selected: false,
+                ),
+                (
+                    item_ref: (69),
+                    level: 1,
+                    unfolded: true,
+                    selected: false,
+                ),
+                (
+                    item_ref: (34),
+                    level: 1,
+                    unfolded: true,
+                    selected: false,
+                ),
+                (
+                    item_ref: (39),
+                    level: 1,
+                    unfolded: true,
+                    selected: false,
+                ),
+                (
+                    item_ref: (36),
+                    level: 1,
+                    unfolded: true,
+                    selected: false,
+                ),
+                (
+                    item_ref: (38),
+                    level: 1,
+                    unfolded: true,
+                    selected: false,
+                ),
+                (
+                    item_ref: (31),
+                    level: 1,
+                    unfolded: true,
+                    selected: false,
+                ),
+                (
+                    item_ref: (30),
+                    level: 1,
+                    unfolded: true,
+                    selected: false,
+                ),
+                (
+                    item_ref: (35),
+                    level: 1,
+                    unfolded: true,
+                    selected: false,
+                ),
+                (
+                    item_ref: (22),
+                    level: 0,
+                    unfolded: true,
+                    selected: false,
+                ),
+                (
+                    item_ref: (86),
+                    level: 1,
+                    unfolded: true,
+                    selected: false,
+                ),
+                (
+                    item_ref: (73),
+                    level: 1,
+                    unfolded: true,
+                    selected: false,
+                ),
+                (
+                    item_ref: (81),
+                    level: 1,
+                    unfolded: true,
+                    selected: false,
+                ),
+                (
+                    item_ref: (87),
+                    level: 1,
+                    unfolded: true,
+                    selected: false,
+                ),
+                (
+                    item_ref: (88),
+                    level: 1,
+                    unfolded: true,
+                    selected: false,
+                ),
+                (
+                    item_ref: (80),
+                    level: 1,
+                    unfolded: true,
+                    selected: false,
+                ),
+                (
+                    item_ref: (82),
+                    level: 1,
+                    unfolded: true,
+                    selected: false,
+                ),
+                (
+                    item_ref: (77),
+                    level: 1,
+                    unfolded: true,
+                    selected: false,
+                ),
+                (
+                    item_ref: (85),
+                    level: 1,
+                    unfolded: true,
+                    selected: false,
+                ),
+                (
+                    item_ref: (89),
+                    level: 1,
+                    unfolded: true,
+                    selected: false,
+                ),
+                (
+                    item_ref: (75),
+                    level: 1,
+                    unfolded: true,
+                    selected: false,
+                ),
+                (
+                    item_ref: (74),
+                    level: 1,
+                    unfolded: true,
+                    selected: false,
+                ),
+                (
+                    item_ref: (79),
+                    level: 1,
+                    unfolded: true,
+                    selected: false,
+                ),
+                (
+                    item_ref: (78),
+                    level: 1,
+                    unfolded: true,
+                    selected: false,
+                ),
+            ],
+        ),
+        displayed_items: {
+            (38): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "i2s",
+                        ],
+                    ),
+                    name: "rx_shift_en",
+                ),
+                color: None,
+                background_color: None,
+                display_name: "rx_shift_en",
+                display_name_type: Unique,
+                manual_name: None,
+                format: None,
+                field_formats: [],
+            )),
+            (87): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "i2s",
+                        ],
+                    ),
+                    name: "tx_valid",
+                ),
+                color: None,
+                background_color: None,
+                display_name: "tx_valid",
+                display_name_type: Unique,
+                manual_name: None,
+                format: None,
+                field_formats: [],
+            )),
+            (69): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "i2s",
+                        ],
+                    ),
+                    name: "bclk",
+                ),
+                color: None,
+                background_color: None,
+                display_name: "bclk",
+                display_name_type: Unique,
+                manual_name: None,
+                format: None,
+                field_formats: [],
+            )),
+            (39): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "i2s",
+                        ],
+                    ),
+                    name: "rx_state",
+                ),
+                color: None,
+                background_color: None,
+                display_name: "rx_state [7:0]",
+                display_name_type: Unique,
+                manual_name: None,
+                format: Some("Binary"),
+                field_formats: [],
+            )),
+            (30): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "i2s",
+                        ],
+                    ),
+                    name: "rx_bit_counter",
+                ),
+                color: None,
+                background_color: None,
+                display_name: "rx_bit_counter [4:0]",
+                display_name_type: Unique,
+                manual_name: None,
+                format: Some("Unsigned"),
+                field_formats: [],
+            )),
+            (28): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "i2s",
+                        ],
+                    ),
+                    name: "rst_n",
+                ),
+                color: None,
+                background_color: None,
+                display_name: "rst_n",
+                display_name_type: Unique,
+                manual_name: None,
+                format: None,
+                field_formats: [],
+            )),
+            (22): Group((
+                name: "transmit",
+                color: Some("Gray"),
+                background_color: Some("Gray"),
+                content: [],
+                is_open: false,
+            )),
+            (37): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "i2s",
+                        ],
+                    ),
+                    name: "rx_ready",
+                ),
+                color: None,
+                background_color: None,
+                display_name: "rx_ready",
+                display_name_type: Unique,
+                manual_name: None,
+                format: None,
+                field_formats: [],
+            )),
+            (85): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "i2s",
+                        ],
+                    ),
+                    name: "bclk",
+                ),
+                color: None,
+                background_color: None,
+                display_name: "bclk",
+                display_name_type: Unique,
+                manual_name: None,
+                format: None,
+                field_formats: [],
+            )),
+            (21): Group((
+                name: "receive",
+                color: Some("Gray"),
+                background_color: Some("Gray"),
+                content: [],
+                is_open: false,
+            )),
+            (79): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "i2s",
+                        ],
+                    ),
+                    name: "tx_lrclk_rst_n",
+                ),
+                color: None,
+                background_color: None,
+                display_name: "tx_lrclk_rst_n",
+                display_name_type: Unique,
+                manual_name: None,
+                format: None,
+                field_formats: [],
+            )),
+            (40): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "i2s",
+                        ],
+                    ),
+                    name: "rx_valid",
+                ),
+                color: None,
+                background_color: None,
+                display_name: "rx_valid",
+                display_name_type: Unique,
+                manual_name: None,
+                format: None,
+                field_formats: [],
+            )),
+            (35): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "i2s",
+                        ],
+                    ),
+                    name: "rx_lrclk_rst_n",
+                ),
+                color: None,
+                background_color: None,
+                display_name: "rx_lrclk_rst_n",
+                display_name_type: Unique,
+                manual_name: None,
+                format: None,
+                field_formats: [],
+            )),
+            (34): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "i2s",
+                        ],
+                    ),
+                    name: "rx_lrclk_counter",
+                ),
+                color: None,
+                background_color: None,
+                display_name: "rx_lrclk_counter [5:0]",
+                display_name_type: Unique,
+                manual_name: None,
+                format: Some("Unsigned"),
+                field_formats: [],
+            )),
+            (89): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "i2s",
+                        ],
+                    ),
+                    name: "bclk_inv",
+                ),
+                color: None,
+                background_color: None,
+                display_name: "bclk_inv",
+                display_name_type: Unique,
+                manual_name: None,
+                format: None,
+                field_formats: [],
+            )),
+            (81): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "i2s",
+                        ],
+                    ),
+                    name: "tx_ready",
+                ),
+                color: None,
+                background_color: None,
+                display_name: "tx_ready",
+                display_name_type: Unique,
+                manual_name: None,
+                format: None,
+                field_formats: [],
+            )),
+            (26): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "i2s",
+                        ],
+                    ),
+                    name: "mclk",
+                ),
+                color: None,
+                background_color: None,
+                display_name: "mclk",
+                display_name_type: Unique,
+                manual_name: None,
+                format: None,
+                field_formats: [],
+            )),
+            (29): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "i2s",
+                        ],
+                    ),
+                    name: "rx",
+                ),
+                color: None,
+                background_color: None,
+                display_name: "rx",
+                display_name_type: Unique,
+                manual_name: None,
+                format: None,
+                field_formats: [],
+            )),
+            (86): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "i2s",
+                        ],
+                    ),
+                    name: "tx_data",
+                ),
+                color: None,
+                background_color: None,
+                display_name: "tx_data [23:0]",
+                display_name_type: Unique,
+                manual_name: None,
+                format: None,
+                field_formats: [],
+            )),
+            (24): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "i2s",
+                        ],
+                    ),
+                    name: "bclk_counter",
+                ),
+                color: None,
+                background_color: None,
+                display_name: "bclk_counter [1:0]",
+                display_name_type: Unique,
+                manual_name: None,
+                format: None,
+                field_formats: [],
+            )),
+            (36): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "i2s",
+                        ],
+                    ),
+                    name: "rx_next_state",
+                ),
+                color: None,
+                background_color: None,
+                display_name: "rx_next_state [7:0]",
+                display_name_type: Unique,
+                manual_name: None,
+                format: Some("Binary"),
+                field_formats: [],
+            )),
+            (23): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "i2s",
+                        ],
+                    ),
+                    name: "bclk",
+                ),
+                color: None,
+                background_color: None,
+                display_name: "bclk",
+                display_name_type: Unique,
+                manual_name: None,
+                format: None,
+                field_formats: [],
+            )),
+            (73): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "i2s",
+                        ],
+                    ),
+                    name: "tx",
+                ),
+                color: None,
+                background_color: None,
+                display_name: "tx",
+                display_name_type: Unique,
+                manual_name: None,
+                format: None,
+                field_formats: [],
+            )),
+            (32): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "i2s",
+                        ],
+                    ),
+                    name: "rx_data",
+                ),
+                color: None,
+                background_color: None,
+                display_name: "rx_data [23:0]",
+                display_name_type: Unique,
+                manual_name: None,
+                format: Some("Binary"),
+                field_formats: [],
+            )),
+            (82): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "i2s",
+                        ],
+                    ),
+                    name: "tx_shift_en",
+                ),
+                color: None,
+                background_color: None,
+                display_name: "tx_shift_en",
+                display_name_type: Unique,
+                manual_name: None,
+                format: None,
+                field_formats: [],
+            )),
+            (31): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "i2s",
+                        ],
+                    ),
+                    name: "rx_bit_counter_rst_n",
+                ),
+                color: None,
+                background_color: None,
+                display_name: "rx_bit_counter_rst_n",
+                display_name_type: Unique,
+                manual_name: None,
+                format: None,
+                field_formats: [],
+            )),
+            (80): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "i2s",
+                        ],
+                    ),
+                    name: "tx_next_state",
+                ),
+                color: None,
+                background_color: None,
+                display_name: "tx_next_state [7:0]",
+                display_name_type: Unique,
+                manual_name: None,
+                format: Some("Binary"),
+                field_formats: [],
+            )),
+            (88): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "i2s",
+                        ],
+                    ),
+                    name: "tx_state",
+                ),
+                color: None,
+                background_color: None,
+                display_name: "tx_state [7:0]",
+                display_name_type: Unique,
+                manual_name: None,
+                format: Some("Binary"),
+                field_formats: [],
+            )),
+            (27): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "i2s",
+                        ],
+                    ),
+                    name: "mute",
+                ),
+                color: None,
+                background_color: None,
+                display_name: "mute",
+                display_name_type: Unique,
+                manual_name: None,
+                format: None,
+                field_formats: [],
+            )),
+            (77): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "i2s",
+                        ],
+                    ),
+                    name: "tx_lrclk",
+                ),
+                color: None,
+                background_color: None,
+                display_name: "tx_lrclk",
+                display_name_type: Unique,
+                manual_name: None,
+                format: None,
+                field_formats: [],
+            )),
+            (75): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "i2s",
+                        ],
+                    ),
+                    name: "tx_bit_counter_rst_n",
+                ),
+                color: None,
+                background_color: None,
+                display_name: "tx_bit_counter_rst_n",
+                display_name_type: Unique,
+                manual_name: None,
+                format: None,
+                field_formats: [],
+            )),
+            (33): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "i2s",
+                        ],
+                    ),
+                    name: "rx_lrclk",
+                ),
+                color: None,
+                background_color: None,
+                display_name: "rx_lrclk",
+                display_name_type: Unique,
+                manual_name: None,
+                format: None,
+                field_formats: [],
+            )),
+            (74): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "i2s",
+                        ],
+                    ),
+                    name: "tx_bit_counter",
+                ),
+                color: None,
+                background_color: None,
+                display_name: "tx_bit_counter [4:0]",
+                display_name_type: Unique,
+                manual_name: None,
+                format: Some("Unsigned"),
+                field_formats: [],
+            )),
+            (78): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "i2s",
+                        ],
+                    ),
+                    name: "tx_lrclk_counter",
+                ),
+                color: None,
+                background_color: None,
+                display_name: "tx_lrclk_counter [5:0]",
+                display_name_type: Unique,
+                manual_name: None,
+                format: Some("Unsigned"),
+                field_formats: [],
+            )),
+        },
+        display_item_ref_counter: 89,
+        viewports: [
+            (
+                curr_left: (-0.2),
+                curr_right: (1.2),
+                target_left: (-0.2),
+                target_right: (1.2),
+                move_start_left: (-0.2),
+                move_start_right: (1.2),
+                move_duration: None,
+                move_strategy: Instant,
+            ),
+        ],
+        cursor: Some((1, [
+            8393,
+        ])),
+        markers: {},
+        focused_item: Some((28)),
+        focused_transaction: (None, None),
+        default_variable_name_type: Unique,
+        scroll_offset: 0.0,
+        display_variable_indices: true,
+        graphics: {},
+    )),
+    drag_started: false,
+    drag_source_idx: None,
+    drag_target_idx: Some((
+        before: (28),
+        level: 1,
+    )),
+    previous_waves: None,
+    count: None,
+    blacklisted_translators: [],
+    show_about: false,
+    show_keys: false,
+    show_gestures: false,
+    show_quick_start: false,
+    show_license: false,
+    show_performance: false,
+    show_logs: false,
+    show_cursor_window: false,
+    wanted_timeunit: PicoSeconds,
+    time_string_format: None,
+    show_url_entry: false,
+    variable_name_filter_focused: false,
+    variable_name_filter_type: Fuzzy,
+    variable_name_filter_case_insensitive: true,
+    rename_target: None,
+    sidepanel_width: Some(100.0),
+    ui_zoom_factor: None,
+)

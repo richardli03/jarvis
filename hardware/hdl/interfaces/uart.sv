@@ -80,7 +80,7 @@ module uart
 
 /* 
  * =======================================
- * Receive
+ * receive
  * =======================================
  */
 
@@ -311,7 +311,7 @@ module uart
     else if (tx_next_state == TX_IDLE)
       // Potentially sketchy. Cycle steal to prevent glitches on tx
       tx <= '1;
-    else if (tx_state == TX_START)
+    else if (tx_state == TX_START) // TODO: should be able to put this in the fsm output block
       tx <= '0;
     else if (tx_shift_en)
       tx <= write_data[BUFFER_WIDTH - tx_bit_counter]; // lsb first

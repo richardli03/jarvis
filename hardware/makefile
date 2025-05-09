@@ -37,12 +37,12 @@ include hdl/interfaces.mk
 
 # Test a module
 %.test:
-	${PYTHON} -m pytest -v -o log_cli=True hardware/verif/py/$*
+	${PYTHON} -m pytest -v -o log_cli=True verif/py/interfaces/test_$*.py
 
 # Test and display waveforms for a module #TODO: Add config directory for waveforms
 %.waves:
-	${PYTHON} -m pytest -v -o log_cli=True hardware/verif/py/$*
-	${SURFER} waves/$*.fst
+	${PYTHON} -m pytest -v -o log_cli=True verif/py/interfaces/test_$*.py
+	${SURFER} ../sim_build/$*/$*.fst -s waves/interfaces/$*.ron &
 
 # Generate a bitstream
 %.bit: ../scripts/synthesis_place_route.tcl $${%_TOP} $${_XDC} $${%_SRCS} $${%_DEPS}
