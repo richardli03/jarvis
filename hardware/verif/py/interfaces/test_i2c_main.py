@@ -16,7 +16,7 @@ from hardware.util.verif import repeat, parameterize
 @repeat(num_repeats=1)
 async def i2c_random_receive(dut, bit_depth: int = None):
     """
-    Test random receives with a I2S peripheral.
+    Test random receives with a I2C peripheral.
     """
     # setup module parameters and variables
     # TODO
@@ -31,11 +31,11 @@ async def i2c_random_receive(dut, bit_depth: int = None):
 
     # reset
     dut.rst_n.value = 0
-    await ClockCycles(signal=dut.clk, num_cycles=2, rising=True)
+    await ClockCycles(signal=dut.clk, num_cycles=200, rising=True)
     dut.rst_n.value = 1
 
     dut.read_ready = 1
-    await ClockCycles(signal=dut.clk, num_cycles=2000, rising=True)
+    await ClockCycles(signal=dut.clk, num_cycles=50000, rising=True)
 
 
 def test_i2c():

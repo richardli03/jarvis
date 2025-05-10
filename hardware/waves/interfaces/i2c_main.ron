@@ -25,7 +25,7 @@
         items_tree: (
             items: [
                 (
-                    item_ref: (2),
+                    item_ref: (15),
                     level: 0,
                     unfolded: true,
                     selected: false,
@@ -37,73 +37,7 @@
                     selected: false,
                 ),
                 (
-                    item_ref: (4),
-                    level: 0,
-                    unfolded: true,
-                    selected: false,
-                ),
-                (
-                    item_ref: (5),
-                    level: 0,
-                    unfolded: true,
-                    selected: false,
-                ),
-                (
-                    item_ref: (6),
-                    level: 0,
-                    unfolded: true,
-                    selected: false,
-                ),
-                (
-                    item_ref: (7),
-                    level: 0,
-                    unfolded: true,
-                    selected: false,
-                ),
-                (
-                    item_ref: (8),
-                    level: 0,
-                    unfolded: true,
-                    selected: false,
-                ),
-                (
-                    item_ref: (9),
-                    level: 0,
-                    unfolded: true,
-                    selected: false,
-                ),
-                (
-                    item_ref: (10),
-                    level: 0,
-                    unfolded: true,
-                    selected: false,
-                ),
-                (
-                    item_ref: (11),
-                    level: 0,
-                    unfolded: true,
-                    selected: false,
-                ),
-                (
-                    item_ref: (12),
-                    level: 0,
-                    unfolded: true,
-                    selected: false,
-                ),
-                (
-                    item_ref: (13),
-                    level: 0,
-                    unfolded: true,
-                    selected: false,
-                ),
-                (
-                    item_ref: (14),
-                    level: 0,
-                    unfolded: true,
-                    selected: false,
-                ),
-                (
-                    item_ref: (15),
+                    item_ref: (18),
                     level: 0,
                     unfolded: true,
                     selected: false,
@@ -115,44 +49,140 @@
                     selected: false,
                 ),
                 (
+                    item_ref: (6),
+                    level: 0,
+                    unfolded: true,
+                    selected: false,
+                ),
+                (
+                    item_ref: (2),
+                    level: 0,
+                    unfolded: true,
+                    selected: false,
+                ),
+                (
                     item_ref: (17),
                     level: 0,
                     unfolded: true,
                     selected: false,
                 ),
                 (
-                    item_ref: (18),
+                    item_ref: (25),
                     level: 0,
                     unfolded: true,
                     selected: false,
                 ),
                 (
-                    item_ref: (19),
+                    item_ref: (10),
+                    level: 1,
+                    unfolded: true,
+                    selected: false,
+                ),
+                (
+                    item_ref: (13),
+                    level: 1,
+                    unfolded: true,
+                    selected: false,
+                ),
+                (
+                    item_ref: (8),
+                    level: 1,
+                    unfolded: true,
+                    selected: false,
+                ),
+                (
+                    item_ref: (5),
+                    level: 1,
+                    unfolded: true,
+                    selected: false,
+                ),
+                (
+                    item_ref: (11),
+                    level: 1,
+                    unfolded: true,
+                    selected: false,
+                ),
+                (
+                    item_ref: (28),
+                    level: 1,
+                    unfolded: true,
+                    selected: false,
+                ),
+                (
+                    item_ref: (7),
+                    level: 1,
+                    unfolded: true,
+                    selected: false,
+                ),
+                (
+                    item_ref: (4),
+                    level: 1,
+                    unfolded: true,
+                    selected: false,
+                ),
+                (
+                    item_ref: (12),
+                    level: 1,
+                    unfolded: true,
+                    selected: false,
+                ),
+                (
+                    item_ref: (9),
+                    level: 1,
+                    unfolded: true,
+                    selected: false,
+                ),
+                (
+                    item_ref: (24),
                     level: 0,
                     unfolded: true,
                     selected: false,
                 ),
                 (
                     item_ref: (20),
-                    level: 0,
+                    level: 1,
                     unfolded: true,
                     selected: false,
                 ),
                 (
-                    item_ref: (21),
-                    level: 0,
+                    item_ref: (26),
+                    level: 1,
                     unfolded: true,
                     selected: false,
                 ),
                 (
                     item_ref: (22),
-                    level: 0,
+                    level: 1,
+                    unfolded: true,
+                    selected: false,
+                ),
+                (
+                    item_ref: (14),
+                    level: 1,
+                    unfolded: true,
+                    selected: false,
+                ),
+                (
+                    item_ref: (19),
+                    level: 1,
+                    unfolded: true,
+                    selected: false,
+                ),
+                (
+                    item_ref: (27),
+                    level: 1,
+                    unfolded: true,
+                    selected: false,
+                ),
+                (
+                    item_ref: (21),
+                    level: 1,
                     unfolded: true,
                     selected: false,
                 ),
                 (
                     item_ref: (23),
-                    level: 0,
+                    level: 1,
                     unfolded: true,
                     selected: false,
                 ),
@@ -227,6 +257,23 @@
                 format: None,
                 field_formats: [],
             )),
+            (27): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "i2c_main",
+                        ],
+                    ),
+                    name: "data_bit_counter",
+                ),
+                color: None,
+                background_color: None,
+                display_name: "data_bit_counter [8:0]",
+                display_name_type: Unique,
+                manual_name: None,
+                format: None,
+                field_formats: [],
+            )),
             (4): Variable((
                 variable_ref: (
                     path: (
@@ -262,6 +309,23 @@
                 field_formats: [],
             )),
             (5): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "i2c_main",
+                        ],
+                    ),
+                    name: "device_addr_bit_counter",
+                ),
+                color: None,
+                background_color: None,
+                display_name: "device_addr_bit_counter [2:0]",
+                display_name_type: Unique,
+                manual_name: None,
+                format: None,
+                field_formats: [],
+            )),
+            (26): Variable((
                 variable_ref: (
                     path: (
                         strs: [
@@ -499,6 +563,13 @@
                 format: None,
                 field_formats: [],
             )),
+            (25): Group((
+                name: "read",
+                color: Some("Gray"),
+                background_color: Some("Gray"),
+                content: [],
+                is_open: false,
+            )),
             (13): Variable((
                 variable_ref: (
                     path: (
@@ -511,6 +582,30 @@
                 color: None,
                 background_color: None,
                 display_name: "read_valid",
+                display_name_type: Unique,
+                manual_name: None,
+                format: None,
+                field_formats: [],
+            )),
+            (24): Group((
+                name: "write",
+                color: Some("Gray"),
+                background_color: Some("Gray"),
+                content: [],
+                is_open: false,
+            )),
+            (28): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "i2c_main",
+                        ],
+                    ),
+                    name: "register_bit_counter",
+                ),
+                color: None,
+                background_color: None,
+                display_name: "register_bit_counter [6:0]",
                 display_name_type: Unique,
                 manual_name: None,
                 format: None,
@@ -534,7 +629,7 @@
                 field_formats: [],
             )),
         },
-        display_item_ref_counter: 23,
+        display_item_ref_counter: 28,
         viewports: [
             (
                 curr_left: (0.0),
@@ -547,11 +642,11 @@
                 move_strategy: Instant,
             ),
         ],
-        cursor: Some((1, [
-            551305,
+        cursor: Some((-1, [
+            241745,
         ])),
         markers: {},
-        focused_item: None,
+        focused_item: Some((22)),
         focused_transaction: (None, None),
         default_variable_name_type: Unique,
         scroll_offset: 0.0,
@@ -579,6 +674,6 @@
     variable_name_filter_type: Fuzzy,
     variable_name_filter_case_insensitive: true,
     rename_target: None,
-    sidepanel_width: Some(159.90625),
+    sidepanel_width: Some(302.65625),
     ui_zoom_factor: None,
 )

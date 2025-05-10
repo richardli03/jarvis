@@ -101,7 +101,7 @@ module i2c_main
   end
 
   // output
-  always_comb begin : _bclk_clk_divider
+  always_comb begin : _scl_clk_divider
     if (scl_counter[SCL_CLK_CYCLE_COUNTER_BITS-1:0] >= (SCL_CLK_CYCLE_COUNTER_BITS)'(SCL_CLK_CYCLES_PER_BIT / 2))
       _scl = 0;
     else
@@ -118,7 +118,7 @@ module i2c_main
   logic [DEVICE_ADDR_COUNTER_BITS-1:0] device_addr_bit_counter;
   logic read_device_addr_bit_counter_rst_n, write_device_addr_bit_counter_rst_n;
 
-  initial write_device_addr_bit_counter_rst_n = 1'b1;
+  initial write_device_addr_bit_counter_rst_n = 1'b0;
   always_ff @( posedge _scl ) begin : _device_addr_bit_counter
     if (!read_device_addr_bit_counter_rst_n & !write_device_addr_bit_counter_rst_n)
       device_addr_bit_counter <= DEVICE_ADDR_WIDTH - 1;
@@ -132,7 +132,7 @@ module i2c_main
   logic [REGISTER_ADDR_WIDTH - 1:0] register_bit_counter;
   logic read_register_bit_counter_rst_n, write_register_bit_counter_rst_n;
 
-  initial write_register_bit_counter_rst_n = 1'b1;
+  initial write_register_bit_counter_rst_n = 1'b0;
   always_ff @( posedge _scl ) begin : _register_bit_counter
     if (!read_register_bit_counter_rst_n & !write_register_bit_counter_rst_n)
       register_bit_counter <= REGISTER_ADDR_WIDTH - 1;
@@ -146,7 +146,7 @@ module i2c_main
   logic [DATA_WIDTH - 1:0] data_bit_counter;
   logic read_data_bit_counter_rst_n, write_data_bit_counter_rst_n;
 
-  initial write_data_bit_counter_rst_n = 1'b1;
+  initial write_data_bit_counter_rst_n = 1'b0;
   always_ff @( posedge _scl ) begin : _data_bit_counter
     if (!read_data_bit_counter_rst_n & !write_data_bit_counter_rst_n)
       data_bit_counter <= DATA_WIDTH - 1;
@@ -216,59 +216,59 @@ module i2c_main
   always_comb begin : _read_fsm_outputs
     unique case (read_state)
       READ_RESET: begin
-        {read_device_addr_bit_counter_rst_n, read_register_bit_counter_rst_n, read_data_bit_counter_rst_n} = 3'b111;
+        {read_device_addr_bit_counter_rst_n, read_register_bit_counter_rst_n, read_data_bit_counter_rst_n} = 3'b000;
         read_valid = 1'b0;
       end
       READ_IDLE: begin
-        {read_device_addr_bit_counter_rst_n, read_register_bit_counter_rst_n, read_data_bit_counter_rst_n} = 3'b111;
+        {read_device_addr_bit_counter_rst_n, read_register_bit_counter_rst_n, read_data_bit_counter_rst_n} = 3'b000;
         read_valid = 1'b1;
       end
       READ_START: begin
-        {read_device_addr_bit_counter_rst_n, read_register_bit_counter_rst_n, read_data_bit_counter_rst_n} = 3'b111;
+        {read_device_addr_bit_counter_rst_n, read_register_bit_counter_rst_n, read_data_bit_counter_rst_n} = 3'b000;
         read_valid = 1'b1;
       end
       READ_ADDR: begin
-        {read_device_addr_bit_counter_rst_n, read_register_bit_counter_rst_n, read_data_bit_counter_rst_n} = 3'b011;
+        {read_device_addr_bit_counter_rst_n, read_register_bit_counter_rst_n, read_data_bit_counter_rst_n} = 3'b100;
         read_valid = 1'b1;
       end
       READ_BIT: begin
-        {read_device_addr_bit_counter_rst_n, read_register_bit_counter_rst_n, read_data_bit_counter_rst_n} = 3'b111;
+        {read_device_addr_bit_counter_rst_n, read_register_bit_counter_rst_n, read_data_bit_counter_rst_n} = 3'b000;
         read_valid = 1'b1;
       end
       READ_ADDR_ACK: begin
-        {read_device_addr_bit_counter_rst_n, read_register_bit_counter_rst_n, read_data_bit_counter_rst_n} = 3'b111;
+        {read_device_addr_bit_counter_rst_n, read_register_bit_counter_rst_n, read_data_bit_counter_rst_n} = 3'b000;
         read_valid = 1'b1;
       end
       READ_REG_ADDR: begin
-        {read_device_addr_bit_counter_rst_n, read_register_bit_counter_rst_n, read_data_bit_counter_rst_n} = 3'b101;
+        {read_device_addr_bit_counter_rst_n, read_register_bit_counter_rst_n, read_data_bit_counter_rst_n} = 3'b010;
         read_valid = 1'b1;
       end
       READ_DATA_PRE_ACK: begin
-        {read_device_addr_bit_counter_rst_n, read_register_bit_counter_rst_n, read_data_bit_counter_rst_n} = 3'b110;
+        {read_device_addr_bit_counter_rst_n, read_register_bit_counter_rst_n, read_data_bit_counter_rst_n} = 3'b001;
         read_valid = 1'b0;
       end
       READ_DATA_ACK_0: begin
-        {read_device_addr_bit_counter_rst_n, read_register_bit_counter_rst_n, read_data_bit_counter_rst_n} = 3'b111;
+        {read_device_addr_bit_counter_rst_n, read_register_bit_counter_rst_n, read_data_bit_counter_rst_n} = 3'b000;
         read_valid = 1'b0;
       end
       READ_DATA_POST_ACK: begin
-        {read_device_addr_bit_counter_rst_n, read_register_bit_counter_rst_n, read_data_bit_counter_rst_n} = 3'b110;
+        {read_device_addr_bit_counter_rst_n, read_register_bit_counter_rst_n, read_data_bit_counter_rst_n} = 3'b001;
         read_valid = 1'b0;
       end
       READ_DATA_ACK_1: begin
-        {read_device_addr_bit_counter_rst_n, read_register_bit_counter_rst_n, read_data_bit_counter_rst_n} = 3'b111;
+        {read_device_addr_bit_counter_rst_n, read_register_bit_counter_rst_n, read_data_bit_counter_rst_n} = 3'b000;
         read_valid = 1'b1;
       end
       READ_STOP: begin
-        {read_device_addr_bit_counter_rst_n, read_register_bit_counter_rst_n, read_data_bit_counter_rst_n} = 3'b111;
+        {read_device_addr_bit_counter_rst_n, read_register_bit_counter_rst_n, read_data_bit_counter_rst_n} = 3'b000;
         read_valid = 1'b1;
       end
       READ_ERROR: begin
-        {read_device_addr_bit_counter_rst_n, read_register_bit_counter_rst_n, read_data_bit_counter_rst_n} = 3'b111;
+        {read_device_addr_bit_counter_rst_n, read_register_bit_counter_rst_n, read_data_bit_counter_rst_n} = 3'b000;
         read_valid = 1'b0;
       end
       default: begin
-        {read_device_addr_bit_counter_rst_n, read_register_bit_counter_rst_n, read_data_bit_counter_rst_n} = 3'b111;
+        {read_device_addr_bit_counter_rst_n, read_register_bit_counter_rst_n, read_data_bit_counter_rst_n} = 3'b000;
         read_valid = 1'b0;
       end
     endcase
